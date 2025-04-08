@@ -1,0 +1,83 @@
+package teik.ers.bukkit.listeners;
+
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.inventory.ItemStack;
+import teik.ers.bukkit.invs.datamenu.DMClicks;
+import teik.ers.bukkit.invs.ifreportsmenu.IRMClicks;
+import teik.ers.bukkit.invs.reportedsmenu.RDMClicks;
+import teik.ers.bukkit.invs.reportsmenu.RMClicks;
+import teik.ers.bukkit.invs.serversmenu.SMClicks;
+import teik.ers.bukkit.managers.inventories.InvDataMG;
+import teik.ers.bukkit.managers.inventories.InventoryMG;
+import teik.ers.bukkit.utilities.models.InventoryPlayer;
+import teik.ers.bukkit.utilities.models.enums.InventorySection;
+
+public class InvL implements Listener {
+    private final InvDataMG invDataMG;
+
+    private final RDMClicks rdmClicks;
+    private final SMClicks smClicks;
+    private final DMClicks dmClicks;
+    private final RMClicks rmClicks;
+    private final IRMClicks irmClicks;
+
+    public InvL(InventoryMG inventoryMG) {
+        this.invDataMG = inventoryMG.invDataMG;
+
+        rdmClicks = new RDMClicks(inventoryMG);
+        smClicks = new SMClicks(inventoryMG);
+        dmClicks = new DMClicks(inventoryMG);
+        rmClicks = new RMClicks(inventoryMG);
+        irmClicks = new IRMClicks(inventoryMG);
+    }
+
+    @EventHandler
+    public void onInvClick(InventoryClickEvent event){
+        Player player = (Player) event.getWhoClicked();
+        InventoryPlayer inventoryPlayer = invDataMG.getPlayerInventory(player);
+
+        if(inventoryPlayer == null) return;
+
+        event.setCancelled(true);
+        if(event.getCurrentItem() == null || event.getClickedInventory() != player.getOpenInventory().getTopInventory()) return;
+
+        clickedMenu(inventoryPlayer, event.getSlot(), event.getClick(), event.getCurrentItem());
+    }
+
+    @EventHandler
+    public void onInvClose(InventoryCloseEvent event){
+        Player player = (Player) event.getPlayer();
+        invDataMG.removePlayerInventory(player);
+    }
+
+    private void clickedMenu(InventoryPlayer inventoryPlayer, int slot, ClickType clickType, ItemStack currentItem){
+        InventorySection inventorySection = inventoryPlayer.getInventorySection();
+        switch (inventorySection){
+            case ReportedsMenu:
+                rdmClicks.ReportedsMenu(inventoryPlayer, slot, clickType, currentItem);
+                break;
+            case ServersMenu:
+                smClicks.ServersMenu(inventoryPlayer, slot, currentItem);
+                break;
+            case DataMenu:
+                dmClicks.DataMenu(inventoryPlayer, slot, clickType);
+                break;
+            case ReportsMenu:
+                rmClicks.ReportsMenu(inventoryPlayer, slot, clickType, currentItem);
+                break;
+            case InfoReportMenu:
+                irmClicks.InfoReportsMenu(inventoryPlayer, slot, clickType);
+                break;
+                /*
+            case ActionsMenu:
+                break;
+                 */
+
+        }
+    }
+}

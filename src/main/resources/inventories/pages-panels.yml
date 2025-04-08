@@ -1,0 +1,72 @@
+ClosePanel:
+  Title: "&cClose menu"
+  Lore:
+    - " "
+    - "&6Left click &7to close menu"
+BackPanel:
+  Title: "&cBack"
+  Lore:
+    - " "
+    - "&6Left click &7to go back menu"
+NextPagePanel:
+  Title: "&aNext Page"
+  Lore:
+    - " "
+    - "&6Left click &7to go next page"
+BackPagePanel:
+  Title: "&aBack Page"
+  Lore:
+    - " "
+    - "&6Left click &7to go back page"
+NotPagePanel:
+  Title: "&fNot page"
+  Lore:
+    - " "
+Sort:
+  Date-New-Old:
+    Title: "&6Date a-z"
+    Lore:
+      - " "
+      - "&6Left click &7to change &eDate z-a"
+      - "&6Right click &7to change &aAmount z-a"
+  Date-Old-New:
+    Title: "&eDate z-a"
+    Lore:
+      - " "
+      - "&6Left click &7to change &5Name a-z"
+      - "&6Right click &7to change &6Date a-z"
+  Name-A-Z:
+    Title: "&5Name a-z"
+    Lore:
+      - "&6Left click &7to change &dName z-a"
+      - "&6Right click &7to change &eDate z-a"
+  Name-Z-A:
+    Title: "&dName z-a"
+    Lore:
+      - " "
+      - "&6Left click &7to change &3Uuid a-z"
+      - "&6Right click &7to change &5Name a-z"
+  Uuid-A-Z:
+    Title: "&3Uuid a-z"
+    Lore:
+      - " "
+      - "&6Left click &7to change &bUuid z-a"
+      - "&6Right click &7to change &dName z-a"
+  Uuid-Z-A:
+    Title: "&bUuid z-a"
+    Lore:
+      - " "
+      - "&6Left click &7to change &2Amount a-z"
+      - "&6Right click &7to change &3Uuid a-z"
+  Amount-Min-Max:
+    Title: "&2Amount a-z"
+    Lore:
+      - " "
+      - "&6Left click &7to change &aAmount z-a"
+      - "&6Right click &7to change &bUuid z-a"
+  Amount-Max-Min:
+    Title: "&aAmount z-a"
+    Lore:
+      - " "
+      - "&6Left click &7to change &6Date a-z"
+      - "&6Right click &7to change &2Amount a-z"

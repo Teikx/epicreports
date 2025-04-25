@@ -1,5 +1,6 @@
 package teik.ers.global.utils.querys;
 
+import teik.ers.bukkit.utilities.models.Comment;
 import teik.ers.global.models.objects.PlayerOBJ;
 import teik.ers.global.models.objects.Report;
 
@@ -147,6 +148,37 @@ public class AddQuerysUT {
         }
     }
 
+    public void addCommentListSQLite(List<Comment> comments) {
+        try {
+            connection.setAutoCommit(false);
+
+            try (PreparedStatement reportStmt = connection.prepareStatement(
+                    "INSERT INTO CommentsTable (ReportedUUID, ReportedName, StaffUUID, StaffName, " +
+                            "CommentTxt, CommentDate) VALUES (?, ?, ?, ?, ?, ?)")) {
+
+                for (Comment comment : comments) {
+                    addCommentToBatch(reportStmt, comment);
+                }
+                reportStmt.executeBatch();
+            }
+
+            connection.commit();
+        } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException rollbackEx) {
+                handleSQLException(rollbackEx);
+            }
+            handleSQLException(e);
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException autoCommitEx) {
+                handleSQLException(autoCommitEx);
+            }
+        }
+    }
+
     private void insertPlayer(PlayerOBJ playerOBJ) {
             String sql = "INSERT IGNORE INTO PlayersTable (UUID, Nick, IP, IsOnline) VALUES (?, ?, ?, ?)";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -206,8 +238,8 @@ public class AddQuerysUT {
     }
 
     private void addReportToBatch(PreparedStatement stmt, Report report) throws SQLException {
-        stmt.setString(1, report.getUuidReported());
-        stmt.setString(2, report.getUuidReporter());
+        stmt.setString(1, report.getReportedUUID());
+        stmt.setString(2, report.getReporterUUID());
         stmt.setString(3, report.getReason());
         stmt.setString(4, report.getDate());
         stmt.setString(5, report.getReporterServer());
@@ -219,6 +251,16 @@ public class AddQuerysUT {
         stmt.setInt(11, report.getReportedHealth());
         stmt.setInt(12, report.getReporterHealth());
         stmt.setString(13, report.getProcess().toString());
+        stmt.addBatch();
+    }
+
+    private void addCommentToBatch(PreparedStatement stmt, Comment comment) throws SQLException {
+        stmt.setString(1, comment.getReportedUUID());
+        stmt.setString(2, comment.getReportedName());
+        stmt.setString(3, comment.getStaffUUID());
+        stmt.setString(4, comment.getStaffName());
+        stmt.setString(5, comment.getComment());
+        stmt.setString(6, comment.getDate());
         stmt.addBatch();
     }
 

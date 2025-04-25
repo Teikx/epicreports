@@ -49,10 +49,6 @@ public class Report {
         return reporterPlayer;
     }
 
-    public String getUuidReporter() {
-        return reporterPlayer.getUuid();
-    }
-
     public String getReporterName() {
         return reporterPlayer.getName();
     }
@@ -95,10 +91,6 @@ public class Report {
 
     public void setReportedServer(String reportedServer) {
         ReportedServer = reportedServer;
-    }
-
-    public String getUuidReported() {
-        return reportedPlayer.getUuid();
     }
 
     public String getReportedName() {

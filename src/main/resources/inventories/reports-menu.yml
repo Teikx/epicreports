@@ -19,7 +19,5 @@ Chest:
   Lore:
     - "&7Filter Type: &e%FilterType%"
     - " "
-    - "&6Left click &7to open Archived Reports menu"
-    - "&6Shift + Left click &7to see all comments of reported player."
     - "&6Right click &7to Change filter type"
     - "&6Shift + Right click &7Open settings filter menu"

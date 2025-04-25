@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 import teik.ers.bukkit.EpicReports;
+import teik.ers.bukkit.managers.freeze.FreezeMG;
 import teik.ers.bukkit.managers.updateinvs.UpdateInvsMG;
 import teik.ers.bukkit.utilities.UtilitiesPlayers;
 import teik.ers.global.models.objects.Locate;
@@ -17,12 +18,14 @@ public class ChannelMG implements PluginMessageListener {
     private final UtilitiesPlayers utilitiesPlayers;
 
     private final UpdateInvsMG updateInvsMG;
+    private final FreezeMG freezeMG;
 
     public ChannelMG(EpicReports plugin) {
         utilsMsgChannel = new UtilsMsgChannel(plugin.getConnection());
         utilitiesPlayers = plugin.utilitiesPlayers;
 
         this.updateInvsMG = plugin.inventoryMG.updateInvsMG;
+        this.freezeMG = plugin.inventoryMG.freezeMG;
     }
 
     @Override
@@ -78,6 +81,13 @@ public class ChannelMG implements PluginMessageListener {
                     Player otherPlayer = Bukkit.getPlayer(otherPlayerName);
 
                     targetPlayer.teleport(otherPlayer);
+                    break;
+
+                case "FreezePlayer":
+                    freezeMG.freezePlayer(playerName);
+                    break;
+                case "UnfreezePlayer":
+                    freezeMG.unfreezePlayer(playerName);
                     break;
             }
         } catch (Exception e) {

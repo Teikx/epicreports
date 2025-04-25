@@ -37,7 +37,7 @@ ArchivedReports:
   Title: "&aArchived Reports"
   Lore:
     - ""
-    - "&6Left click &7To see all archived reports."
+    - "&6Left click &7To see all archived reports of this player."
 StatusOnline:
   Title: "&7%ReportedName% &aOnline"
   Lore:
@@ -62,6 +62,7 @@ ReportedData:
     - "&6Left click &7To get reported name."
     - "&6Right click &7To get reported uuid."
     - "&6Middle click &7To get reported ip."
+    - "&6Shift + Left click &7To open Actions Menu"
 Delete:
   Title: "&cDelete Reports"
   Lore:

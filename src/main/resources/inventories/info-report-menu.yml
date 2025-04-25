@@ -12,6 +12,7 @@ ReportedInfo:
     - " "
     - "&6Left click &7to open Archived Reports Menu"
     - "&6Right click &7to see all comments of this player."
+    - "&6Middle click &7To open Actions Menu."
 ReporterInfo:
   Title: "&2%ReporterName%"
   Lore:
@@ -104,7 +105,8 @@ ArchiveReport:
   Title: "&eArchive Report"
   Lore:
     - " "
-    - "&6Left click &7to archive report."
+    - "&6Left click &7To see all archived reports of this player."
+    - "&6Right click &7to archive report."
 DeleteReport:
   Title: "&cDelete Report"
   Lore:
@@ -116,3 +118,8 @@ ReportedComments:
     - " "
     - "&6Left click &7To see all comments of this player."
     - "&6Right click &7To write new comment."
+ActionsMenu:
+  Title: "&7Open Actions Menu of &e%ReportedName%"
+  Lore:
+    - " "
+    - "&6Left click &7To open Actions Menu."

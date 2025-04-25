@@ -7,10 +7,16 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
+import teik.ers.bukkit.invs.actionsmenu.AMClicks;
+import teik.ers.bukkit.invs.allreportsmenu.ARMClicks;
+import teik.ers.bukkit.invs.archivedmenu.ACMClicks;
+import teik.ers.bukkit.invs.commentsmenu.CMClicks;
 import teik.ers.bukkit.invs.datamenu.DMClicks;
 import teik.ers.bukkit.invs.ifreportsmenu.IRMClicks;
 import teik.ers.bukkit.invs.reportedsmenu.RDMClicks;
+import teik.ers.bukkit.invs.reportersmenu.RRMClicks;
 import teik.ers.bukkit.invs.reportsmenu.RMClicks;
+import teik.ers.bukkit.invs.rrreportsmenu.RRRMClicks;
 import teik.ers.bukkit.invs.serversmenu.SMClicks;
 import teik.ers.bukkit.managers.inventories.InvDataMG;
 import teik.ers.bukkit.managers.inventories.InventoryMG;
@@ -25,6 +31,12 @@ public class InvL implements Listener {
     private final DMClicks dmClicks;
     private final RMClicks rmClicks;
     private final IRMClicks irmClicks;
+    private final AMClicks amClicks;
+    private final ACMClicks acmClicks;
+    private final CMClicks cmClicks;
+    private final ARMClicks armClicks;
+    private final RRMClicks rrmClicks;
+    private final RRRMClicks rrrmClicks;
 
     public InvL(InventoryMG inventoryMG) {
         this.invDataMG = inventoryMG.invDataMG;
@@ -34,6 +46,12 @@ public class InvL implements Listener {
         dmClicks = new DMClicks(inventoryMG);
         rmClicks = new RMClicks(inventoryMG);
         irmClicks = new IRMClicks(inventoryMG);
+        amClicks = new AMClicks(inventoryMG);
+        acmClicks = new ACMClicks(inventoryMG);
+        cmClicks = new CMClicks(inventoryMG);
+        armClicks = new ARMClicks(inventoryMG);
+        rrmClicks = new RRMClicks(inventoryMG);
+        rrrmClicks = new RRRMClicks(inventoryMG);
     }
 
     @EventHandler
@@ -73,11 +91,32 @@ public class InvL implements Listener {
             case InfoReportMenu:
                 irmClicks.InfoReportsMenu(inventoryPlayer, slot, clickType);
                 break;
-                /*
             case ActionsMenu:
+                amClicks.ActionsMenu(inventoryPlayer, slot);
                 break;
-                 */
-
+            case ArchivedMenu:
+                acmClicks.ArchivedMenu(inventoryPlayer, slot, clickType, currentItem);
+                break;
+            case CommentsMenu:
+                cmClicks.CommentsMenu(inventoryPlayer, slot, clickType, currentItem);
+                break;
+            case AllReportsMenu:
+                armClicks.AllReportsMenu(inventoryPlayer, slot, clickType, currentItem);
+                break;
+            case ReportersMenu:
+                rrmClicks.ReportersMenu(inventoryPlayer, slot, clickType, currentItem);
+                break;
+            case ReporterReportsMenu:
+                rrrmClicks.ReporterReportsMenu(inventoryPlayer, slot, clickType, currentItem);
+                break;
+            case SettingsMenu:
+                break;
+            case NotifysMenu:
+                break;
+            case PredefinedReportsMenu:
+                break;
+            case HelperReportsMenu:
+                break;
         }
     }
 }

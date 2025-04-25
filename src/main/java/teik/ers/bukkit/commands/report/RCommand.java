@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import teik.ers.bukkit.EpicReports;
 import teik.ers.bukkit.configs.LanguagesManager;
+import teik.ers.bukkit.managers.updateinvs.UpdateInvsMG;
 import teik.ers.bukkit.utilities.UtilitiesPlayers;
 import teik.ers.global.utils.MaxReportsMG;
 
@@ -15,6 +16,8 @@ public class RCommand implements CommandExecutor {
     private final boolean isMysql;
 
     private final MaxReportsMG maxReportsMG;
+    private final UpdateInvsMG updateInvsMG;
+
     private final LanguagesManager messageManager;
 
     private final UtilitiesPlayers utilitiesPlayers;
@@ -23,11 +26,13 @@ public class RCommand implements CommandExecutor {
     public RCommand(EpicReports plugin) {
         this.isMysql = plugin.configManager.isMYSQLActive();
 
-        maxReportsMG = new MaxReportsMG(plugin.configManager.getMax_reports_size());
+        this.maxReportsMG = new MaxReportsMG(plugin.configManager.getMax_reports_size());
+        this.updateInvsMG = plugin.inventoryMG.updateInvsMG;
+
         this.messageManager = plugin.messageManager;
 
         this.utilitiesPlayers = plugin.utilitiesPlayers;
-        rcUtilities = new RCUtilities(plugin.reportMG,
+        this.rcUtilities = new RCUtilities(plugin.reportMG,
                 plugin.notifysMG,
                 utilitiesPlayers,
                 messageManager.getReport_successful(),
@@ -61,6 +66,7 @@ public class RCommand implements CommandExecutor {
                 return false;
             }
             rcUtilities.addReport(player, args);
+            updateInvsMG.sendUpdateInvs(player);
             return true;
         }
         Bukkit.getConsoleSender().sendMessage(messageManager.getConsole_report());

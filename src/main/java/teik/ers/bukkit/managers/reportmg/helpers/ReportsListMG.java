@@ -22,7 +22,7 @@ public class ReportsListMG {
         updateAll();
     }
 
-    private final List<Report> allReports = new ArrayList<>();
+    private List<Report> allReports = new ArrayList<>();
     private final List<Report> archivedReports = new ArrayList<>();
     private final HashMap<String, List<Report>> perReportedReport = new HashMap<>();
     private final HashMap<String, List<Report>> perReporterReport = new HashMap<>();
@@ -48,7 +48,7 @@ public class ReportsListMG {
                     querysUtils.populateReportData(report, resultSet);
                     report.setReportedPlayer(playersListMG.getPlayerOBJ(report.getReportedUUID()));
                     report.setReporterPlayer(playersListMG.getPlayerOBJ(report.getReporterUUID()));
-                    allReports.add(report);
+                    perIdReport.put(report.getReportID(), report);
                 }
             }
         }
@@ -81,18 +81,30 @@ public class ReportsListMG {
     public void populateHashMaps(){
         perReportedReport.clear();
         perReporterReport.clear();
-        perIdReport.clear();
+        allReports.clear();
+        allReports = new ArrayList<>(perIdReport.values());
 
         for (Report report : allReports) {
-            String reportedUUID = report.getUuidReported();
+            String reportedUUID = report.getReportedUUID();
             perReportedReport.computeIfAbsent(reportedUUID, k -> new ArrayList<>()).add(report);
 
-            String reporterUUID = report.getUuidReporter();
+            String reporterUUID = report.getReporterUUID();
             perReporterReport.computeIfAbsent(reporterUUID, k -> new ArrayList<>()).add(report);
-
-            int id = report.getReportID();
-            perIdReport.put(id, report);
         }
+    }
+
+    //Contains
+
+    public boolean reportedExist(String uuid){
+        return perReportedReport.containsKey(uuid);
+    }
+
+    public boolean reporterExist(String uuid){
+        return perReporterReport.containsKey(uuid);
+    }
+
+    public boolean idReportExist(int id){
+        return perIdReport.containsKey(id);
     }
 
     //Getters

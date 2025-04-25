@@ -1,7 +1,9 @@
 package teik.ers.bukkit.managers.reportmg;
 
+import teik.ers.bukkit.managers.reportmg.helpers.CommentsListMG;
 import teik.ers.bukkit.managers.reportmg.helpers.PlayersListMG;
 import teik.ers.bukkit.managers.reportmg.helpers.ReportsListMG;
+import teik.ers.bukkit.utilities.models.Comment;
 import teik.ers.global.utils.querys.AddQuerysUT;
 import teik.ers.global.utils.querys.QuerysUT;
 import teik.ers.global.models.Process;
@@ -14,6 +16,7 @@ public class LocalReportMG {
     private final AddQuerysUT addQuerysUT;
     private final PlayersListMG playersListMG;
     private final ReportsListMG reportsListMG;
+    private final CommentsListMG commentsListMG;
 
     private final List<Report> allReports;
     private final List<Report> archivedReports;
@@ -21,46 +24,46 @@ public class LocalReportMG {
     private final HashMap<String, List<Report>> perReporterReport;
     private final HashMap<Integer, Report> perIdReport;
 
+    private final HashMap<Integer, Comment> commentMap;
+
     public LocalReportMG(QuerysUT querysUtils, AddQuerysUT addQuerysUT , ReportsListMG reportsListMG,
-                         PlayersListMG playersListMG) {
+                         PlayersListMG playersListMG, CommentsListMG commentsListMG) {
         this.querysUtils = querysUtils;
         this.addQuerysUT = addQuerysUT;
         this.reportsListMG = reportsListMG;
         this.playersListMG = playersListMG;
+        this.commentsListMG = commentsListMG;
 
         allReports = reportsListMG.getAllReports();
         archivedReports = reportsListMG.getArchivedReports();
         perReportedReport = reportsListMG.getPerReportedReport();
         perReporterReport = reportsListMG.getPerReporterReport();
         perIdReport = reportsListMG.getPerIdReport();
+
+        commentMap = commentsListMG.getCommentMap();
     }
 
     //Modify Reports
 
     public void addReport(Report report){
-        report.setReportID(getLastID());
+        int reportID = getLastReportID();
+        report.setReportID(reportID);
+        perIdReport.put(reportID, report);
         allReports.add(report);
         perReportedReport.computeIfAbsent(report.getReportedUUID(), k -> new ArrayList<>()).add(report);
         perReporterReport.computeIfAbsent(report.getReporterUUID(), k -> new ArrayList<>()).add(report);
-        perIdReport.put(report.getReportID(), report);
+
     }
 
     public Report removeReport(int id){
-        allReports.removeIf(report -> report.getReportID() == id);
-
         Report reportHelper = perIdReport.get(id);
-        String reportedUUID = reportHelper.getReportedUUID();
-        String reporterUUID = reportHelper.getReporterUUID();
-
-        perReportedReport.get(reportedUUID).removeIf(report -> report.getReportID() == id);
-        perReporterReport.get(reporterUUID).removeIf(report -> report.getReportID() == id);
-
         perIdReport.remove(id);
+        reportsListMG.populateHashMaps();
         return reportHelper;
     }
 
     public void removeAllReports(String uuid){
-        allReports.removeIf(report -> report.getReportedUUID().equals(uuid));
+        perIdReport.entrySet().removeIf(entry -> entry.getValue().getReportedUUID().equals(uuid));
         reportsListMG.populateHashMaps();
     }
 
@@ -69,16 +72,24 @@ public class LocalReportMG {
         archivedReports.add(report);
     }
 
-    public void removeArchiveReport(int id){
-        archivedReports.removeIf(report -> report.getReportID() == id);
+    public void removeArchiveReport(Report report){
+        archivedReports.remove(report);
     }
 
     public void updateReportProcess(int id, Process process){
         Report report = perIdReport.get(id);
-        allReports.remove(report);
         report.setProcess(process);
-        allReports.add(report);
+        perIdReport.put(id, report);
         reportsListMG.populateHashMaps();
+    }
+
+    public void addComment(Comment comment){
+        comment.setId(getLastCommentID());
+        commentMap.put(comment.getId(), comment);
+    }
+
+    public void removeComment(int id){
+        commentMap.remove(id);
     }
 
     //Save
@@ -88,14 +99,26 @@ public class LocalReportMG {
         addQuerysUT.addPlayersSqLite(playersListMG.getPlayersList());
         addQuerysUT.addReportListSQLite(allReports);
         addQuerysUT.addArchivedReportListSQLite(archivedReports);
+        addQuerysUT.addCommentListSQLite(commentsListMG.getCommentList());
     }
 
     //Gets
 
-    private int getLastID(){
+    private int getLastReportID(){
         Map.Entry<Integer, Report> maxEntry = perIdReport.entrySet()
                 .stream()
                 .max(Map.Entry.comparingByValue(Comparator.comparingInt(Report::getReportID)))
+                .orElse(null);
+
+        if (maxEntry != null) return maxEntry.getKey()+1;
+
+        return 1;
+    }
+
+    private int getLastCommentID(){
+        Map.Entry<Integer, Comment> maxEntry = commentMap.entrySet()
+                .stream()
+                .max(Map.Entry.comparingByValue(Comparator.comparingInt(Comment::getId)))
                 .orElse(null);
 
         if (maxEntry != null) return maxEntry.getKey()+1;

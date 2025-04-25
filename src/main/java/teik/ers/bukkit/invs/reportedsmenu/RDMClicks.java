@@ -47,7 +47,7 @@ public class RDMClicks {
                 break;
             case 50:
                 //Next Page
-                if(page < (int) Math.ceil((double) invDataMG.getPerPlayerReportedList(player).size() / 45)){
+                if(page < (int) Math.ceil((double) invDataMG.getPerPlayerReportedListSize(player) / 45)){
                     player.closeInventory();
                     inventoryMG.openReportedsM(player, page+1, sortType, filterType, server);
                 }
@@ -65,10 +65,12 @@ public class RDMClicks {
                     case SHIFT_RIGHT:
                         if(!inventoryMG.isMysql) return;
                         if(!filterType.equals(FilterType.Server)) return;
-                        player.closeInventory(); inventoryMG.openServersM(player, 1, InventorySection.ReportedsMenu);
+                        player.closeInventory(); inventoryMG.openServersM(player, 1, InventorySection.ReportedsMenu, null, null);
                         break;
                     //Change Inventory Type
                     case MIDDLE:
+                        player.closeInventory();
+                        inventoryMG.openAllReportsM(player, 1, null, null, null);
                         break;
                     //Open Settings Menu
                     default:
@@ -79,8 +81,9 @@ public class RDMClicks {
                 //Book
                 if(currentItem.getType() != (Material.BOOK_AND_QUILL)) return;
                 int reportNumber = ((page -1) * 45) + slot;
-                String reportedUUID = invDataMG.getPerPlayerReportedList(player).get(reportNumber).getUuidReported();
+                String reportedUUID = invDataMG.getPerPlayerReportedList(player).get(reportNumber).getReportedUUID();
                 invDataMG.putUuidSelected(player, reportedUUID);
+                player.closeInventory();
                 inventoryMG.openDataM(player);
                 break;
         }

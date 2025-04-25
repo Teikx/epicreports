@@ -7,6 +7,8 @@ import teik.ers.bukkit.commands.report.RCommand;
 import teik.ers.bukkit.configs.ConfigInvsMG;
 import teik.ers.bukkit.configs.ConfigManager;
 import teik.ers.bukkit.configs.LanguagesManager;
+import teik.ers.bukkit.listeners.ChatL;
+import teik.ers.bukkit.listeners.FreezeL;
 import teik.ers.bukkit.listeners.InvL;
 import teik.ers.bukkit.listeners.QuitJoinL;
 import teik.ers.bukkit.managers.inventories.InventoryMG;
@@ -102,6 +104,8 @@ public class EpicReports extends JavaPlugin {
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new QuitJoinL(this), this);
         pluginManager.registerEvents(new InvL(inventoryMG), this);
+        pluginManager.registerEvents(new FreezeL(inventoryMG), this);
+        pluginManager.registerEvents(new ChatL(inventoryMG), this);
     }
 
     //SQL

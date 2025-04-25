@@ -2,6 +2,7 @@ package teik.ers.bukkit.managers.inventories.helpers;
 
 import teik.ers.bukkit.managers.reportmg.helpers.PlayersListMG;
 import teik.ers.bukkit.utilities.UtilitiesPlayers;
+import teik.ers.bukkit.utilities.models.Comment;
 import teik.ers.bukkit.utilities.models.enums.FilterType;
 import teik.ers.global.models.objects.Report;
 
@@ -23,17 +24,25 @@ public class FilterHelperMG {
         this.isMysql = isMysql;
     }
 
-    public List<Report> filterReportList(List<Report> reports, FilterType filterType, String serverName){
+    public List<Report> filterReportList(List<Report> reports, FilterType filterType, String name){
         Set<String> uuidSet;
-        List<Report> reportFiltered;
         switch (filterType) {
             case Waiting:
-                reportFiltered = reports.stream().filter(report -> Process.Waiting.equals(report.getProcess())).collect(Collectors.toList());
-                return reportFiltered;
+                return reports.stream()
+                        .filter(report -> Process.Waiting.equals(report.getProcess()))
+                        .collect(Collectors.toList());
             case Processing:
-                return reports.stream().filter(report -> Process.Processing.equals(report.getProcess())).collect(Collectors.toList());
+                return reports.stream()
+                        .filter(report -> Process.Processing.equals(report.getProcess()))
+                        .collect(Collectors.toList());
             case Server:
-                return reports.stream().filter(report -> serverName.equalsIgnoreCase(report.getReporterServer())).collect(Collectors.toList());
+                return reports.stream()
+                        .filter(report -> name.equalsIgnoreCase(report.getReporterServer()))
+                        .collect(Collectors.toList());
+            case ReportedName:
+                return reports.stream()
+                        .filter(report -> name.equalsIgnoreCase(report.getReportedName()))
+                        .collect(Collectors.toList());
             case ReportedOnline:
                 uuidSet = setOnlineSet();
                 return reports.stream()
@@ -56,6 +65,28 @@ public class FilterHelperMG {
                         .collect(Collectors.toList());
             default:
                 return reports;
+        }
+    }
+
+    public List<Comment> filterCommentList(List<Comment> comments, FilterType filterType, String name){
+        Set<String> uuidSet;
+        switch (filterType){
+            case ReportedName:
+                return comments.stream()
+                        .filter(comment -> name.equalsIgnoreCase(comment.getReportedName()))
+                        .collect(Collectors.toList());
+            case ReportedOnline:
+                uuidSet = setOnlineSet();
+                return comments.stream()
+                        .filter(comment -> uuidSet.contains(comment.getReportedUUID()))
+                        .collect(Collectors.toList());
+            case ReportedOffline:
+                uuidSet = setOfflineSet();
+                return comments.stream()
+                        .filter(comment -> uuidSet.contains(comment.getReportedUUID()))
+                        .collect(Collectors.toList());
+            default:
+                return comments;
         }
     }
 

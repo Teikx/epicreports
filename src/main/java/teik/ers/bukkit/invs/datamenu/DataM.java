@@ -33,6 +33,8 @@ public class DataM {
     }
 
     public void createDataMenu(InventoryPlayer inventoryPlayer){
+
+
         Player player = inventoryPlayer.getPlayer();
         String reportedUUID = invDataMG.getUuidSelected(player);
 

@@ -27,46 +27,46 @@ Sort:
     Title: "&6Date a-z"
     Lore:
       - " "
-      - "&6Left click &7to change &eDate z-a"
-      - "&6Right click &7to change &aAmount z-a"
+      - "&6Left click &7to change &anext sort"
+      - "&6Right click &7to change &cprevius sort"
   Date-Old-New:
     Title: "&eDate z-a"
     Lore:
       - " "
-      - "&6Left click &7to change &5Name a-z"
-      - "&6Right click &7to change &6Date a-z"
+      - "&6Left click &7to change &anext sort"
+      - "&6Right click &7to change &cprevius sort"
   Name-A-Z:
     Title: "&5Name a-z"
     Lore:
-      - "&6Left click &7to change &dName z-a"
-      - "&6Right click &7to change &eDate z-a"
+      - "&6Left click &7to change &anext sort"
+      - "&6Right click &7to change &cprevius sort"
   Name-Z-A:
     Title: "&dName z-a"
     Lore:
       - " "
-      - "&6Left click &7to change &3Uuid a-z"
-      - "&6Right click &7to change &5Name a-z"
+      - "&6Left click &7to change &anext sort"
+      - "&6Right click &7to change &cprevius sort"
   Uuid-A-Z:
     Title: "&3Uuid a-z"
     Lore:
       - " "
-      - "&6Left click &7to change &bUuid z-a"
-      - "&6Right click &7to change &dName z-a"
+      - "&6Left click &7to change &anext sort"
+      - "&6Right click &7to change &cprevius sort"
   Uuid-Z-A:
     Title: "&bUuid z-a"
     Lore:
       - " "
-      - "&6Left click &7to change &2Amount a-z"
-      - "&6Right click &7to change &3Uuid a-z"
+      - "&6Left click &7to change &anext sort"
+      - "&6Right click &7to change &cprevius sort"
   Amount-Min-Max:
     Title: "&2Amount a-z"
     Lore:
       - " "
-      - "&6Left click &7to change &aAmount z-a"
-      - "&6Right click &7to change &bUuid z-a"
+      - "&6Left click &7to change &anext sort"
+      - "&6Right click &7to change &cprevius sort"
   Amount-Max-Min:
     Title: "&aAmount z-a"
     Lore:
       - " "
-      - "&6Left click &7to change &6Date a-z"
-      - "&6Right click &7to change &2Amount a-z"
+      - "&6Left click &7to change &anext sort"
+      - "&6Right click &7to change &cprevius sort"

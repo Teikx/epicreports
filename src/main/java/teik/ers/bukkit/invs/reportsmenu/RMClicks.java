@@ -4,10 +4,8 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
-import teik.ers.bukkit.EpicReports;
 import teik.ers.bukkit.managers.inventories.InvDataMG;
 import teik.ers.bukkit.managers.inventories.InventoryMG;
-import teik.ers.bukkit.managers.inventories.helpers.InvChannelsMG;
 import teik.ers.bukkit.managers.reportmg.ReportMG;
 import teik.ers.bukkit.managers.updateinvs.UpdateInvsMG;
 import teik.ers.bukkit.utilities.models.InventoryPlayer;
@@ -22,20 +20,19 @@ import java.util.List;
 
 
 public class RMClicks {
-
     private final InventoryMG inventoryMG;
+
     private final InvDataMG invDataMG;
     private final ReportMG reportMG;
 
-    private final InvChannelsMG invChannelsMG;
     private final UpdateInvsMG updateInvsMG;
 
     public RMClicks(InventoryMG inventoryMG) {
         this.inventoryMG = inventoryMG;
+
         this.invDataMG = inventoryMG.invDataMG;
         this.reportMG = inventoryMG.reportMG;
 
-        this.invChannelsMG = inventoryMG.invChannelsMG;
         this.updateInvsMG = inventoryMG.updateInvsMG;
     }
 
@@ -71,14 +68,6 @@ public class RMClicks {
             case 49:
                 //Chest
                 switch (clickType){
-                    case LEFT:
-                        //Open Archived Reports Menu
-                        player.closeInventory();
-                        break;
-                    case SHIFT_LEFT:
-                        //Open Reported Comments Menu
-                        player.closeInventory();
-                        break;
                     case RIGHT:
                         //Change filter
                         FilterType newFilterType = getFilterTypeReportsMenu(filterType);
@@ -91,8 +80,7 @@ public class RMClicks {
                         if(!filterType.equals(FilterType.Server)) return;
 
                         player.closeInventory();
-                        inventoryMG.openServersM(player, 1, InventorySection.ReportsMenu);
-
+                        inventoryMG.openServersM(player, 1, InventorySection.ReportsMenu, null, null);
                         break;
                 }
                 break;
@@ -116,7 +104,7 @@ public class RMClicks {
                         //Open InfoReportMenu
                         invDataMG.putReportSelected(player, reportID);
                         player.closeInventory();
-                        inventoryMG.openIfReportsM(player);
+                        inventoryMG.openIfReportsM(player, InventorySection.ReportsMenu);
                         break;
                     case SHIFT_LEFT:
                         //Update Report Process

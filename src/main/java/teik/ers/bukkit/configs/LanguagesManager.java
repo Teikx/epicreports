@@ -23,8 +23,9 @@ public class LanguagesManager extends DataFolderConfigManager {
             console_sound_not_found, reports_save_and_load_error, reload_successful, reports_save_successful, reports_load_successful,
             notify_reports_msg, notify_reports_title_title, notify_reports_title_subtitle, notify_skipped_reports_title_title,
             notify_skipped_reports_title_subtitle, notify_skipped_reports_msg, reported_name, click_here, click_here_show_text_hover,
-            player_freeze_not_online, player_kick_not_online, player_kick_successful, player_not_found, player_banned, player_unbanned,
-            player_customize_action, player_customize_action_error, location_not_found;
+            player_banned, player_kick, player_mute, player_freeze, player_unfreeze, player_freeze_not_online,
+            player_not_found, player_command_error, location_not_found, write_comment_title_title,
+            write_comment_title_subtitle, write_comment_msg, comments_successful;
     private List<String> help_msg, console_help_msg;
 
     public LanguagesManager(EpicReports plugin, String folderName, String path) {
@@ -79,15 +80,19 @@ public class LanguagesManager extends DataFolderConfigManager {
         this.reported_name = this.prefix + convertColor(config.getString("Admin_msgs.reported_name"));
         this.click_here = this.prefix + convertColor(config.getString("Admin_msgs.click_here"));
         this.click_here_show_text_hover = convertColor(config.getString("Admin_msgs.click_here_show_text_hover"));
-        this.player_freeze_not_online = this.prefix + convertColor(config.getString("Admin_msgs.player_freeze_not_online"));
-        this.player_kick_not_online = this.prefix + convertColor(config.getString("Admin_msgs.player_kick_not_online"));
-        this.player_kick_successful = this.prefix + convertColor(config.getString("Admin_msgs.player_kick_successful"));
-        this.player_not_found = this.prefix + convertColor(config.getString("Admin_msgs.player_not_found"));
         this.player_banned = this.prefix + convertColor(config.getString("Admin_msgs.player_banned"));
-        this.player_unbanned = this.prefix + convertColor(config.getString("Admin_msgs.player_unbanned"));
-        this.player_customize_action = this.prefix + convertColor(config.getString("Admin_msgs.player_customize_action"));
-        this.player_customize_action_error = this.prefix + convertColor(config.getString("Admin_msgs.player_customize_action_error"));
+        this.player_kick = this.prefix + convertColor(config.getString("Admin_msgs.player_kick"));
+        this.player_mute = this.prefix + convertColor(config.getString("Admin_msgs.player_mute"));
+        this.player_freeze = this.prefix + convertColor(config.getString("Admin_msgs.player_freeze"));
+        this.player_unfreeze = this.prefix + convertColor(config.getString("Admin_msgs.player_unfreeze"));
+        this.player_freeze_not_online = this.prefix + convertColor(config.getString("Admin_msgs.player_freeze_not_online"));
+        this.player_not_found = this.prefix + convertColor(config.getString("Admin_msgs.player_not_found"));
+        this.player_command_error = this.prefix + convertColor(config.getString("Admin_msgs.player_command_error"));
         this.location_not_found = this.prefix + convertColor(config.getString("Admin_msgs.location_not_found"));
+        this.write_comment_title_title = convertColor(config.getString("Admin_msgs.write_comment_title.title"));
+        this.write_comment_title_subtitle = convertColor(config.getString("Admin_msgs.write_comment_title.subtitle"));
+        this.write_comment_msg = this.prefix + convertColor(config.getString("Admin_msgs.write_comment_msg"));
+        this.comments_successful = this.prefix + convertColor(config.getString("Admin_msgs.comments_successful"));
     }
 
     public void reloadConfig() {
@@ -102,24 +107,6 @@ public class LanguagesManager extends DataFolderConfigManager {
             if (!text.contains("report_yourself:")) {
                 this.messageFile.getConfig().set("User_msgs.report_yourself", "&cYou cant report yourself!");
                 this.messageFile.saveConfig();
-                reloadConfig();
-            }
-            if (!text.contains("notify_processing_reports_msg:")) {
-                this.messageFile.getConfig().set("User_msgs.notify_processing_reports_msg", "&6Your report to &c%reported% &6is now processing by: &f%staff%");
-                this.messageFile.getConfig().set("User_msgs.notify_processing_reports_title.title", "&6Your Report is Processing!");
-                this.messageFile.getConfig().set("User_msgs.notify_processing_reports_title.subtitle", "&eReported: &c%reported% &f |&e By &f%staff%");
-                this.messageFile.getConfig().set("User_msgs.notify_processed_reports_msg", "&eYour report to &c%reported% &ehas been processed by: &f%staff%");
-                this.messageFile.getConfig().set("User_msgs.notify_processed_reports_title.title", "&eYour Report is Processed!");
-                this.messageFile.getConfig().set("User_msgs.notify_processed_reports_title.subtitle", "&6Reported: &c%reported% &6| By &f%staff%");
-                this.messageFile.saveConfig();
-                reloadConfig();
-            }
-            if (!text.contains("location_not_found:")) {
-                this.messageFile.getConfig().set("Admin_msgs.location_not_found", "&cLocation not found!");
-                this.messageFile.getConfig().set("Admin_msgs.server_not_found", "&cServer not found!");
-                this.messageFile.getConfig().set("Admin_msgs.notify_skipped_reports_msg", "&eYou have more than &c%size% &enew reports!");
-                this.messageFile.getConfig().set("Admin_msgs.notify_skipped_reports_title.title", "&c%size% &6New Reports!");
-                this.messageFile.getConfig().set("Admin_msgs.notify_skipped_reports_title.subtitle", "&eYou have &c%size% &enew reports!");
                 reloadConfig();
             }
         } catch (IOException e) {
@@ -212,32 +199,44 @@ public class LanguagesManager extends DataFolderConfigManager {
     public String getClick_here_show_text_hover() {
         return this.click_here_show_text_hover;
     }
+    public String getPlayer_banned() {
+        return this.player_banned;
+    }
+    public String getPlayer_kick() {
+        return this.player_kick;
+    }
+    public String getPlayer_mute() {
+        return player_mute;
+    }
+    public String getPlayer_freeze() {
+        return player_freeze;
+    }
+    public String getPlayer_unfreeze() {
+        return player_unfreeze;
+    }
     public String getPlayer_freeze_not_online() {
         return this.player_freeze_not_online;
-    }
-    public String getPlayer_kick_not_online() {
-        return this.player_kick_not_online;
-    }
-    public String getPlayer_kick_successful() {
-        return this.player_kick_successful;
     }
     public String getPlayer_not_found() {
         return this.player_not_found;
     }
-    public String getPlayer_banned() {
-        return this.player_banned;
-    }
-    public String getPlayer_unbanned() {
-        return this.player_unbanned;
-    }
-    public String getPlayer_customize_action() {
-        return this.player_customize_action;
-    }
-    public String getPlayer_customize_action_error() {
-        return this.player_customize_action_error;
+    public String getPlayer_command_error() {
+        return player_command_error;
     }
     public String getLocation_not_found() {
         return this.location_not_found;
+    }
+    public String getWrite_comment_title_title() {
+        return write_comment_title_title;
+    }
+    public String getWrite_comment_title_subtitle() {
+        return write_comment_title_subtitle;
+    }
+    public String getWrite_comment_msg() {
+        return write_comment_msg;
+    }
+    public String getComments_successful() {
+        return comments_successful;
     }
     public List<String> getHelp_msg() {
         return this.help_msg;
@@ -245,4 +244,5 @@ public class LanguagesManager extends DataFolderConfigManager {
     public List<String> getConsole_help_msg() {
         return this.console_help_msg;
     }
+
 }

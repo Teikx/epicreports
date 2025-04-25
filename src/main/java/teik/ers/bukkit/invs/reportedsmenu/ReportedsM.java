@@ -8,6 +8,7 @@ import org.bukkit.inventory.ItemStack;
 import teik.ers.bukkit.configs.inventories.ReportedsMenu;
 import teik.ers.bukkit.invs.InvsUtils;
 import teik.ers.bukkit.managers.inventories.InvDataMG;
+import teik.ers.bukkit.managers.inventories.InvDataUMG;
 import teik.ers.bukkit.managers.inventories.InventoryMG;
 import teik.ers.bukkit.managers.inventories.helpers.InvHelperMG;
 import teik.ers.bukkit.utilities.models.InventoryPlayer;
@@ -22,12 +23,14 @@ import java.util.List;
 public class ReportedsM {
     private final InvHelperMG invHelperMG;
     private final InvDataMG invDataMG;
+    private final InvDataUMG invDataUMG;
     private final InvsUtils invsUtils;
     private final ReportedsMenu reportedsMenu;
 
     public ReportedsM(InventoryMG inventoryMG) {
         this.invHelperMG = inventoryMG.invHelperMG;
         this.invDataMG = inventoryMG.invDataMG;
+        this.invDataUMG = inventoryMG.invDataUMG;
         this.invsUtils = inventoryMG.invsUtils;
         this.reportedsMenu = inventoryMG.configInvsMG.getReportedsMenu();
     }
@@ -59,8 +62,8 @@ public class ReportedsM {
 
         player.openInventory(inventory);
 
-        invDataMG.putPlayerSortType(player, sortType);
-        invDataMG.putPlayerFilterType(player, filterType);
+        invDataUMG.putPlayerSortType(player, sortType);
+        invDataUMG.putPlayerFilterType(player, filterType);
         invDataMG.putPerPlayerReportedList(player, reportedsReports);
 
         invDataMG.putPlayerInventory(player, inventoryPlayer);

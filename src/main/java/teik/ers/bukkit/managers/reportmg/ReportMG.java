@@ -1,11 +1,11 @@
 package teik.ers.bukkit.managers.reportmg;
 
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import teik.ers.bukkit.EpicReports;
 import teik.ers.bukkit.managers.inventories.helpers.InvHelperMG;
+import teik.ers.bukkit.managers.reportmg.helpers.CommentsListMG;
 import teik.ers.bukkit.managers.reportmg.helpers.PlayersListMG;
 import teik.ers.bukkit.managers.reportmg.helpers.ReportsListMG;
+import teik.ers.bukkit.utilities.models.Comment;
 import teik.ers.global.utils.querys.AddQuerysUT;
 import teik.ers.global.utils.querys.QuerysUT;
 import teik.ers.global.models.Process;
@@ -21,7 +21,7 @@ public class ReportMG {
 
     private final PlayersListMG playersListMG;
     private final ReportsListMG reportsListMG;
-    private final InvHelperMG invHelperMG;
+    private final CommentsListMG commentsListMG;
 
     private final LocalReportMG localReportMG;
     private final SqlReportMG sqlReportMG;
@@ -36,10 +36,17 @@ public class ReportMG {
 
         playersListMG = new PlayersListMG(connection);
         reportsListMG = new ReportsListMG(querysUtils, playersListMG, connection);
-        invHelperMG = new InvHelperMG(playersListMG, reportsListMG, plugin.utilitiesPlayers, plugin.configManager.isMYSQLActive());
+        commentsListMG = new CommentsListMG(querysUtils, connection);
 
-        localReportMG = new LocalReportMG(querysUtils, addQuerysUT, reportsListMG, playersListMG);
+        localReportMG = new LocalReportMG(querysUtils, addQuerysUT, reportsListMG, playersListMG, commentsListMG);
         sqlReportMG = new SqlReportMG(querysUtils);
+    }
+
+    //Update
+    public void updateAllMg(){
+        playersListMG.updatePlayerOBJList();
+        reportsListMG.updateAll();
+        commentsListMG.updateCommentMap();
     }
 
     //Modify Reports
@@ -68,12 +75,12 @@ public class ReportMG {
         localReportMG.archiveReport(id);
     }
 
-    public void removeArchivedReport(int id){
+    public void removeArchivedReport(Report report){
         if(isMysql){
-            querysUtils.deleteArchivedReport(id);
+            querysUtils.deleteArchivedReport(report.getReportID());
             return;
         }
-        localReportMG.removeArchiveReport(id);
+        localReportMG.removeArchiveReport(report);
     }
 
     public void updateReportProcess(int id, Process process){
@@ -84,6 +91,22 @@ public class ReportMG {
         localReportMG.updateReportProcess(id, process);
     }
 
+    public void addComment(Comment comment){
+        if(isMysql){
+            querysUtils.addComment(comment);
+            return;
+        }
+        localReportMG.addComment(comment);
+    }
+
+    public void removeComment(int id){
+        if(isMysql){
+            querysUtils.deleteComment(id);
+            return;
+        }
+        localReportMG.removeComment(id);
+    }
+
     //Getters
 
     public PlayersListMG getPlayersListMG() {
@@ -92,6 +115,24 @@ public class ReportMG {
 
     public ReportsListMG getReportsListMG() {
         return reportsListMG;
+    }
+
+    public CommentsListMG getCommentsListMG() {
+        return commentsListMG;
+    }
+
+    //Verify
+
+    public boolean reportedExist(String uuid){
+        return reportsListMG.reportedExist(uuid);
+    }
+
+    public boolean reporterExist(String uuid){
+        return reportsListMG.reporterExist(uuid);
+    }
+
+    public boolean idReportExist(int id){
+        return reportsListMG.idReportExist(id);
     }
 
     //Local

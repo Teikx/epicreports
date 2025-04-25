@@ -1,15 +1,20 @@
 package teik.ers.bukkit.utilities.models.enums;
 
 public enum InventorySection {
-    HelperReportsMenu,
-    PredefinedReportsMenu,
+    Close,
     ReportedsMenu,
-    AllReportsMenu,
     ServersMenu,
-    SettingsMenu,
-    NotifysMenu,
     DataMenu,
     ReportsMenu,
     InfoReportMenu,
-    ActionsMenu
+    ActionsMenu,
+    ArchivedMenu,
+    CommentsMenu,
+    AllReportsMenu,
+    ReportersMenu,
+    ReporterReportsMenu,
+    SettingsMenu,
+    NotifysMenu,
+    PredefinedReportsMenu,
+    HelperReportsMenu
 }

@@ -44,4 +44,17 @@ public class InvChannelsMG {
         out.writeUTF(server);
         player.sendPluginMessage(plugin, "epicreports:main", out.toByteArray());
     }
+
+    public void freezePlayer(Player player, String nick){
+        ByteArrayDataOutput out = ByteStreams.newDataOutput();
+        out.writeUTF("BFreezePlayer");
+        out.writeUTF(nick);
+        player.sendPluginMessage(plugin, "epicreports:main", out.toByteArray());
+    }
+    public void unfreezePlayer(Player player, String nick){
+        ByteArrayDataOutput out = ByteStreams.newDataOutput();
+        out.writeUTF("BUnfreezePlayer");
+        out.writeUTF(nick);
+        player.sendPluginMessage(plugin, "epicreports:main", out.toByteArray());
+    }
 }

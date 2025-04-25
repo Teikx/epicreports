@@ -8,5 +8,6 @@ public enum FilterType {
     ReporterOnline,
     ReporterOffline,
     ReportedOnline,
-    ReportedOffline
+    ReportedOffline,
+    ReportedName
 }

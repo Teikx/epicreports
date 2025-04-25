@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IfReportsM {
-
     private final InvHelperMG invHelperMG;
     private final InvDataMG invDataMG;
     private final InvsUtils invsUtils;
@@ -61,13 +60,19 @@ public class IfReportsM {
         setReportStatus(report.getProcess(), inventory);
         setReportArchive(inventory);
         setReportDelete(inventory);
-        setReportedComments(report.getReportedName(), inventory);
-        setComing(inventory);
+
+        String reportedName = report.getReportedName();
+
+        setReportedComments(reportedName, inventory);
+        setActionsMenu(reportedName, inventory);
 
     }
 
-    private void setComing(Inventory inventory){
-        ItemStack itemStack = invsUtils.setItemStack(Material.BARRIER, " ", new ArrayList<>(), 0);
+    private void setActionsMenu(String reportedName, Inventory inventory){
+        String title = infoReportMenu.getActionsMenuTitle();
+        List<String> lore = infoReportMenu.getActionsMenuLore();
+        title = title.replaceAll("%ReportedName%", reportedName);
+        ItemStack itemStack = invsUtils.setItemStack(Material.COMPASS, title, lore, 0);
         inventory.setItem(43, itemStack);
     }
 
@@ -123,8 +128,8 @@ public class IfReportsM {
     private void setPlayerInfoItems(Report report, Inventory inventory){
         String reportedName = report.getReportedName();
         String reporterName = report.getReporterName();
-        String reportedUUID = report.getUuidReported();
-        String reporterUUID = report.getUuidReporter();
+        String reportedUUID = report.getReportedUUID();
+        String reporterUUID = report.getReporterUUID();
         setReportPlayerData(reportedName, 10, inventory);
         setReportPlayerData(reporterName, 19, inventory);
         setReportPlayerOnline(reportedName, utilitiesPlayers.playerIsOnline(reportedUUID), 11, inventory);

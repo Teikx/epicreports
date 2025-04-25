@@ -6,6 +6,9 @@ import teik.ers.bukkit.managers.inventories.InvDataMG;
 import teik.ers.bukkit.managers.inventories.InventoryMG;
 import teik.ers.bukkit.managers.inventories.helpers.InvChannelsMG;
 import teik.ers.bukkit.utilities.models.InventoryPlayer;
+import teik.ers.bukkit.utilities.models.enums.FilterType;
+import teik.ers.bukkit.utilities.models.enums.InventorySection;
+import teik.ers.bukkit.utilities.models.enums.SortType;
 
 public class UpdateInvsMG {
 
@@ -42,14 +45,19 @@ public class UpdateInvsMG {
 
             player.closeInventory();
             int page = inventoryPlayer.getPage();
+            SortType sortType = inventoryPlayer.getSortType();
+            FilterType filterType = inventoryPlayer.getFilterType();
+            String name = inventoryPlayer.getServerName();
+            InventorySection lastInvSec = inventoryPlayer.getLastInventorySection();
 
             switch (inventoryPlayer.getInventorySection()){
                 case ReportedsMenu:
-                    inventoryMG.openReportedsM(player, page, null, null, null);
+                    inventoryMG.openReportedsM(player, page, sortType, filterType, name);
                     break;
 
                 case ServersMenu:
-                    inventoryMG.openServersM(player, page, inventoryPlayer.getLastInventorySection());
+                    inventoryMG.openServersM(player, page,
+                            lastInvSec, inventoryPlayer.getLastLastInvSec(), inventoryPlayer.getLastLastLastInvSec());
                     break;
 
                 case DataMenu:
@@ -57,11 +65,37 @@ public class UpdateInvsMG {
                     break;
 
                 case ReportsMenu:
-                    inventoryMG.openReportsM(player, page, null, null, null);
+                    inventoryMG.openReportsM(player, page, sortType, filterType, name);
                     break;
 
                 case InfoReportMenu:
-                    inventoryMG.openIfReportsM(player);
+                    inventoryMG.openIfReportsM(player, lastInvSec);
+                    break;
+
+                case ArchivedMenu:
+                    inventoryMG.openArchivedM(player, page, sortType, filterType, name,
+                            lastInvSec, inventoryPlayer.getLastLastInvSec());
+                    break;
+
+                case CommentsMenu:
+                    inventoryMG.openCommentsM(player, page, sortType, filterType, name,
+                            lastInvSec, inventoryPlayer.getLastLastInvSec());
+                    break;
+
+                case AllReportsMenu:
+                    inventoryMG.openAllReportsM(player, page, sortType, filterType, name);
+                    break;
+
+                case ReportersMenu:
+                    inventoryMG.openReportersM(player, page, sortType, filterType, name);
+                    break;
+
+                case ReporterReportsMenu:
+                    inventoryMG.openReporterReportsM(player, page, sortType, filterType, name);
+                    break;
+
+                case ActionsMenu:
+                    inventoryMG.openActionsM(player);
                     break;
             }
         }

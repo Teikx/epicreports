@@ -113,17 +113,32 @@ public class ListenersManager implements Listener {
             }
 
             if(subchannel.equals("BungeeUpdateReportsManager")){
-                sendUpdateReportsManager();
+                ByteArrayDataOutput out = ByteStreams.newDataOutput();
+                out.writeUTF("UpdateReportsManager");
+                sendOutToAllServers(out);
+            }
+
+            if(subchannel.equals("BFreezePlayer")){
+                String playerName = in.readUTF();
+                ByteArrayDataOutput out = ByteStreams.newDataOutput();
+                out.writeUTF("FreezePlayer");
+                out.writeUTF(playerName);
+                sendOutToAllServers(out);
+            }
+
+            if(subchannel.equals("BUnfreezePlayer")){
+                String playerName = in.readUTF();
+                ByteArrayDataOutput out = ByteStreams.newDataOutput();
+                out.writeUTF("UnfreezePlayer");
+                out.writeUTF(playerName);
+                sendOutToAllServers(out);
             }
         } catch (Exception e) {
             System.out.print("[EpicReports] Error whit mysql: " + e.getMessage());
         }
     }
 
-    private void sendUpdateReportsManager(){
-        ByteArrayDataOutput out = ByteStreams.newDataOutput();
-        out.writeUTF("UpdateReportsManager");
-
+    private void sendOutToAllServers(ByteArrayDataOutput out){
         for (ServerInfo server : ProxyServer.getInstance().getServers().values()) {
             server.sendData("epicreports:main", out.toByteArray());
         }

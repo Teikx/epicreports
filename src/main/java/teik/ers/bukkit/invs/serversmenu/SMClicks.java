@@ -24,41 +24,73 @@ public class SMClicks {
         Player player = inventoryPlayer.getPlayer();
         int page = inventoryPlayer.getPage();
         InventorySection lastInventorySection = inventoryPlayer.getLastInventorySection();
-        List<String> servers = invDataMG.getServersList();
+        InventorySection lastLastInvSec = inventoryPlayer.getLastLastInvSec();
+        InventorySection lastLastLastInvSec = inventoryPlayer.getLastLastLastInvSec();
+
         switch (slot){
             case 36:
+                //Back
                 player.closeInventory();
                 switch (lastInventorySection){
+                    case ReportsMenu:
+                        inventoryMG.openReportsM(player, 1, null, null, null);
+                        break;
                     case ReportedsMenu:
                         inventoryMG.openReportedsM(player, 1, null, null, null);
                         break;
-                    case ReportsMenu:
-                        inventoryMG.openReportsM(player, 1, null, null, null);
+                    case AllReportsMenu:
+                        inventoryMG.openAllReportsM(player, 1, null, null, null);
+                        break;
+                    case ReportersMenu:
+                        inventoryMG.openReportersM(player, 1, null, null, null);
+                        break;
+                    case ReporterReportsMenu:
+                        inventoryMG.openReporterReportsM(player, 1, null, null, null);
+                        break;
+                    case ArchivedMenu:
+                        inventoryMG.openArchivedM(player, 1, null, null, null, lastLastInvSec, lastLastLastInvSec);
                         break;
                 }
                 break;
             case 39:
+                //Back page
                 if(page > 1){
                     player.closeInventory();
-                    inventoryMG.openServersM(player, page-1, lastInventorySection);
+                    inventoryMG.openServersM(player, page-1, lastInventorySection, lastLastInvSec, lastLastLastInvSec);
                 }
                 break;
             case 41:
-                if(page > (int) Math.ceil((double) servers.size() / 14)){
+                //Next page
+                if(page > (int) Math.ceil((double) invDataMG.getServersListSize() / 14)){
                     player.closeInventory();
-                    inventoryMG.openServersM(player, page+1, lastInventorySection);
+                    inventoryMG.openServersM(player, page+1, lastInventorySection, lastLastInvSec, lastLastLastInvSec);
                 }
                 break;
             default:
+                //Workbench
                 if(currentItem.getType() != (Material.WORKBENCH)) return;
+                List<String> servers = invDataMG.getServersList();
                 int serverID = setSlot(slot, page);
                 player.closeInventory();
                 switch (lastInventorySection){
+                    case ReportsMenu:
+                        inventoryMG.openReportsM(player, 1, null, FilterType.Server, servers.get(serverID));
+                        break;
                     case ReportedsMenu:
                         inventoryMG.openReportedsM(player, 1, null, FilterType.Server, servers.get(serverID));
                         break;
-                    case ReportsMenu:
-                        inventoryMG.openReportsM(player, 1, null, FilterType.Server, servers.get(serverID));
+                    case AllReportsMenu:
+                        inventoryMG.openAllReportsM(player, 1, null, FilterType.Server, servers.get(serverID));
+                        break;
+                    case ReportersMenu:
+                        inventoryMG.openReportersM(player, 1, null, FilterType.Server, servers.get(serverID));
+                        break;
+                    case ReporterReportsMenu:
+                        inventoryMG.openReporterReportsM(player, 1, null, FilterType.Server, servers.get(serverID));
+                        break;
+                    case ArchivedMenu:
+                        inventoryMG.openArchivedM(player, 1, null, FilterType.Server, servers.get(serverID),
+                                lastLastInvSec, lastLastLastInvSec);
                         break;
                 }
                 break;

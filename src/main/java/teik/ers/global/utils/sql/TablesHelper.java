@@ -26,8 +26,8 @@ public class TablesHelper {
         }
     }
 
-    public boolean checkReportedsTable() {
-        if (!tableExists("ReportedsTable")) {
+    public boolean checkPlayersTable() {
+        if (!tableExists("PlayersTable")) {
             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',
                     "&b[&fEpicReports&b] &cIf you're going to use MySQL," +
                     "&e it's necessary to install the plugin on your BungeeCord and on all the servers.&c Don't forget to configure " +
@@ -42,11 +42,9 @@ public class TablesHelper {
             executeUpdate(statement, createPlayersTable());
             executeUpdate(statement, createReportsTable());
             executeUpdate(statement, createArchivedReportsTable());
-            executeUpdate(statement, createStaffTable());
             executeUpdate(statement, createCommentsTable());
             executeUpdate(statement, createNotifysTable());
             executeUpdate(statement, createDeleteTrigger());
-            executeUpdate(statement, createDeleteStaffTrigger());
             executeUpdate(statement, createMoveToArchivedTrigger());
             if(isMysql) {
                 executeUpdate(statement, createServersTable());
@@ -138,24 +136,28 @@ public class TablesHelper {
                 "FOREIGN KEY (ReportedUUID) REFERENCES ReportedsTable(UUID)" +
                 ");";
     }
-    private String createStaffTable() {
-        return "CREATE TABLE IF NOT EXISTS StaffTable (" +
-                "StaffUUID VARCHAR(36) PRIMARY KEY, " +
-                "StaffName VARCHAR(255) NOT NULL, " +
-                "StaffRank VARCHAR(255) NOT NULL" +
-                ");";
-    }
     private String createCommentsTable() {
+        if(isMysql){
+            return "CREATE TABLE IF NOT EXISTS CommentsTable (" +
+                    "CommentID INT AUTO_INCREMENT PRIMARY KEY, " +
+                    "ReportedUUID VARCHAR(36), " +
+                    "ReportedName VARCHAR(36), " +
+                    "StaffUUID VARCHAR(36) NOT NULL, " +
+                    "StaffName VARCHAR(255) NOT NULL, " +
+                    "CommentTxt TEXT NOT NULL, " +
+                    "CommentDate VARCHAR(255) NOT NULL, " +
+                    "FOREIGN KEY (ReportedUUID) REFERENCES PlayersTable(UUID)" +
+                    ");";
+        }
         return "CREATE TABLE IF NOT EXISTS CommentsTable (" +
-                "CommentID INT AUTO_INCREMENT PRIMARY KEY, " +
+                "CommentID INT PRIMARY KEY, " +
                 "ReportedUUID VARCHAR(36), " +
+                "ReportedName VARCHAR(36), " +
                 "StaffUUID VARCHAR(36) NOT NULL, " +
                 "StaffName VARCHAR(255) NOT NULL, " +
-                "StaffRank VARCHAR(255) NOT NULL, " +
                 "CommentTxt TEXT NOT NULL, " +
-                "CommentDate DATETIME NOT NULL, " +
-                "FOREIGN KEY (ReportedUUID) REFERENCES ReportedsTable(UUID), " +
-                "FOREIGN KEY (StaffUUID) REFERENCES StaffTable(StaffUUID)" +
+                "CommentDate VARCHAR(255) NOT NULL, " +
+                "FOREIGN KEY (ReportedUUID) REFERENCES PlayersTable(UUID)" +
                 ");";
     }
     private String createNotifysTable() {
@@ -174,34 +176,10 @@ public class TablesHelper {
     }
     private String createDeleteTrigger() {
         return "CREATE TRIGGER IF NOT EXISTS delete_related_data_after_reported_deleted " +
-                "AFTER DELETE ON ReportedsTable " +
+                "AFTER DELETE ON PlayersTable " +
                 "BEGIN " +
                 "DELETE FROM ReportsTable WHERE ReportedUUID = OLD.UUID; " +
                 "DELETE FROM CommentsTable WHERE ReportedUUID = OLD.UUID; " +
-                "DELETE FROM ArchivedReportsTable WHERE ReportedUUID = OLD.UUID; " +
-                "END;";
-    }
-    private String createDeleteStaffTrigger() {
-        if(isMysql) {
-            return "CREATE TRIGGER IF NOT EXISTS delete_staff_if_no_comments " +
-                    "AFTER DELETE ON CommentsTable " +
-                    "FOR EACH ROW " +
-                    "BEGIN " +
-                    "DECLARE commentCount INT; " +
-                    "SELECT COUNT(*) INTO commentCount " +
-                    "FROM CommentsTable " +
-                    "WHERE StaffUUID = OLD.StaffUUID; " +
-                    "IF commentCount = 0 THEN " +
-                    "DELETE FROM StaffTable WHERE StaffUUID = OLD.StaffUUID; " +
-                    "END IF; " +
-                    "END;";
-        }
-        return "CREATE TRIGGER IF NOT EXISTS delete_staff_if_no_comments " +
-                "AFTER DELETE ON CommentsTable " +
-                "FOR EACH ROW " +
-                "BEGIN " +
-                "DELETE FROM StaffTable WHERE StaffUUID = OLD.StaffUUID " +
-                "AND NOT EXISTS (SELECT 1 FROM CommentsTable WHERE StaffUUID = OLD.StaffUUID); " +
                 "END;";
     }
     private String createMoveToArchivedTrigger(){

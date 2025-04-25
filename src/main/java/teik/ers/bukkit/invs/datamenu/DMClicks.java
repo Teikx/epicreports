@@ -12,6 +12,8 @@ import teik.ers.bukkit.managers.updateinvs.UpdateInvsMG;
 import teik.ers.bukkit.utilities.UtilitiesMsgs;
 import teik.ers.bukkit.utilities.UtilitiesPlayers;
 import teik.ers.bukkit.utilities.models.InventoryPlayer;
+import teik.ers.bukkit.utilities.models.enums.FilterType;
+import teik.ers.bukkit.utilities.models.enums.InventorySection;
 import teik.ers.global.models.objects.Locate;
 import teik.ers.global.models.objects.PlayerOBJ;
 
@@ -112,6 +114,8 @@ public class DMClicks {
             case 16:
                 //ArchivedReports Menu
                 player.closeInventory();
+                inventoryMG.openArchivedM(player, 1, null, FilterType.ReportedName, reportedName,
+                        InventorySection.DataMenu, null);
                 break;
             case 20:
                 //Online
@@ -141,6 +145,10 @@ public class DMClicks {
                     case RIGHT:
                         utilitiesMsgs.suggestMsg(player, reportedUUID, "uuid");
                         break;
+                    case SHIFT_LEFT:
+                        player.closeInventory();
+                        inventoryMG.openActionsM(player);
+                        break;
                     default:
                         utilitiesMsgs.suggestMsg(player, reportedOBJ.getIp(), "ip");
                         break;
@@ -149,6 +157,7 @@ public class DMClicks {
             case 24:
                 //Delete Reports
                 reportMG.removeAllReports(reportedUUID);
+                player.closeInventory();
                 inventoryMG.openReportedsM(player, 1, null, null, null);
                 updateInvsMG.sendUpdateInvs(player);
                 break;
@@ -160,6 +169,8 @@ public class DMClicks {
             case 44:
                 //Open Comments menu
                 player.closeInventory();
+                inventoryMG.openCommentsM(player, 1, null, FilterType.ReportedName,
+                        reportedName, InventorySection.DataMenu, null);
                 break;
         }
     }

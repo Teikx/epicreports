@@ -50,7 +50,7 @@ public class MysqlMG {
             }
 
             TablesHelper tablesHelper = new TablesHelper(getConnection(), true);
-            if(!tablesHelper.checkReportedsTable()){
+            if(!tablesHelper.checkPlayersTable()){
                 configManager.setMYSQLActive(false);
                 return;
             }

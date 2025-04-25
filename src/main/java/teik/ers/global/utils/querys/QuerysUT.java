@@ -1,5 +1,6 @@
 package teik.ers.global.utils.querys;
 
+import teik.ers.bukkit.utilities.models.Comment;
 import teik.ers.global.models.objects.Report;
 import teik.ers.global.models.Process;
 
@@ -54,6 +55,23 @@ public class QuerysUT {
         } catch (Exception e) {
             System.out.print("[EpicReports] Error 101 (ReportsManager), contact with developer : " + e.getMessage());
         }
+    }
+
+    public Comment populateCommentData(ResultSet resultSet){
+        try {
+            int id = resultSet.getInt("CommentID");
+            String reportedUUID = resultSet.getString("ReportedUUID");
+            String reportedName = resultSet.getString("ReportedName");
+            String staffUUID = resultSet.getString("StaffUUID");
+            String staffName = resultSet.getString("StaffName");
+            String commentTxt = resultSet.getString("commentTxt");
+            String commentDate = resultSet.getString("CommentDate");
+
+            return new Comment(id, reportedUUID, reportedName, staffUUID, staffName, commentTxt, commentDate);
+        } catch (Exception e) {
+            System.out.print("[EpicReports] Error 101 (ReportsManager), contact with developer : " + e.getMessage());
+        }
+        return null;
     }
 
     //CLEAR
@@ -191,6 +209,18 @@ public class QuerysUT {
             handleSQLException(e);
         }
     }
+
+    public void deleteComment(int commentID) {
+        String query = "DELETE FROM CommentsTable WHERE CommentID = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, commentID);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            handleSQLException(e);
+        }
+    }
+
     public void deleteAllReportsPerReported(String uuid){
         String query = "DELETE FROM ReportsTable WHERE ReportedUUID = ?";
 
@@ -201,6 +231,7 @@ public class QuerysUT {
             handleSQLException(e);
         }
     }
+
     public void deleteArchivedReports(){
         String query = "DELETE FROM ReportsTable WHERE Process = 'Archived'";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -208,6 +239,23 @@ public class QuerysUT {
         } catch (SQLException e) {
             handleSQLException(e);
         }
+    }
+
+    //ADD
+
+    public void addComment(Comment comment){
+        String sql = "INSERT INTO CommentsTable (ReportedUUID, ReportedName, StaffUUID, StaffName, " +
+                "CommentTxt, CommentDate) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, comment.getReportedUUID());
+            preparedStatement.setString(2, comment.getReportedName());
+            preparedStatement.setString(3, comment.getStaffUUID());
+            preparedStatement.setString(4, comment.getStaffName());
+            preparedStatement.setString(5, comment.getComment());
+            preparedStatement.setString(6, comment.getDate());
+
+            preparedStatement.executeUpdate();
+        } catch (Exception ignored) {}
     }
 
     private void handleSQLException(SQLException e) {System.out.print("[EpicReports] Error with EpicReports: " + e.getMessage());

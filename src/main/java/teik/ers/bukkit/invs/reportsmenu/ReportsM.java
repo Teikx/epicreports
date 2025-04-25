@@ -8,6 +8,7 @@ import org.bukkit.inventory.ItemStack;
 import teik.ers.bukkit.configs.inventories.ReportsMenu;
 import teik.ers.bukkit.invs.InvsUtils;
 import teik.ers.bukkit.managers.inventories.InvDataMG;
+import teik.ers.bukkit.managers.inventories.InvDataUMG;
 import teik.ers.bukkit.managers.inventories.InventoryMG;
 import teik.ers.bukkit.managers.inventories.helpers.InvHelperMG;
 import teik.ers.bukkit.utilities.models.InventoryPlayer;
@@ -18,19 +19,18 @@ import teik.ers.global.models.objects.Report;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
-
 
 public class ReportsM {
-
     private final InvHelperMG invHelperMG;
     private final InvDataMG invDataMG;
+    private final InvDataUMG invDataUMG;
     private final InvsUtils invsUtils;
     private final ReportsMenu reportsMenu;
 
     public ReportsM(InventoryMG inventoryMG) {
         this.invHelperMG = inventoryMG.invHelperMG;
         this.invDataMG = inventoryMG.invDataMG;
+        this.invDataUMG = inventoryMG.invDataUMG;
         this.invsUtils = inventoryMG.invsUtils;
         this.reportsMenu = inventoryMG.configInvsMG.getReportsMenu();
     }
@@ -58,19 +58,19 @@ public class ReportsM {
                 reportsMenu.getChestLore()
         );
 
-        SortReportedsList(reportList, sortType);
-        fillReportedsInventorySlots(inventory, reportList, page);
+        SortReportsList(reportList, sortType);
+        fillReportsInventorySlots(inventory, reportList, page);
 
         player.openInventory(inventory);
 
+        invDataUMG.putPlayerSortTypeReports(player, sortType);
+        invDataUMG.putPlayerFilterTypeReports(player, filterType);
         invDataMG.putPerPlayerReportList(player, reportList);
-        invDataMG.putPlayerSortTypeReports(player, sortType);
-        invDataMG.putPlayerFilterTypeReports(player, filterType);
 
         invDataMG.putPlayerInventory(player, inventoryPlayer);
     }
 
-    private void fillReportedsInventorySlots(Inventory inv, List<Report> reportList, int page) {
+    private void fillReportsInventorySlots(Inventory inv, List<Report> reportList, int page) {
         if(reportList.isEmpty()) return;
         int slotsPerPage = inv.getSize() - 9;
         int start = (page - 1) * slotsPerPage;
@@ -102,7 +102,7 @@ public class ReportsM {
                 .replaceAll("%reportDate%", reportDate));
     }
 
-    private void SortReportedsList(List<Report> sortedList, SortType sortType) {
+    private void SortReportsList(List<Report> sortedList, SortType sortType) {
         Comparator<Report> comparator;
         if (sortType == SortType.dateZA) {
             comparator = Comparator.comparing(Report::getDateTime);

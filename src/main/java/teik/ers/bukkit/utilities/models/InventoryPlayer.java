@@ -4,7 +4,6 @@ import org.bukkit.entity.Player;
 import teik.ers.bukkit.utilities.models.enums.FilterType;
 import teik.ers.bukkit.utilities.models.enums.InventorySection;
 import teik.ers.bukkit.utilities.models.enums.SortType;
-import teik.ers.global.models.objects.Report;
 
 public class InventoryPlayer {
     private final Player player;
@@ -15,7 +14,7 @@ public class InventoryPlayer {
     private FilterType filterType = FilterType.None;
     private String serverName = "null";
 
-    private InventorySection lastInventorySection;
+    private InventorySection lastInventorySection, lastLastInvSec, lastLastLastInvSec;
 
     public InventoryPlayer(Player player, InventorySection inventorySection) {
         this.player = player;
@@ -61,5 +60,19 @@ public class InventoryPlayer {
     }
     public void setLastInventorySection(InventorySection lastInventorySection) {
         this.lastInventorySection = lastInventorySection;
+    }
+
+    public InventorySection getLastLastInvSec() {
+        return lastLastInvSec;
+    }
+    public void setLastLastInvSec(InventorySection lastLastInvSec) {
+        this.lastLastInvSec = lastLastInvSec;
+    }
+
+    public InventorySection getLastLastLastInvSec() {
+        return lastLastLastInvSec;
+    }
+    public void setLastLastLastInvSec(InventorySection lastLastLastInvSec) {
+        this.lastLastLastInvSec = lastLastLastInvSec;
     }
 }

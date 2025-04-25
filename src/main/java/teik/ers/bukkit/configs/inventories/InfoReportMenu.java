@@ -13,10 +13,10 @@ public class InfoReportMenu {
     private String menuTitle;
     private String reportedInfoTitle, reporterInfoTitle, onlinePlayerTitle, offlinePlayerTitle, nickUuidTitle, ipTitle, locationTitle,
             gamemodeTitle, healthTitle, reasonReportTitle, dateReportTitle, statusReportTitle, archiveReportTitle, deleteReportTitle,
-            reportedCommentsTitle;
+            reportedCommentsTitle, actionsMenuTitle;
     private List<String> reportedInfoLore, reporterInfoLore, onlinePlayerLore, offlinePlayerLore, nickUuidLore, ipLore, locationLore,
             gamemodeLore, healthLore, reasonReportLore, dateReportLore, statusReportLore, archiveReportLore, deleteReportLore,
-            reportedCommentsLore;
+            reportedCommentsLore, actionsMenuLore;
 
     public InfoReportMenu(EpicReports plugin) {
         infoReportMenuFile = new CustomConfig("info-report-menu.yml", "inventories", plugin, false);
@@ -58,6 +58,8 @@ public class InfoReportMenu {
         this.deleteReportLore = config.getStringList("DeleteReport.Lore");
         this.reportedCommentsTitle = convertColor(config.getString("ReportedComments.Title"));
         this.reportedCommentsLore = config.getStringList("ReportedComments.Lore");
+        this.actionsMenuTitle = convertColor(config.getString("ActionsMenu.Title"));
+        this.actionsMenuLore = config.getStringList("ActionsMenu.Lore");
     }
 
     private String convertColor(String s) {
@@ -137,6 +139,10 @@ public class InfoReportMenu {
         return reportedCommentsTitle;
     }
 
+    public String getActionsMenuTitle() {
+        return actionsMenuTitle;
+    }
+
     public List<String> getReportedInfoLore() {
         return reportedInfoLore;
     }
@@ -195,5 +201,9 @@ public class InfoReportMenu {
 
     public List<String> getReportedCommentsLore() {
         return reportedCommentsLore;
+    }
+
+    public List<String> getActionsMenuLore() {
+        return actionsMenuLore;
     }
 }

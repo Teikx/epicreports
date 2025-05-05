@@ -42,7 +42,6 @@ public class UpdateInvsMG {
 
             if(inventoryPlayer==null) return;
 
-
             player.closeInventory();
             int page = inventoryPlayer.getPage();
             SortType sortType = inventoryPlayer.getSortType();
@@ -96,6 +95,14 @@ public class UpdateInvsMG {
 
                 case ActionsMenu:
                     inventoryMG.openActionsM(player);
+                    break;
+
+                case SettingsMenu:
+                    inventoryMG.openSettingsM(player);
+                    break;
+
+                case NotifysMenu:
+                    inventoryMG.openNotifysM(player);
                     break;
             }
         }

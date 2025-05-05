@@ -83,7 +83,7 @@ public class NotifysSender {
 
     private void sendSoundToAdmins(String path) {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            if (player.hasPermission("EasyReports.Admin")) {
+            if (player.hasPermission("EpicReports.Admin")) {
                 generateSound(player, path);
             }
         }
@@ -145,7 +145,7 @@ public class NotifysSender {
 
     private void sendTitleToAdmins(String title, String subtitle) {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            if (player.hasPermission("EasyReports.Admin")) {
+            if (player.hasPermission("EpicReports.Admin")) {
                 player.sendTitle(title, subtitle);
             }
         }
@@ -175,7 +175,7 @@ public class NotifysSender {
 
     private void sendMessageToAdmins(String message) {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            if (player.hasPermission("EasyReports.Admin")) {
+            if (player.hasPermission("EpicReports.Admin")) {
                 player.sendMessage(message);
             }
         }

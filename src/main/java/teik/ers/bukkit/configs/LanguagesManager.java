@@ -24,12 +24,13 @@ public class LanguagesManager extends DataFolderConfigManager {
             notify_reports_msg, notify_reports_title_title, notify_reports_title_subtitle, notify_skipped_reports_title_title,
             notify_skipped_reports_title_subtitle, notify_skipped_reports_msg, reported_name, click_here, click_here_show_text_hover,
             player_banned, player_kick, player_mute, player_freeze, player_unfreeze, player_freeze_not_online,
-            player_not_found, player_command_error, location_not_found, write_comment_title_title,
-            write_comment_title_subtitle, write_comment_msg, comments_successful;
+            player_not_found, player_command_error, location_not_found, write_comment_title_title, write_comment_title_subtitle,
+            write_comment_msg, comments_successful, comments_cancelled, write_text_title_title, write_text_title_subtitle,
+            write_text_msg, text_successful, text_cancelled;
     private List<String> help_msg, console_help_msg;
 
     public LanguagesManager(EpicReports plugin, String folderName, String path) {
-        super(plugin, folderName);
+        super(plugin, folderName, null);
         this.path = plugin.getDataFolder() + File.separator + folderName + File.separator + path;
         messageFile = getConfigFile(this.path);
         loadMessages();
@@ -37,9 +38,7 @@ public class LanguagesManager extends DataFolderConfigManager {
     }
 
     @Override
-    public void loadConfigs() {
-
-    }
+    public void loadConfigs() {}
 
     @Override
     public void saveConfigs() {}
@@ -72,7 +71,7 @@ public class LanguagesManager extends DataFolderConfigManager {
         this.notify_reports_msg = this.prefix + convertColor(config.getString("Admin_msgs.notify_reports_msg"));
         this.notify_reports_title_title = convertColor(config.getString("Admin_msgs.notify_reports_title.title"));
         this.notify_reports_title_subtitle = convertColor(config.getString("Admin_msgs.notify_reports_title.subtitle"));
-        this.notify_skipped_reports_msg = convertColor(config.getString("Admin_msgs.notify_skipped_reports_msg"));
+        this.notify_skipped_reports_msg = this.prefix + convertColor(config.getString("Admin_msgs.notify_skipped_reports_msg"));
         this.notify_skipped_reports_title_title = convertColor(config.getString("Admin_msgs.notify_skipped_reports_title.title"));
         this.notify_skipped_reports_title_subtitle = convertColor(config.getString("Admin_msgs.notify_skipped_reports_title.subtitle"));
         this.help_msg = config.getStringList("Admin_msgs.help_msg");
@@ -93,6 +92,12 @@ public class LanguagesManager extends DataFolderConfigManager {
         this.write_comment_title_subtitle = convertColor(config.getString("Admin_msgs.write_comment_title.subtitle"));
         this.write_comment_msg = this.prefix + convertColor(config.getString("Admin_msgs.write_comment_msg"));
         this.comments_successful = this.prefix + convertColor(config.getString("Admin_msgs.comments_successful"));
+        this.comments_cancelled = this.prefix + convertColor(config.getString("Admin_msgs.comments_cancelled"));
+        this.write_text_title_title = convertColor(config.getString("Admin_msgs.write_text_title.title"));
+        this.write_text_title_subtitle = convertColor(config.getString("Admin_msgs.write_text_title.subtitle"));
+        this.write_text_msg = this.prefix + convertColor(config.getString("Admin_msgs.write_text_msg"));
+        this.text_successful = this.prefix + convertColor(config.getString("Admin_msgs.text_successful"));
+        this.text_cancelled = this.prefix + convertColor(config.getString("Admin_msgs.text_cancelled"));
     }
 
     public void reloadConfig() {
@@ -237,6 +242,24 @@ public class LanguagesManager extends DataFolderConfigManager {
     }
     public String getComments_successful() {
         return comments_successful;
+    }
+    public String getComments_cancelled() {
+        return comments_cancelled;
+    }
+    public String getWrite_text_title_title() {
+        return write_text_title_title;
+    }
+    public String getWrite_text_title_subtitle() {
+        return write_text_title_subtitle;
+    }
+    public String getWrite_text_msg() {
+        return write_text_msg;
+    }
+    public String getText_successful() {
+        return text_successful;
+    }
+    public String getText_cancelled() {
+        return text_cancelled;
     }
     public List<String> getHelp_msg() {
         return this.help_msg;

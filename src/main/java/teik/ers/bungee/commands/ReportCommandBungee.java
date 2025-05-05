@@ -71,6 +71,10 @@ public class ReportCommandBungee extends Command {
                 player.sendMessage(msgsUtilsBungee.convertBungeeColor(messagesFile.getReport_yourself()));
                 return;
             }
+            if(args.length == 1){
+                reportUtilitiesBungee.openPredefinedReports(player, reportedName);
+                return;
+            }
             reportUtilitiesBungee.addReport(player, args);
             sendUpdateReportsManager();
         }else{

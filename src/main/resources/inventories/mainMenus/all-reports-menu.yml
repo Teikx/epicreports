@@ -1,0 +1,24 @@
+MenuTitle: "&eAll Reports Menu"
+ReportMap:
+  Title: "&2%reason%"
+  Lore:
+    - " "
+    - "&7Reported: &e%reportedName%"
+    - "&7Reporter: &e%reporterName%"
+    - " "
+    - "&7Date: &e%reportDate%"
+    - " "
+    - "&7Status: &a%reportStatus%"
+    - " "
+    - "&6Left click &7to show complete info"
+    - "&6Shift + Left click &7to change status"
+    - "&6Right click &7to delete report"
+    - "&6Middle click &7to archive"
+Chest:
+  Title: "&a%CurrentPage%&8/&2%TotalPages%"
+  Lore:
+    - "&7Filter Type: &e%FilterType%"
+    - " "
+    - "&6Left click &7to Change filter type"
+    - "&6Shift + Left click &7Open settings filter menu"
+    - "&6Right click &7to Change to Reporters Menu"

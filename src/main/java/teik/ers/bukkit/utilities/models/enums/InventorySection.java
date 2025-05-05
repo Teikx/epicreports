@@ -16,5 +16,5 @@ public enum InventorySection {
     SettingsMenu,
     NotifysMenu,
     PredefinedReportsMenu,
-    HelperReportsMenu
+    OnlinePlayersMenu
 }

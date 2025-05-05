@@ -1,0 +1,29 @@
+MenuTitle: "&eQuickActions Menu"
+BanPlayer:
+  Title: "&aBan &e%reportedNick%"
+  Command: "ban %reportedNick%"
+  Lore:
+    - " "
+    - "&6Left click &7to ban player"
+KickPlayer:
+  Title: "&aKick &e%reportedNick%"
+  Command: "kick %reportedNick%"
+  Lore:
+    - " "
+    - "&6Left click &7to kick player"
+MutePlayer:
+  Title: "&aMute &e%reportedNick%"
+  Command: "mute %reportedNick%"
+  Lore:
+    - " "
+    - "&6Left click &7to mute/unmute player"
+FreezePlayer:
+  Title: "&bFreeze &e%reportedNick%"
+  Lore:
+    - " "
+    - "&6Left click &7to freeze player"
+UnFreezePlayer:
+  Title: "&cUnFreeze &e%reportedNick%"
+  Lore:
+    - " "
+    - "&6Left click &7to unfreeze player"

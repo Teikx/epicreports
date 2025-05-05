@@ -5,7 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import teik.ers.bukkit.configs.inventories.PagePanels;
+import teik.ers.bukkit.configs.inventories.others.PagePanels;
 import teik.ers.bukkit.utilities.models.enums.FilterType;
 import teik.ers.bukkit.utilities.models.enums.SortType;
 
@@ -87,6 +87,20 @@ public class InvsUtils {
 
     public ItemStack setItemStack(Material Material, String title, List<String> lore, int n) {
         ItemStack itemStack = new ItemStack(Material, 1, (short) n);
+        ItemMeta itemMeta = itemStack.getItemMeta();
+
+        itemMeta.setDisplayName(title);
+
+        if (lore != null && !lore.isEmpty()) {
+            itemMeta.setLore(convertLoreColors(lore));
+        }
+
+        itemStack.setItemMeta(itemMeta);
+        return itemStack;
+    }
+
+    public ItemStack setItemStack(Material Material, String title, List<String> lore, int n, int amount) {
+        ItemStack itemStack = new ItemStack(Material, amount, (short) n);
         ItemMeta itemMeta = itemStack.getItemMeta();
 
         itemMeta.setDisplayName(title);

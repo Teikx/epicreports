@@ -59,3 +59,10 @@ Admin_msgs:
     subtitle: "&7write in the chat"
   write_comment_msg: "&eWrite your comment in the chat! &cor write 'cancel' to cancel this."
   comments_successful: "&aComment is saved successful!"
+  comments_cancelled: "&cComment is cancelled successful!"
+  write_text_title:
+    title: "&eWrite a new text"
+    subtitle: "&7write in the chat"
+  write_text_msg: "&eWrite your text in the chat! &cor write 'cancel' to cancel this."
+  text_successful: "&aText is saved successful!"
+  text_cancelled: "&cText is cancelled successful!"

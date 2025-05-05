@@ -8,11 +8,13 @@ import java.util.ArrayList;
 public abstract class DataFolderConfigManager {
     private final EpicReports plugin;
     private final String folderName;
+    private final String subFolderName;
     private ArrayList<CustomConfig> configFiles;
 
-    public DataFolderConfigManager(EpicReports plugin, String folderName) {
+    public DataFolderConfigManager(EpicReports plugin, String folderName, String subFolderName) {
         this.plugin = plugin;
         this.folderName = folderName;
+        this.subFolderName = subFolderName;
         this.configFiles = new ArrayList<>();
         configure();
     }
@@ -73,9 +75,9 @@ public abstract class DataFolderConfigManager {
     public void registerConfigFile(String pathName) {
         CustomConfig config;
         if(pathName.equalsIgnoreCase("en_EN.yml")){
-            config = new CustomConfig(pathName, folderName, plugin, false);
+            config = new CustomConfig(pathName, folderName, subFolderName, plugin, false);
         }else{
-            config = new CustomConfig(pathName, folderName, plugin, true);
+            config = new CustomConfig(pathName, folderName, subFolderName, plugin, true);
         }
         config.registerConfig();
         configFiles.add(config);

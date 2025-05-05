@@ -10,9 +10,9 @@ commands:
     description: Admin commands
 
 Permissions:
-  EasyReports.Admin:
+  EpicReports.Admin:
     description: Send op commands
     default: op
-  EasyReports.User:
+  EpicReports.User:
     description: Send user commands
     default: true

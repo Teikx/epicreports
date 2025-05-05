@@ -7,17 +7,20 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
-import teik.ers.bukkit.invs.actionsmenu.AMClicks;
-import teik.ers.bukkit.invs.allreportsmenu.ARMClicks;
-import teik.ers.bukkit.invs.archivedmenu.ACMClicks;
-import teik.ers.bukkit.invs.commentsmenu.CMClicks;
-import teik.ers.bukkit.invs.datamenu.DMClicks;
-import teik.ers.bukkit.invs.ifreportsmenu.IRMClicks;
-import teik.ers.bukkit.invs.reportedsmenu.RDMClicks;
-import teik.ers.bukkit.invs.reportersmenu.RRMClicks;
-import teik.ers.bukkit.invs.reportsmenu.RMClicks;
-import teik.ers.bukkit.invs.rrreportsmenu.RRRMClicks;
-import teik.ers.bukkit.invs.serversmenu.SMClicks;
+import teik.ers.bukkit.invs.commandsmenus.prereportsmenu.PRMClicks;
+import teik.ers.bukkit.invs.helpermenus.actionsmenu.AMClicks;
+import teik.ers.bukkit.invs.mainmenus.allreportsmenu.ARMClicks;
+import teik.ers.bukkit.invs.others.archivedmenu.ACMClicks;
+import teik.ers.bukkit.invs.others.commentsmenu.CMClicks;
+import teik.ers.bukkit.invs.settingsmenus.notifysstmenu.NMClicks;
+import teik.ers.bukkit.invs.settingsmenus.settingsmenu.STMClicks;
+import teik.ers.bukkit.invs.submenus.datamenu.DMClicks;
+import teik.ers.bukkit.invs.helpermenus.ifreportsmenu.IRMClicks;
+import teik.ers.bukkit.invs.mainmenus.reportedsmenu.RDMClicks;
+import teik.ers.bukkit.invs.mainmenus.reportersmenu.RRMClicks;
+import teik.ers.bukkit.invs.submenus.reportsmenu.RMClicks;
+import teik.ers.bukkit.invs.submenus.rrreportsmenu.RRRMClicks;
+import teik.ers.bukkit.invs.helpermenus.serversmenu.SMClicks;
 import teik.ers.bukkit.managers.inventories.InvDataMG;
 import teik.ers.bukkit.managers.inventories.InventoryMG;
 import teik.ers.bukkit.utilities.models.InventoryPlayer;
@@ -37,6 +40,9 @@ public class InvL implements Listener {
     private final ARMClicks armClicks;
     private final RRMClicks rrmClicks;
     private final RRRMClicks rrrmClicks;
+    private final STMClicks stmClicks;
+    private final NMClicks nmClicks;
+    private final PRMClicks prmClicks;
 
     public InvL(InventoryMG inventoryMG) {
         this.invDataMG = inventoryMG.invDataMG;
@@ -52,6 +58,9 @@ public class InvL implements Listener {
         armClicks = new ARMClicks(inventoryMG);
         rrmClicks = new RRMClicks(inventoryMG);
         rrrmClicks = new RRRMClicks(inventoryMG);
+        stmClicks = new STMClicks(inventoryMG);
+        nmClicks = new NMClicks(inventoryMG);
+        prmClicks = new PRMClicks(inventoryMG);
     }
 
     @EventHandler
@@ -110,12 +119,15 @@ public class InvL implements Listener {
                 rrrmClicks.ReporterReportsMenu(inventoryPlayer, slot, clickType, currentItem);
                 break;
             case SettingsMenu:
+                stmClicks.SettingsMenu(inventoryPlayer, slot, clickType);
                 break;
             case NotifysMenu:
+                nmClicks.notifysMenu(inventoryPlayer, slot);
                 break;
             case PredefinedReportsMenu:
+                prmClicks.PredefinedReportsMenu(inventoryPlayer, slot);
                 break;
-            case HelperReportsMenu:
+            case OnlinePlayersMenu:
                 break;
         }
     }

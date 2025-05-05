@@ -3,19 +3,23 @@ package teik.ers.bukkit.managers.inventories;
 import org.bukkit.entity.Player;
 import teik.ers.bukkit.EpicReports;
 import teik.ers.bukkit.configs.ConfigInvsMG;
+import teik.ers.bukkit.configs.ConfigManager;
 import teik.ers.bukkit.configs.LanguagesManager;
 import teik.ers.bukkit.invs.InvsUtils;
-import teik.ers.bukkit.invs.allreportsmenu.AllReportsM;
-import teik.ers.bukkit.invs.archivedmenu.ArchivedM;
-import teik.ers.bukkit.invs.commentsmenu.CommentsM;
-import teik.ers.bukkit.invs.datamenu.DataM;
-import teik.ers.bukkit.invs.ifreportsmenu.IfReportsM;
-import teik.ers.bukkit.invs.actionsmenu.ActionsM;
-import teik.ers.bukkit.invs.reportedsmenu.ReportedsM;
-import teik.ers.bukkit.invs.reportersmenu.ReportersM;
-import teik.ers.bukkit.invs.reportsmenu.ReportsM;
-import teik.ers.bukkit.invs.rrreportsmenu.RrReportsM;
-import teik.ers.bukkit.invs.serversmenu.ServersM;
+import teik.ers.bukkit.invs.commandsmenus.prereportsmenu.PreReportsM;
+import teik.ers.bukkit.invs.mainmenus.allreportsmenu.AllReportsM;
+import teik.ers.bukkit.invs.others.archivedmenu.ArchivedM;
+import teik.ers.bukkit.invs.others.commentsmenu.CommentsM;
+import teik.ers.bukkit.invs.settingsmenus.notifysstmenu.NotifysM;
+import teik.ers.bukkit.invs.settingsmenus.settingsmenu.SettingsM;
+import teik.ers.bukkit.invs.submenus.datamenu.DataM;
+import teik.ers.bukkit.invs.helpermenus.ifreportsmenu.IfReportsM;
+import teik.ers.bukkit.invs.helpermenus.actionsmenu.ActionsM;
+import teik.ers.bukkit.invs.mainmenus.reportedsmenu.ReportedsM;
+import teik.ers.bukkit.invs.mainmenus.reportersmenu.ReportersM;
+import teik.ers.bukkit.invs.submenus.reportsmenu.ReportsM;
+import teik.ers.bukkit.invs.submenus.rrreportsmenu.RrReportsM;
+import teik.ers.bukkit.invs.helpermenus.serversmenu.ServersM;
 import teik.ers.bukkit.managers.freeze.FreezeMG;
 import teik.ers.bukkit.managers.inventories.helpers.InvChannelsMG;
 import teik.ers.bukkit.managers.inventories.helpers.InvHelperMG;
@@ -31,7 +35,6 @@ import teik.ers.bukkit.utilities.models.enums.SortType;
 public class InventoryMG {
     public final ReportMG reportMG;
 
-    public final ConfigInvsMG configInvsMG;
     public final InvDataMG invDataMG;
     public final InvDataUMG invDataUMG;
     public final InvHelperMG invHelperMG;
@@ -44,7 +47,9 @@ public class InventoryMG {
     public final UtilitiesPlayers utilitiesPlayers;
     public final UtilitiesMsgs utilitiesMsgs;
 
+    public final ConfigManager configManager;
     public final LanguagesManager messageManager;
+    public final ConfigInvsMG configInvsMG;
 
     public final boolean isMysql;
 
@@ -59,11 +64,13 @@ public class InventoryMG {
     private final AllReportsM allReportsM;
     private final ReportersM reportersM;
     private final RrReportsM rrReportsM;
+    private final SettingsM settingsM;
+    private final NotifysM notifysM;
+    private final PreReportsM preReportsM;
 
     public InventoryMG(EpicReports plugin) {
         this.reportMG = plugin.reportMG;
 
-        this.configInvsMG = plugin.configInvsMG;
         this.invDataMG = new InvDataMG();
         this.invDataUMG = new InvDataUMG();
         this.invHelperMG = new InvHelperMG(plugin.reportMG.getPlayersListMG(), plugin.reportMG.getReportsListMG(),
@@ -77,7 +84,9 @@ public class InventoryMG {
         this.utilitiesPlayers = plugin.utilitiesPlayers;
         this.utilitiesMsgs = plugin.utilitiesMsgs;
 
+        this.configManager = plugin.configManager;
         this.messageManager = plugin.messageManager;
+        this.configInvsMG = plugin.configInvsMG;
 
         this.isMysql = plugin.configManager.isMYSQLActive();
 
@@ -92,6 +101,9 @@ public class InventoryMG {
         this.allReportsM = new AllReportsM(this);
         this.reportersM = new ReportersM(this);
         this.rrReportsM = new RrReportsM(this);
+        this.settingsM = new SettingsM(this);
+        this.notifysM = new NotifysM(this);
+        this.preReportsM = new PreReportsM(this);
     }
 
     //OPEN INVENTORIES
@@ -217,6 +229,26 @@ public class InventoryMG {
         if(serverName != null) inventoryPlayer.setServerName(serverName);
 
         rrReportsM.createReporterReportsMenu(inventoryPlayer);
+    }
+
+    public void openSettingsM(Player player){
+        InventoryPlayer inventoryPlayer = new InventoryPlayer(player, InventorySection.SettingsMenu);
+
+        settingsM.createSettingsMenu(inventoryPlayer);
+    }
+
+    public void openNotifysM(Player player){
+        InventoryPlayer inventoryPlayer = new InventoryPlayer(player, InventorySection.NotifysMenu);
+
+        notifysM.createNotifysMenu(inventoryPlayer);
+    }
+
+    public void openPredefinedReportsM(Player player, int page, String reportedName){
+        InventoryPlayer inventoryPlayer = new InventoryPlayer(player, InventorySection.PredefinedReportsMenu);
+        inventoryPlayer.setPage(page);
+        invDataMG.putReportedNameSelected(player, reportedName);
+
+        preReportsM.createPredefinedReportsMenu(inventoryPlayer);
     }
 
     //UTILS

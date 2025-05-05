@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 import teik.ers.bukkit.EpicReports;
 import teik.ers.bukkit.managers.freeze.FreezeMG;
+import teik.ers.bukkit.managers.inventories.InventoryMG;
 import teik.ers.bukkit.managers.updateinvs.UpdateInvsMG;
 import teik.ers.bukkit.utilities.UtilitiesPlayers;
 import teik.ers.global.models.objects.Locate;
@@ -17,15 +18,17 @@ public class ChannelMG implements PluginMessageListener {
     private final UtilsMsgChannel utilsMsgChannel;
     private final UtilitiesPlayers utilitiesPlayers;
 
+    private final InventoryMG inventoryMG;
     private final UpdateInvsMG updateInvsMG;
     private final FreezeMG freezeMG;
 
     public ChannelMG(EpicReports plugin) {
-        utilsMsgChannel = new UtilsMsgChannel(plugin.getConnection());
-        utilitiesPlayers = plugin.utilitiesPlayers;
+        this.utilsMsgChannel = new UtilsMsgChannel(plugin.getConnection());
+        this.utilitiesPlayers = plugin.utilitiesPlayers;
 
-        this.updateInvsMG = plugin.inventoryMG.updateInvsMG;
-        this.freezeMG = plugin.inventoryMG.freezeMG;
+        this.inventoryMG = plugin.inventoryMG;
+        this.updateInvsMG = inventoryMG.updateInvsMG;
+        this.freezeMG = inventoryMG.freezeMG;
     }
 
     @Override
@@ -69,6 +72,8 @@ public class ChannelMG implements PluginMessageListener {
                     break;
 
                 case "TeleportPlayerToLocate":
+                    if(targetPlayer == null) return;
+
                     String locate = in.readUTF();
 
                     Locate locate1 = new Locate();
@@ -77,8 +82,11 @@ public class ChannelMG implements PluginMessageListener {
                     break;
 
                 case "TeleportPlayerToPlayer":
+                    if(targetPlayer == null) return;
                     String otherPlayerName = in.readUTF();
                     Player otherPlayer = Bukkit.getPlayer(otherPlayerName);
+
+                    if(otherPlayer == null) return;
 
                     targetPlayer.teleport(otherPlayer);
                     break;
@@ -88,6 +96,11 @@ public class ChannelMG implements PluginMessageListener {
                     break;
                 case "UnfreezePlayer":
                     freezeMG.unfreezePlayer(playerName);
+                    break;
+                case "openPredefinedMenu":
+                    if(targetPlayer == null) return;
+                    String reportedName = in.readUTF();
+                    inventoryMG.openPredefinedReportsM(targetPlayer, 1, reportedName);
                     break;
             }
         } catch (Exception e) {

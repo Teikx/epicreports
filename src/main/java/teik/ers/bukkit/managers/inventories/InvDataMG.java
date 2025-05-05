@@ -3,6 +3,8 @@ package teik.ers.bukkit.managers.inventories;
 import org.bukkit.entity.Player;
 import teik.ers.bukkit.utilities.models.Comment;
 import teik.ers.bukkit.utilities.models.InventoryPlayer;
+import teik.ers.bukkit.utilities.models.SettingsER;
+import teik.ers.bukkit.utilities.models.enums.ChatType;
 import teik.ers.global.models.objects.Report;
 
 import java.util.ArrayList;
@@ -30,7 +32,7 @@ public class InvDataMG {
 
         //CommentsMenu
         perPlayerCommentList = new HashMap<>();
-        playerCommentingList = new ArrayList<>();
+        playerChatTypeHashMap = new HashMap<>();
 
         //AllReportsMenu
         perPlayerAllReportList = new HashMap<>();
@@ -41,6 +43,12 @@ public class InvDataMG {
 
         //ReporterReportsMenu
         perPlayerReporterReportsList = new HashMap<>();
+
+        //SettingsMenu
+        perPlayerSettings = new HashMap<>();
+
+        //PredefinedReportsMenu
+        perPlayerReportedNameSelected = new HashMap<>();
     }
 
     //Global
@@ -158,18 +166,22 @@ public class InvDataMG {
         return perPlayerCommentList.get(player).size();
     }
 
-    private final List<Player> playerCommentingList;
+    private final HashMap<Player, ChatType> playerChatTypeHashMap;
 
-    public void addPlayerCommenting(Player player){
-        playerCommentingList.add(player);
+    public void putPlayerChatType(Player player, ChatType chatType){
+        playerChatTypeHashMap.put(player, chatType);
     }
 
-    public void removePlayerCommenting(Player player){
-        playerCommentingList.remove(player);
+    public void removePlayerChatType(Player player){
+        playerChatTypeHashMap.remove(player);
     }
 
-    public boolean playerIsCommenting(Player player){
-        return playerCommentingList.contains(player);
+    public boolean playerIsChatting(Player player){
+        return playerChatTypeHashMap.containsKey(player);
+    }
+
+    public ChatType getPlayerChatType(Player player){
+        return playerChatTypeHashMap.get(player);
     }
 
     //AllReportsMenu Data
@@ -228,5 +240,33 @@ public class InvDataMG {
 
     public int getPerPlayerReporterReportsListSize(Player player){
         return perPlayerReporterReportsList.get(player).size();
+    }
+
+    //SettingsMenu Data
+
+    private final HashMap<Player, SettingsER> perPlayerSettings;
+
+    public void putSettingsER(Player player, SettingsER settingsER){
+        perPlayerSettings.put(player, settingsER);
+    }
+
+    public SettingsER getSettingsER(Player player){
+        return perPlayerSettings.get(player);
+    }
+
+    public void removeSettingsER(Player player){
+        perPlayerSettings.remove(player);
+    }
+
+    //PredefinedReportsMenu Data
+
+    private final HashMap<Player, String> perPlayerReportedNameSelected;
+
+    public void putReportedNameSelected(Player player, String name){
+        perPlayerReportedNameSelected.put(player, name);
+    }
+
+    public String getReportedNameSelected(Player player){
+        return perPlayerReportedNameSelected.get(player);
     }
 }

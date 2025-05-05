@@ -126,4 +126,14 @@ public class ReportUtilitiesBungee {
 
         player.getServer().sendData("epicreports:main", out.toByteArray());
     }
+
+    public void openPredefinedReports(ProxiedPlayer player, String reportedName){
+        ByteArrayDataOutput out = ByteStreams.newDataOutput();
+        out.writeUTF("openPredefinedMenu");
+
+        out.writeUTF(player.getName());
+        out.writeUTF(reportedName);
+
+        player.getServer().sendData("epicreports:main", out.toByteArray());
+    }
 }

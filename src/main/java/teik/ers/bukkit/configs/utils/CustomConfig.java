@@ -17,11 +17,13 @@ public class CustomConfig {
     private File file = null;
 
     private final String folderName;
-    private boolean newFile;
+    private final String subFolderName;
+    private final boolean newFile;
 
-    public CustomConfig(String fileName, String folderName, EpicReports plugin, boolean newFile) {
+    public CustomConfig(String fileName, String folderName, String subFolderName, EpicReports plugin, boolean newFile) {
         this.fileName = fileName;
         this.folderName = folderName;
+        this.subFolderName = subFolderName;
         this.plugin = plugin;
         this.newFile = newFile;
     }
@@ -31,7 +33,10 @@ public class CustomConfig {
     }
 
     public void registerConfig() {
-        if (this.folderName != null) {
+        if(this.subFolderName != null){
+            this.file = new File(this.plugin.getDataFolder() + File.separator + this.folderName + File.separator + this.subFolderName, this.fileName);
+        }
+        else if (this.folderName != null) {
             this.file = new File(this.plugin.getDataFolder() + File.separator + this.folderName, this.fileName);
         } else {
             this.file = new File(this.plugin.getDataFolder(), this.fileName);
@@ -45,7 +50,10 @@ public class CustomConfig {
                 }
                 return;
             }
-            if (this.folderName != null) {
+            if(this.subFolderName != null){
+                this.plugin.saveResource(this.folderName + File.separator + this.subFolderName + File.separator + this.fileName, false);
+            }
+            else if (this.folderName != null) {
                 this.plugin.saveResource(this.folderName + File.separator + this.fileName, false);
             } else {
                 this.plugin.saveResource(this.fileName, false);
@@ -76,7 +84,10 @@ public class CustomConfig {
 
     public void reloadConfig() {
         if (this.fileConfiguration == null)
-            if (this.folderName != null) {
+            if(this.subFolderName != null){
+                this.file = new File(this.plugin.getDataFolder() + File.separator + this.folderName + File.separator + this.subFolderName, this.fileName);
+            }
+            else if (this.folderName != null) {
                 this.file = new File(this.plugin.getDataFolder() + File.separator + this.folderName, this.fileName);
             } else {
                 this.file = new File(this.plugin.getDataFolder(), this.fileName);

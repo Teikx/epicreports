@@ -1,0 +1,11 @@
+MenuTitle: "&eOnline Players Menu"
+Chest:
+  Title: "&a%CurrentPage%&8/&2%TotalPages%"
+  Lore:
+    - " "
+OnlinePlayer:
+  Title: "&a%PlayerName%"
+  Lore:
+    - " "
+    - "&6Left click &7to open write report reason in chat."
+    - "&6Right click &7to open the player's predefined reports menu."

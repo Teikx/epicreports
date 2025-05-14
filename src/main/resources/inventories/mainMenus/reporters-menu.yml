@@ -1,0 +1,19 @@
+MenuTitle: "&eReporters Menu"
+ReporterNameTag:
+  Title: "&2%ReporterName%"
+  Lore:
+    - " "
+    - "&e%ReportsAmount% &7reports"
+    - " "
+    - "&7Report %LastReportID%: &e%LastReportReason%"
+    - "&7Date: &e%LastReportDate%"
+    - " "
+    - "&6Left click &7to open his reports menu"
+Chest:
+  Title: "&a%CurrentPage%&8/&2%TotalPages%"
+  Lore:
+    - "&7Filter Type: &e%FilterType%"
+    - " "
+    - "&6Left click &7Change filter type"
+    - "&6Shift + Left click &7Open settings filter menu"
+    - "&6Right click &7to Change to Archived Reports Menu"

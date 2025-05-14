@@ -1,0 +1,75 @@
+MenuTitle: "&eNotifys Menu"
+Enabled:
+  Title: "&aEnabled"
+  Lore:
+    - " "
+    - "&6Left click &7to &cdisable."
+Disabled:
+  Title: "&cDisabled"
+  Lore:
+    - " "
+    - "&6Left click &7to &aenable."
+NotifyReports:
+  Main:
+    Title: "&eNotify Reports"
+    Lore:
+      - "&7Here you can configure everything that"
+      - "&7has to do with report notifications."
+      - "&7When a user makes a report, a notification"
+      - "&7will be sent to users who have the"
+      - "&a'EpicReports.Admin' &7permission."
+      - "&7This is configured here."
+  MsgNotify:
+    Title: "&eMessages Notifys"
+    Lore:
+      - "&7This send a message to admins"
+      - "&7when a user report."
+  TitleNotify:
+    Title: "&eTitle Notifys"
+    Lore:
+      - "&7This send a title to admins"
+      - "&7when a user report."
+  SoundNotify:
+    Title: "&eSound Notifys"
+    Lore:
+      - "&7This send a sound to admins"
+      - "&7when a user report."
+      - " "
+      - "&6Left Click &7to change sound."
+NotifyProcessedReports:
+  Main:
+    Title: "&8Notify Processed Reports"
+    Lore:
+      - "&7Here you can configure everything that has"
+      - "&7to do with notifications for reports that"
+      - "&7are being processed. When an administrator"
+      - "&7changes the status of a report to processing,"
+      - "&7the user who reported it will receive a notification."
+      - "&7This is configured here."
+  MsgNotify:
+    Title: "&eMessages Notifys"
+    Lore:
+      - "&7This send a message to user when"
+      - "&7the admin process the report."
+  TitleNotify:
+    Title: "&eTitle Notifys"
+    Lore:
+      - "&7This send a title to user when"
+      - "&7the admin process the report."
+  SoundNotify:
+    Title: "&eSound Notifys"
+    Lore:
+      - "&7This send a sound to user when"
+      - "&7the admin process the report."
+      - " "
+      - "&6Left Click &7to change sound."
+SaveConfig:
+  Title: "&aSave Config"
+  Lore:
+    - " "
+    - "&7Save this config"
+ResetConfig:
+  Title: "&9Reset Config"
+  Lore:
+    - " "
+    - "&7Reset this config"

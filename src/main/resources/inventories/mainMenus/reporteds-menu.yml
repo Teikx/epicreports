@@ -1,0 +1,20 @@
+MenuTitle: "&eReporteds Menu"
+ReportedBook:
+  Title: "&2%ReportedName%"
+  Lore:
+    - " "
+    - "&e%ReportsAmount% &7reports"
+    - " "
+    - "&7Report %LastReportID%: &e%LastReportReason%"
+    - "&7Date: &e%LastReportDate%"
+    - " "
+    - "&6Left click &7to get reported data"
+Chest:
+  Title: "&a%CurrentPage%&8/&2%TotalPages%"
+  Lore:
+    - "&7Filter Type: &e%FilterType%"
+    - " "
+    - "&6Left click &7Change filter type"
+    - "&6Shift + Left click &7Open settings filter menu"
+    - "&6Right click &7to Change to All Reports Menu"
+    - "&6Middle click &7Open settings menu"

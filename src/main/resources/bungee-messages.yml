@@ -1,0 +1,14 @@
+Prefix: "&b[&fEpicReports&b] "
+User_msgs:
+  report_successful: "&eYou have reported &a%reported%"
+  command_use: "&eYou need use: &c/report &7(player) (reason)"
+  player_not_exist: "&cThis player has never connected to this server!"
+  max_reports_to_player: "&cYou have reached the limit of reports for this player!"
+  report_yourself: "&cYou cant report yourself!"
+  reason_invalid: "&cYour reasons is invalid!"
+  disabled_plugin: "&cThe report plugin is disabled, try again later..."
+Admin_msgs:
+  console_report: "&cOnly players can report!"
+  player_not_found: "&cThe player you want to teleport to is not found!"
+  teleported: "&eTeleporting, wait a moment..."
+  server_not_found: "&cServer not found!"

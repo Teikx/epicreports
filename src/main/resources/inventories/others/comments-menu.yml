@@ -1,0 +1,21 @@
+MenuTitle: "&eComments Menu"
+Book:
+  Title: "&2%comment%"
+  Lore:
+    - " "
+    - "&7Reported: &e%reportedName%"
+    - "&8%reportedUUID%"
+    - " "
+    - "&7Staff: &e%staffName%"
+    - "&8%staffUUID%"
+    - " "
+    - "&7Date: &e%commentDate%"
+    - " "
+    - "&6Left click &7to delete comment"
+Chest:
+  Title: "&a%CurrentPage%&8/&2%TotalPages%"
+  Lore:
+    - "&7Filter Type: &e%FilterType%"
+    - " "
+    - "&6Left click &7to Change filter type"
+    - "&6Right click &7to Change to Reporteds Menu"

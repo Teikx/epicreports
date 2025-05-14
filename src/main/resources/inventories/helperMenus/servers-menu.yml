@@ -1,0 +1,10 @@
+MenuTitle: "&eServers Menu"
+Server:
+  Title: "&2%ServerName%"
+  Lore:
+    - ""
+    - "&6Left click &7To set &e%ServerName% &7filter type"
+Chest:
+  Title: "&a%CurrentPage%&8/&2%TotalPages%"
+  Lore:
+    - " "

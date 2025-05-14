@@ -1,0 +1,76 @@
+MenuTitle: "&eData Menu"
+NickUUID:
+  Title: "&aNick / UUID"
+  Lore:
+    - ""
+    - "&7Name: &e%ReportedName%"
+    - "&7Uuid: &e%ReportedUuid%"
+    - ""
+    - "&6Left click &7To get reported name."
+    - "&6Right click &7To get reported uuid."
+LocationOnline:
+  Title: "&aLocation"
+  Lore:
+    - ""
+    - "&7The player is online, for performance reasons"
+    - "&7the coordinates of his current location not show,"
+    - "&7but you can left click to teleport to him!"
+    - ""
+    - "&6Left click &7To teleport to him."
+    - "&6Left click &7To teleport him to you."
+LocationOffline:
+  Title: "&cLast Location"
+  Lore:
+    - ""
+    - "&7Last World: &e%ReportedWorld%"
+    - "&7Last XYZ: &e%ReportedCords%"
+    - ""
+    - "&7Last Server: &e%ReportedServer%"
+    - ""
+    - "&6Left click &7To teleport to this location."
+Reports:
+  Title: "&aReports"
+  Lore:
+    - ""
+    - "&6Left click &7To see all reports."
+ArchivedReports:
+  Title: "&aArchived Reports"
+  Lore:
+    - ""
+    - "&6Left click &7To see all archived reports of this player."
+StatusOnline:
+  Title: "&7%ReportedName% &aOnline"
+  Lore:
+    - ""
+    - "&7%ReportedName% is &aOnline"
+    - ""
+    - "&6Left click &7To teleport to his location."
+    - "&6Right click &7To he teleport to your location."
+StatusOffline:
+  Title: "&7%ReportedName% &cOffline"
+  Lore:
+    - ""
+    - "&7%ReportedName% is &cOffline"
+ReportedData:
+  Title: "&7%ReportedName% &aData"
+  Lore:
+    - ""
+    - "&7Status: &e%ReportedStatus%"
+    - "&7Ip: &e%ReportedIP%"
+    - "&7UUID: &e%ReportedUuid%"
+    - ""
+    - "&6Left click &7To get reported name."
+    - "&6Right click &7To get reported uuid."
+    - "&6Middle click &7To get reported ip."
+    - "&6Shift + Left click &7To open Actions Menu"
+Delete:
+  Title: "&cDelete Reports"
+  Lore:
+    - ""
+    - "&6Left click &7To delete all reports."
+ReportedComments:
+  Title: "&7Comments of &e%ReportedName%"
+  Lore:
+    - " "
+    - "&6Left click &7To see all comments of this player."
+    - "&6Right click &7To write new comment."

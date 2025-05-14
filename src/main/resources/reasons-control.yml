@@ -1,0 +1,10 @@
+# In this file you can control the reasons that players put when reporting someone, for example,
+# you can set a minimum length of the reasons, thus making it so that they cannot report someone
+# for a reason like: "a" or you can ban words in the blacklist.
+Reasons_Config:
+  Minimum_Length: 4
+  Blacklist:
+    - "example"
+    - "example1"
+    - "example2"
+    - "example3"

@@ -1,0 +1,85 @@
+MenuTitle: "&eSettings Menu"
+Enabled:
+  Title: "&aEnabled"
+  Lore:
+    - " "
+    - "&6Left click &7to &cdisable."
+Disabled:
+  Title: "&cDisabled"
+  Lore:
+    - " "
+    - "&6Left click &7to &aenable."
+Size:
+  Title: "&eModify Size"
+  Lore:
+    - ""
+    - "&6Left click &7to increase size."
+    - "&6Right click &7to decrease size."
+Text:
+  Title: "&eModify Text"
+  Lore:
+    - ""
+    - "&7Text: &e%textArgument%"
+    - ""
+    - "&6Left click &7to change text."
+NotifysMenu:
+  Title: "&fNotifys Menu"
+  Lore:
+    - ""
+    - "&7Open the menu to configure notifys options."
+DiscordMenu:
+  Title: "&5Discord Menu"
+  Lore:
+    - ""
+    - "&7Open the menu to configure discord options."
+MaxReports:
+  Title: "&6MaxReports"
+  Lore:
+    - ""
+    - "&7Limit reports from one player to another with"
+    - "&7a maximum. (This is only to prevent a player"
+    - "&7from reporting to the same player multiple"
+    - "&7times and restarts when the server is turned off)"
+    - ""
+SkipNotifyReports:
+  Title: "&6Skip Notify Reports"
+  Lore:
+    - ""
+    - "&7Limit report notifications, when notifications"
+    - "&7exceed the specified limit, it will skip all"
+    - "&7pending notifications and display a message"
+    - "&7that they have been skipped, indicating how"
+    - "&7many new reports there are."
+    - ""
+CustomizeCommand:
+  Title: "&6Customize Command"
+  Lore:
+    - ""
+    - "&7In the actions menu towards a player, you"
+    - "&7can add a custom command, here you can"
+    - "&7modify that command."
+    - ""
+MenuAlias:
+  Title: "&6Menu Alias"
+  Lore:
+    - ""
+    - "&7If using the /ers menu command is too much"
+    - "&7work for you, here you can add a custom"
+    - "&7command to directly open the reports menu."
+    - ""
+ReportOfflinePlayers:
+  Title: "&6Report Offline Players"
+  Lore:
+    - ""
+    - "&7Allow players to report offline players."
+    - "&7(This will only work if mysql is disabled)"
+SaveConfig:
+  Title: "&aSave Config"
+  Lore:
+    - " "
+    - "&7Save this config"
+ResetConfig:
+  Title: "&9Reset Config"
+  Lore:
+    - " "
+    - "&7Reset this config"

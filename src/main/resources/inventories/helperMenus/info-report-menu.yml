@@ -1,0 +1,125 @@
+MenuTitle: "&eInfoReport Menu"
+ReportedInfo:
+  Title: "&2%ReportedName%"
+  Lore:
+    - " "
+    - "&7In this entire row you will find information"
+    - "&7about the reported party that was taken at"
+    - "&7the exact moment of making the report,"
+    - "&7except if the reported party is online,"
+    - "&7the rest is all information about the"
+    - "&7reported party taken at the time of the report."
+    - " "
+    - "&6Left click &7to open Archived Reports Menu"
+    - "&6Right click &7to see all comments of this player."
+    - "&6Middle click &7To open Actions Menu."
+ReporterInfo:
+  Title: "&2%ReporterName%"
+  Lore:
+    - " "
+    - "&7In this entire row you will find information"
+    - "&7about the reporter party that was taken at"
+    - "&7the exact moment of making the report,"
+    - "&7except if the reporter party is online,"
+    - "&7the rest is all information about the"
+    - "&7reporter party taken at the time of the report."
+    - " "
+OnlinePlayer:
+  Title: "&e%PlayerReport% &7is &aOnline"
+  Lore:
+    - " "
+    - "&6Left click &7To teleport to his location."
+    - "&6Right click &7To he teleport to your location."
+    - " "
+OfflinePlayer:
+  Title: "&e%PlayerReport% &7is &cOffline"
+  Lore:
+    - " "
+NickUuid:
+  Title: "&2Nick / UUID"
+  Lore:
+    - " "
+    - "&7Nick: &e%playerNick%"
+    - "&7UUID: &e%playerUUID%"
+    - " "
+    - "&6Left click &7to get Nick"
+    - "&6Right click &7to get Uuid"
+    - " "
+IP:
+  Title: "&2Ip of &e%PlayerReport%"
+  Lore:
+    - ""
+    - "&7Ip: &e%ReportIp%"
+    - ""
+    - "&6Left click &7To get his ip."
+Location:
+  Title: "&2Location of &e%PlayerReport%"
+  Lore:
+    - " "
+    - "&7Remember that this is the player's"
+    - "&7location that was taken at the time"
+    - "&7of making the report!"
+    - ""
+    - "&7World: &e%ReportWorld%"
+    - "&7XYZ: &e%ReportCords%"
+    - ""
+    - "&7Server: &e%ReportServer%"
+    - ""
+    - "&6Left click &7To teleport to this location."
+Gamemode:
+  Title: "&2Gamemode of &e%PlayerReport%"
+  Lore:
+    - " "
+    - "&7Remember that this is the player's"
+    - "&7gamemode that was taken at the time"
+    - "&7of making the report!"
+    - ""
+    - "&7Gamemode: &e%ReportGamemode%"
+    - ""
+Health:
+  Title: "&2Health of &e%PlayerReport%"
+  Lore:
+    - " "
+    - "&7Remember that this is the player's"
+    - "&7health that was taken at the time"
+    - "&7of making the report!"
+    - ""
+    - "&7Health: &e%ReportHealth%"
+    - ""
+ReasonReport:
+  Title: "&7Report reason: &e%ReasonReport%"
+  Lore:
+    - " "
+    - "&6Left click &7to get reason."
+DateReport:
+  Title: "&7Report date: &e%DateReport%"
+  Lore:
+    - " "
+    - "&6Left click &7to get date."
+StatusReport:
+  Title: "&7Report status: &e%StatusReport%"
+  Lore:
+    - " "
+    - "&6Left click &7to change status."
+ArchiveReport:
+  Title: "&eArchive Report"
+  Lore:
+    - " "
+    - "&6Left click &7To see all archived reports of this player."
+    - "&6Right click &7to archive report."
+DeleteReport:
+  Title: "&cDelete Report"
+  Lore:
+    - " "
+    - "&6Left click &7to delete report."
+ReportedComments:
+  Title: "&7Comments of &e%ReportedName%"
+  Lore:
+    - " "
+    - "&6Left click &7To see all comments of this player."
+    - "&6Right click &7To write new comment."
+ActionsMenu:
+  Title: "&7Open Actions Menu of &e%ReportedName%"
+  Lore:
+    - " "
+    - "&6Left click &7To open Actions Menu."

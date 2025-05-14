@@ -1,0 +1,36 @@
+MenuTitle: "&ePredefined Reports Menu"
+Chest:
+  Title: "&a%CurrentPage%&8/&2%TotalPages%"
+  Lore:
+    - " "
+PredefinedList:
+  spam:
+    item_id: REDSTONE
+    item_name: "&cSpam"
+    item_lore:
+      - " "
+      - "&7Report a player for spam!"
+      - " "
+      - "&6Left click &7to report player"
+    reason: "spam"
+    permission: EpicReports.User
+  fly:
+    item_id: FEATHER
+    item_name: "&aFly"
+    item_lore:
+      - " "
+      - "&7Report a player for fly"
+      - " "
+      - "&6Left click &7to report player"
+    reason: "flying"
+    permission: EpicReports.flying
+  hacking:
+    item_id: BLAZE_ROD
+    item_name: "&eHacking"
+    item_lore:
+      - " "
+      - "&7Report a player for hacking"
+      - " "
+      - "&6Left click &7to report player"
+    reason: "hacking in skywars"
+    permission: EpicReports.hacking

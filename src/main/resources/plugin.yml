@@ -1,0 +1,20 @@
+main: teik.ers.bukkit.EpicReports
+name: EpicReports
+version: 4.0.0
+author: teik
+
+commands:
+  report:
+    description: Report players
+  epicreports:
+    description: Admin commands
+  ers:
+    description: Alias to epicreports
+
+Permissions:
+  EpicReports.Admin:
+    description: Send op commands
+    default: op
+  EpicReports.User:
+    description: Send user commands
+    default: true

@@ -1,0 +1,21 @@
+#
+# If you don't understand these options, VISIT THE WIKI (it could be very helpful)
+#
+# Remember that to use it on your network you need to put the plugin on your
+# bungeecord, on each server and also connect all of them to the same database
+#
+
+Reports_Settings:
+  Max_reports_per_person: true
+  max_reports: 5
+
+Notify_Settings:
+  notify_reports: true
+
+Network_Settings:
+  MySQL:
+    host: "localhost"
+    port: 3306
+    database: "epicreports"
+    user: "root"
+    password: "1234"

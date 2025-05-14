@@ -83,6 +83,8 @@ public class ReportUtilitiesBungee {
         addNotify(notify);
 
         if(!isDiscordActive) return;
+        if(discordMG == null) return;
+        if(!discordMG.isDiscordActive()) return;
         discordMG.sendEmbed(newReport);
     }
 

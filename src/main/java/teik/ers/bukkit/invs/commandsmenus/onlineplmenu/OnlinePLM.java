@@ -43,6 +43,7 @@ public class OnlinePLM {
         Inventory inventory = Bukkit.createInventory(null, 54, onlinePlayersMenu.getMenuTitle());
 
         List<String> playersList = onlinePLMG.getOnlinePlayers();
+        playersList.remove(player.getName());
 
         SortPlayersList(playersList, sortType);
 

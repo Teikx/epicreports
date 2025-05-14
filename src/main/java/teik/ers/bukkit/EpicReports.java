@@ -14,6 +14,7 @@ import teik.ers.bukkit.listeners.ChatL;
 import teik.ers.bukkit.listeners.FreezeL;
 import teik.ers.bukkit.listeners.InvL;
 import teik.ers.bukkit.listeners.QuitJoinL;
+import teik.ers.bukkit.managers.bstats.BStatsBukkitMG;
 import teik.ers.bukkit.managers.inventories.InventoryMG;
 import teik.ers.bukkit.managers.msgchannel.ChannelMG;
 import teik.ers.bukkit.managers.notifys.NotifysMG;
@@ -23,6 +24,7 @@ import teik.ers.bukkit.managers.sql.SqLiteMG;
 import teik.ers.bukkit.utilities.UtilitiesMsgs;
 import teik.ers.bukkit.utilities.UtilitiesPlayers;
 import teik.ers.global.mgs.DiscordMG;
+import teik.ers.global.mgs.UpdateCheckerMG;
 import teik.ers.global.utils.querys.QuerysUT;
 
 import java.lang.reflect.Field;
@@ -41,6 +43,7 @@ public class EpicReports extends JavaPlugin {
     public ReportMG reportMG;
     public NotifysMG notifysMG;
     public InventoryMG inventoryMG;
+    private BStatsBukkitMG bStatsMG;
 
     private MysqlMG mysqlMG;
     private SqLiteMG sqLiteMG;
@@ -62,6 +65,7 @@ public class EpicReports extends JavaPlugin {
         loadErsMenuAlias(configManager.getErs_menu_alias());
         loadListeners();
         utilitiesMsgs.pluginMessage(true);
+        loadUpdater();
     }
 
     @Override
@@ -115,6 +119,7 @@ public class EpicReports extends JavaPlugin {
         reportMG = new ReportMG(this);
         notifysMG = new NotifysMG(this);
         inventoryMG = new InventoryMG(this);
+        bStatsMG = new BStatsBukkitMG(this, 0000);
 
         ChannelMG channelMG = new ChannelMG(this);
         getServer().getMessenger().registerOutgoingPluginChannel(this, "epicreports:main");
@@ -146,6 +151,21 @@ public class EpicReports extends JavaPlugin {
         pluginManager.registerEvents(new InvL(inventoryMG), this);
         pluginManager.registerEvents(new FreezeL(inventoryMG), this);
         pluginManager.registerEvents(new ChatL(inventoryMG), this);
+    }
+
+    private void loadUpdater(){
+        new UpdateCheckerMG(112351).getVersion( version -> {
+            if(this.getDescription().getVersion().equals(version)){
+                Bukkit.getConsoleSender().sendMessage(
+                        utilitiesMsgs.convertColor("&b[&fEpicReports&b]&a You are using the latest version!")
+                );
+                return;
+            }
+            Bukkit.getConsoleSender().sendMessage(
+                    utilitiesMsgs.convertColor("&b[&fEpicReports&b]&e There is a new version available! " +
+                            "Download it from: &6 https://www.spigotmc.org/resources/112351/")
+            );
+        });
     }
 
     //SQL

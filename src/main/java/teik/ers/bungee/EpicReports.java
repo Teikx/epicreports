@@ -8,12 +8,14 @@ import teik.ers.bungee.configs.ConfigFile;
 import teik.ers.bungee.configs.DiscordFile;
 import teik.ers.bungee.configs.MessagesFile;
 import teik.ers.bungee.configs.ReasonsCtrlFile;
+import teik.ers.bungee.bstats.BStatsBungeeMG;
 import teik.ers.bungee.managers.ListenersManager;
 import teik.ers.bungee.mysql.ConnectionBungee;
 import teik.ers.bungee.notifys.NotifysSql;
 import teik.ers.bungee.utilities.MsgsUtilsBungee;
 import teik.ers.bungee.utilities.PlayersUtilsBungee;
 import teik.ers.global.mgs.DiscordMG;
+import teik.ers.global.mgs.UpdateCheckerMG;
 import teik.ers.global.utils.querys.AddQuerysUT;
 import teik.ers.global.utils.querys.QuerysUT;
 
@@ -28,9 +30,11 @@ public class EpicReports extends Plugin {
     public DiscordFile discordFile;
 
     public DiscordMG discordMG;
+    private BStatsBungeeMG bStatsMG;
 
     public MsgsUtilsBungee msgsUtilsBungee;
     public PlayersUtilsBungee playersUtilsBungee;
+
     public NotifysSql notifysSql;
     public QuerysUT querysUT;
     public AddQuerysUT addQuerysUT;
@@ -48,7 +52,9 @@ public class EpicReports extends Plugin {
         registerCommands();
         registerChannel();
         registerListeners();
+        registerBMetrics();
         msgsUtilsBungee.pluginMessage(true, this);
+        registerUpdater();
     }
 
     @Override
@@ -68,16 +74,11 @@ public class EpicReports extends Plugin {
         } catch (IOException ignored) {}
     }
 
-    public void reloadConfigs(){
-        try {
-            configFile.ReloadConfig();
-            messagesFile.ReloadMessages();
-            reasonsCtrlFile.reloadReasons();
-            discordFile.reloadDiscord();
-        }catch (IOException ignored) {}
-    }
-
     //Registers
+
+    private void registerBMetrics(){
+        bStatsMG = new BStatsBungeeMG(this, 0000);
+    }
 
     private void registerDiscord(){
         if(!discordFile.isDiscordActive()) return;
@@ -94,6 +95,7 @@ public class EpicReports extends Plugin {
 
     private void registerCommands(){
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new ReportCommandBungee(this));
+
     }
 
     private void registerChannel(){
@@ -105,6 +107,21 @@ public class EpicReports extends Plugin {
         if(isMysql) {
             pluginManager.registerListener(this, new ListenersManager(this));
         }
+    }
+
+    private void registerUpdater(){
+        new UpdateCheckerMG(112351).getVersion(version -> {
+            if(this.getDescription().getVersion().equals(version)){
+                ProxyServer.getInstance().getConsole().sendMessage(
+                        msgsUtilsBungee.convertBungeeColor("&b[&fEpicReports&b]&a You are using the latest version!")
+                );
+                return;
+            }
+            ProxyServer.getInstance().getConsole().sendMessage(
+                    msgsUtilsBungee.convertBungeeColor("&b[&fEpicReports&b]&e There is a new version available! " +
+                            "Download it from:&6 https://www.spigotmc.org/resources/112351/")
+            );
+        });
     }
 
     //Sql

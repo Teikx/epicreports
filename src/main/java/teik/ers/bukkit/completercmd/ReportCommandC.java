@@ -16,45 +16,49 @@ import java.util.List;
 public class ReportCommandC implements TabCompleter {
 
     private final EpicReports plugin;
+    private final boolean isMysql;
 
     public ReportCommandC(EpicReports plugin) {
         this.plugin = plugin;
+        this.isMysql = plugin.configManager.isMYSQLActive();
     }
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        if(sender instanceof Player){
-            List<String> results = new ArrayList<>();
+        if(!(sender instanceof Player)) return Collections.emptyList();
+        if(isMysql) return Collections.emptyList();
 
-            //Return reason
-            if(args.length == 2){
-                results.add("<Reason>");
-                return results;
-            }
+        List<String> results = new ArrayList<>();
 
-            //Add players names
-            if(args.length == 1){
-                Player player = (Player) sender;
-                //Add online players
-                for(Player p : Bukkit.getOnlinePlayers()){
-                    if(p.hasPermission("EpicReports.Admin")) continue;
-                    if(isVanished(p)) continue;
-                    if(p.getName().equalsIgnoreCase(player.getName())) continue;
-                    results.add(p.getName());
-                }
-
-                //Return if offline players is disabled
-                if(!plugin.configManager.isReportOfflinePlayers()) return results;
-
-                //Add offline players
-                for(OfflinePlayer p : Bukkit.getServer().getOfflinePlayers()){
-                    if(p.getName().equalsIgnoreCase(player.getName())) continue;
-                    results.add(p.getName());
-                }
-
-                return results;
-            }
+        //Return reason
+        if(args.length == 2){
+            results.add("<Reason>");
+            return results;
         }
+
+        //Add players names
+        if(args.length == 1){
+            Player player = (Player) sender;
+            //Add online players
+            for(Player p : Bukkit.getOnlinePlayers()){
+                if(p.hasPermission("EpicReports.Admin")) continue;
+                if(isVanished(p)) continue;
+                if(p.getName().equalsIgnoreCase(player.getName())) continue;
+                results.add(p.getName());
+            }
+
+            //Return if offline players is disabled
+            if(!plugin.configManager.isReportOfflinePlayers()) return results;
+
+            //Add offline players
+            for(OfflinePlayer p : Bukkit.getServer().getOfflinePlayers()){
+                if(p.getName().equalsIgnoreCase(player.getName())) continue;
+                results.add(p.getName());
+            }
+
+            return results;
+        }
+
         return Collections.emptyList();
     }
 

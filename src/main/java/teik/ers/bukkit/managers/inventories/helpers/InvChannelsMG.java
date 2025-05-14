@@ -57,4 +57,13 @@ public class InvChannelsMG {
         out.writeUTF(nick);
         player.sendPluginMessage(plugin, "epicreports:main", out.toByteArray());
     }
+
+    public void reportPlayerBungee(Player player, String reportedName, String reason){
+        ByteArrayDataOutput out = ByteStreams.newDataOutput();
+        out.writeUTF("BReportPlayer");
+        out.writeUTF(player.getName());
+        out.writeUTF(reportedName);
+        out.writeUTF(reason);
+        player.sendPluginMessage(plugin, "epicreports:main", out.toByteArray());
+    }
 }

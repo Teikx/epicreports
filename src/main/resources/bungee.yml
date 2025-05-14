@@ -2,3 +2,7 @@ main: teik.ers.bungee.EpicReports
 name: EpicReports
 version: 4.0.0
 author: teik
+
+commands:
+  report:
+    description: Report players

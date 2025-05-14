@@ -135,6 +135,18 @@ public class ListenersManager implements Listener {
                 out.writeUTF(playerName);
                 sendOutToAllServers(out);
             }
+
+            if(subchannel.equals("BReportPlayer")){
+                String playerName = in.readUTF();
+                String reportedPlayerName = in.readUTF();
+                String reason = in.readUTF();
+
+                ProxiedPlayer targetPlayer = ProxyServer.getInstance().getPlayer(playerName);
+
+                if(targetPlayer == null) return;
+
+                ProxyServer.getInstance().getPluginManager().dispatchCommand(targetPlayer, "report " + reportedPlayerName + " " + reason);
+            }
         } catch (Exception e) {
             System.out.print("[EpicReports] Error whit mysql: " + e.getMessage());
         }

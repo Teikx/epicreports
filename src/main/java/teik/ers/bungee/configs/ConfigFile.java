@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.util.List;
 
 @SuppressWarnings("ALL")
 public class ConfigFile {
@@ -22,6 +23,8 @@ public class ConfigFile {
     private String host, database, user, password;
 
     private int port, max_reports_size;
+
+    private List<String> whitelistTab;
 
     public ConfigFile(EpicReports plugin) throws IOException {
         this.plugin = plugin;
@@ -84,6 +87,7 @@ public class ConfigFile {
         this.database = config.getString("Network_Settings.MySQL.database");
         this.user = config.getString("Network_Settings.MySQL.user");
         this.password = config.getString("Network_Settings.MySQL.password");
+        this.whitelistTab = config.getStringList("Players_Whitelist_Tab");
     }
 
     public boolean isMax_reports() {
@@ -112,5 +116,9 @@ public class ConfigFile {
 
     public int getMax_reports_size() {
         return this.max_reports_size;
+    }
+
+    public List<String> getWhitelistTab() {
+        return whitelistTab;
     }
 }

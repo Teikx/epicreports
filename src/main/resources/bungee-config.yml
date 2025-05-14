@@ -12,6 +12,10 @@ Reports_Settings:
 Notify_Settings:
   notify_reports: true
 
+Players_Whitelist_Tab:
+  - "PlayerName1"
+  - "PlayerName2"
+
 Network_Settings:
   MySQL:
     host: "localhost"

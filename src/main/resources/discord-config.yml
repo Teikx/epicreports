@@ -21,7 +21,6 @@ Discord_Settings:
   Discord:
     serverID: ""
     channelID: ""
-    discord_image: "https://i.imgur.com/wxoD2mv.jpeg"
 
 Discord_Msg:
   Title: "New Report #%reportID%"
@@ -46,3 +45,7 @@ Discord_Msg:
   reason: "**Report Reason**"
   date: "**Date**"
   status: "**Status**"
+
+Discord_img:
+  active: true
+  image: "https://imgur.com/oWG8rwW.png"

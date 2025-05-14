@@ -70,6 +70,8 @@ public class RCUtilities {
 
         //Send notify to discord
         if(!isDiscordActive) return;
+        if(discordMG == null) return;
+        if(!discordMG.isDiscordActive()) return;
         discordMG.sendEmbed(newReport);
     }
 

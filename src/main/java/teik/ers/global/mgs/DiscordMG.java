@@ -17,12 +17,12 @@ import java.util.function.Function;
 
 public class DiscordMG {
     private JDA jda;
-    private boolean isDiscordActive;
+    private boolean isDiscordActive, img_active;
     private String serverID, channelID, image;
     private String title, reportedDataTitle, reportedDataDescription,
             reporterDataTitle, reporterDataDescription, reason, date, status;
 
-    private static final String discordToken = "ASD";
+    private static final String discordToken = "";
     private static final String BOT_ACTIVITY_URL = "https://www.spigotmc.org/resources/112351/";
     private static final String FOOTER = "EpicReports • Discord Bot • @Teikx";
 
@@ -79,6 +79,7 @@ public class DiscordMG {
     private void loadConfigData(Function<String, String> configGetter) {
         this.serverID = configGetter.apply("serverID");
         this.channelID = configGetter.apply("channelID");
+        this.img_active = Boolean.parseBoolean(configGetter.apply("img_active"));
         this.image = configGetter.apply("image");
 
         this.title = configGetter.apply("title");
@@ -133,6 +134,10 @@ public class DiscordMG {
 
         embed.addField("📅 " + date, report.getDate(), true);
         embed.addField("🔄 " + status, report.getProcess().toString(), true);
+
+        if(img_active){
+            embed.setImage(image);
+        }
 
         return embed;
     }

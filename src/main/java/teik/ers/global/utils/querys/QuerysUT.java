@@ -34,13 +34,13 @@ public class QuerysUT {
     }
 
     public List<String> getOnlinePlayers(){
-        String sql = "SELECT UUID FROM OnlinePlayersTable WHERE IsOnline = TRUE";
+        String sql = "SELECT Nick FROM OnlinePlayersTable WHERE IsOnline = TRUE";
         List<String> onlinePlayers = new ArrayList<>();
 
         try (PreparedStatement stmt = connection.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
-                onlinePlayers.add(rs.getString("UUID"));
+                onlinePlayers.add(rs.getString("Nick"));
             }
         } catch (SQLException e) {
             handleSQLException(e);

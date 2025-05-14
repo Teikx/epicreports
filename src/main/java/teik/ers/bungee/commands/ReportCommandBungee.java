@@ -8,23 +8,23 @@ import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
+import net.md_5.bungee.api.plugin.TabExecutor;
 import teik.ers.bungee.EpicReports;
 import teik.ers.bungee.configs.MessagesFile;
-import teik.ers.bungee.configs.ReasonsCtrlFile;
 import teik.ers.bungee.utilities.MsgsUtilsBungee;
 import teik.ers.bungee.utilities.PlayersUtilsBungee;
 import teik.ers.global.mgs.MaxReportsMG;
 import teik.ers.global.mgs.ReasonsCtrlMG;
 
-import java.util.Arrays;
-import java.util.UUID;
+import java.util.*;
 
-public class ReportCommandBungee extends Command {
+public class ReportCommandBungee extends Command implements TabExecutor {
     private final EpicReports plugin;
 
     private final boolean isMysql;
 
     private final MessagesFile messagesFile;
+    private final List<String> whitelistTab;
 
     private final MsgsUtilsBungee msgsUtilsBungee;
     private final PlayersUtilsBungee playersUtilsBungee;
@@ -41,6 +41,7 @@ public class ReportCommandBungee extends Command {
         isMysql = plugin.isMysql;
 
         this.messagesFile = plugin.messagesFile;
+        this.whitelistTab = plugin.configFile.getWhitelistTab();
 
         this.msgsUtilsBungee = plugin.msgsUtilsBungee;
         this.playersUtilsBungee = plugin.playersUtilsBungee;
@@ -106,5 +107,36 @@ public class ReportCommandBungee extends Command {
         for (ServerInfo server : ProxyServer.getInstance().getServers().values()) {
             server.sendData("epicreports:main", out.toByteArray());
         }
+    }
+
+    @Override
+    public Iterable<String> onTabComplete(CommandSender sender, String[] args) {
+        if(!(sender instanceof ProxiedPlayer)) return Collections.emptyList();
+
+        List<String> results = new ArrayList<>();
+
+        //Return reason
+        if(args.length == 2){
+            results.add("<Reason>");
+            return results;
+        }
+
+        if(args.length == 1){
+            ProxiedPlayer player = (ProxiedPlayer) sender;
+
+            //Add online players
+            for(ProxiedPlayer p : ProxyServer.getInstance().getPlayers()){
+
+                if(whitelistTab.contains(p.getName())) continue;
+                if(p.getName().equalsIgnoreCase(player.getName())) continue;
+
+                results.add(p.getName());
+            }
+
+            return results;
+        }
+
+
+        return Collections.emptyList();
     }
 }

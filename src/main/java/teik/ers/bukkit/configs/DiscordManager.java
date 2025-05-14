@@ -7,10 +7,10 @@ import teik.ers.bukkit.configs.utils.CustomConfig;
 public class DiscordManager {
     private final CustomConfig configFile;
 
-    private boolean isDiscordActive;
-    private String serverID, channelID, image;
+    private boolean isDiscordActive, img_active;
+    private String serverID, channelID;
     private String title, reportedDataTitle, reportedDataDescription, reporterDataTitle,
-            reporterDataDescription, reason, date, status;
+            reporterDataDescription, reason, date, status, image;
 
     public DiscordManager(EpicReports plugin) {
         this.configFile = new CustomConfig("discord-config.yml", null, null, plugin, false);
@@ -21,9 +21,9 @@ public class DiscordManager {
     private void loadConfig() {
         FileConfiguration config = this.configFile.getConfig();
         this.isDiscordActive = config.getBoolean("Discord_Settings.Discord_active");
+        this.img_active = config.getBoolean("Discord_img.active");
         this.serverID = config.getString("Discord_Settings.Discord.serverID");
         this.channelID = config.getString("Discord_Settings.Discord.channelID");
-        this.image = config.getString("Discord_Settings.Discord.discord_image");
         this.title = config.getString("Discord_Msg.Title");
         this.reportedDataTitle = config.getString("Discord_Msg.reported_data.Title");
         this.reportedDataDescription = config.getString("Discord_Msg.reported_data.Description");
@@ -32,6 +32,7 @@ public class DiscordManager {
         this.reason = config.getString("Discord_Msg.reason");
         this.date = config.getString("Discord_Msg.date");
         this.status = config.getString("Discord_Msg.status");
+        this.image = config.getString("Discord_img.image");
     }
 
     public void reloadConfig() {
@@ -43,14 +44,11 @@ public class DiscordManager {
         return this.configFile;
     }
 
-    public boolean isDiscordActive() {
-        return isDiscordActive;
-    }
-
     public String get(String key) {
         switch (key.toLowerCase()) {
             case "serverid": return getServerID();
             case "channelid": return getChannelID();
+            case "img_active": return String.valueOf(isImg_active());
             case "image": return getImage();
             case "title": return getTitle();
             case "reporteddatatitle": return getReportedDataTitle();
@@ -64,16 +62,20 @@ public class DiscordManager {
         }
     }
 
+    public boolean isDiscordActive() {
+        return isDiscordActive;
+    }
+
+    public boolean isImg_active() {
+        return img_active;
+    }
+
     public String getServerID() {
         return serverID;
     }
 
     public String getChannelID() {
         return channelID;
-    }
-
-    public String getImage() {
-        return image;
     }
 
     public String getTitle() {
@@ -110,5 +112,9 @@ public class DiscordManager {
 
     public void setDiscordActive(boolean discordActive) {
         isDiscordActive = discordActive;
+    }
+
+    public String getImage() {
+        return image;
     }
 }

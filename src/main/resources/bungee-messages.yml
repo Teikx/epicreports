@@ -2,7 +2,7 @@ Prefix: "&b[&fEpicReports&b] "
 User_msgs:
   report_successful: "&eYou have reported &a%reported%"
   command_use: "&eYou need use: &c/report &7(player) (reason)"
-  player_not_exist: "&cThis player has never connected to this server!"
+  player_not_exist: "&cThis player not connected to this server!"
   max_reports_to_player: "&cYou have reached the limit of reports for this player!"
   report_yourself: "&cYou cant report yourself!"
   reason_invalid: "&cYour reasons is invalid!"

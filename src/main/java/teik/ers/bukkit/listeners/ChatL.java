@@ -7,6 +7,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import teik.ers.bukkit.configs.LanguagesManager;
 import teik.ers.bukkit.managers.inventories.InvDataMG;
 import teik.ers.bukkit.managers.inventories.InventoryMG;
+import teik.ers.bukkit.managers.inventories.helpers.InvChannelsMG;
 import teik.ers.bukkit.managers.reportmg.ReportMG;
 import teik.ers.bukkit.managers.reportmg.helpers.PlayersListMG;
 import teik.ers.bukkit.managers.updateinvs.UpdateInvsMG;
@@ -20,20 +21,30 @@ import java.time.format.DateTimeFormatter;
 
 public class ChatL implements Listener {
 
+    private final boolean isMysql;
+
     private final InventoryMG inventoryMG;
     private final InvDataMG invDataMG;
+    private final UpdateInvsMG updateInvsMG;
+    private final InvChannelsMG invChannelsMG;
+
     private final ReportMG reportMG;
     private final PlayersListMG playersListMG;
+
     private final LanguagesManager messagesMG;
-    private final UpdateInvsMG updateInvsMG;
 
     public ChatL(InventoryMG inventoryMG) {
+        this.isMysql = inventoryMG.isMysql;
+
         this.inventoryMG = inventoryMG;
         this.invDataMG = inventoryMG.invDataMG;
+        this.updateInvsMG = inventoryMG.updateInvsMG;
+        this.invChannelsMG = inventoryMG.invChannelsMG;
+
         this.reportMG = inventoryMG.reportMG;
         this.playersListMG = reportMG.getPlayersListMG();
+
         this.messagesMG = inventoryMG.messageManager;
-        this.updateInvsMG = inventoryMG.updateInvsMG;
     }
 
     @EventHandler
@@ -128,6 +139,11 @@ public class ChatL implements Listener {
 
     private void reporting(String txt, Player player){
         String nick = invDataMG.getNickSelected(player);
+
+        if(isMysql){
+            invChannelsMG.reportPlayerBungee(player, nick, txt);
+            return;
+        }
 
         player.performCommand("report " + nick + " " +  txt);
     }

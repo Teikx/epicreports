@@ -16,7 +16,7 @@ public class DiscordFile {
 
     EpicReports plugin;
 
-    private boolean isDiscordActive;
+    private boolean isDiscordActive, img_active;
     private String serverID, channelID, image;
     private String title, reportedDataTitle, reportedDataDescription, reporterDataTitle,
             reporterDataDescription, reason, date, status;
@@ -75,9 +75,9 @@ public class DiscordFile {
 
     public void loadConfig() {
         this.isDiscordActive = discord.getBoolean("Discord_Settings.Discord_active");
+        this.img_active = discord.getBoolean("Discord_img.active");
         this.serverID = discord.getString("Discord_Settings.Discord.serverID");
         this.channelID = discord.getString("Discord_Settings.Discord.channelID");
-        this.image = discord.getString("Discord_Settings.Discord.discord_image");
         this.title = discord.getString("Discord_Msg.Title");
         this.reportedDataTitle = discord.getString("Discord_Msg.reported_data.Title");
         this.reportedDataDescription = discord.getString("Discord_Msg.reported_data.Description");
@@ -86,16 +86,14 @@ public class DiscordFile {
         this.reason = discord.getString("Discord_Msg.reason");
         this.date = discord.getString("Discord_Msg.date");
         this.status = discord.getString("Discord_Msg.status");
-    }
-
-    public boolean isDiscordActive() {
-        return isDiscordActive;
+        this.image = discord.getString("Discord_Settings.Discord.discord_image");
     }
 
     public String get(String key) {
         switch (key.toLowerCase()) {
             case "serverid": return getServerID();
             case "channelid": return getChannelID();
+            case "img_active": return String.valueOf(isImg_active());
             case "image": return getImage();
             case "title": return getTitle();
             case "reporteddatatitle": return getReportedDataTitle();
@@ -107,6 +105,14 @@ public class DiscordFile {
             case "status": return getStatus();
             default: throw new IllegalArgumentException("Unknown key in DiscordFile: " + key);
         }
+    }
+
+    public boolean isDiscordActive() {
+        return isDiscordActive;
+    }
+
+    public boolean isImg_active() {
+        return img_active;
     }
 
     public String getServerID() {

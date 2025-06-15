@@ -76,7 +76,7 @@ public class EpicReports extends Plugin {
     //Registers
 
     private void registerBMetrics(){
-        bStatsMG = new BStatsBungeeMG(this, 25850);
+        bStatsMG = new BStatsBungeeMG(this, 00000);
     }
 
     private void registerDiscord(){

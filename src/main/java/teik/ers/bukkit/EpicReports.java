@@ -129,7 +129,7 @@ public class EpicReports extends JavaPlugin {
         reportMG = new ReportMG(this);
         notifysMG = new NotifysMG(this);
         inventoryMG = new InventoryMG(this);
-        bStatsMG = new BStatsBukkitMG(this, 0000);
+        bStatsMG = new BStatsBukkitMG(this, 00000);
 
         ChannelMG channelMG = new ChannelMG(this);
         getServer().getMessenger().registerOutgoingPluginChannel(this, "epicreports:main");

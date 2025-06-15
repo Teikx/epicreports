@@ -9,7 +9,7 @@ public class Report {
     private String
             ReporterUUID,
             ReportedUUID,
-            ReporterLocation = "",
+            ReporterLocation = " ",
             ReportedLocation = " ",
             ReporterServer = " ",
             ReportedServer = " ",

@@ -1,9 +1,9 @@
 package teik.ers.bukkit.utilities.models;
 
 public class SettingsER {
-    boolean maxReports, skipReports, customizeCommand, menuAlias, reportOfflinePl;
+    boolean maxReports, skipReports, menuAlias, reportOfflinePl;
     int maxReportsCount, skipReportsCount;
-    String customCommand, menuAliasName;
+    String menuAliasName;
 
     boolean notifyMsg, notifyTitle, notifySound;
     String notifySoundName;
@@ -11,21 +11,19 @@ public class SettingsER {
     boolean notifyProcessedMsg, notifyProcessedTitle, notifyProcessedSound;
     String notifyProcessedSoundName;
 
-    public SettingsER(boolean maxReports, boolean skipReports, boolean customizeCommand, boolean menuAlias, boolean reportOfflinePl,
+    public SettingsER(boolean maxReports, boolean skipReports, boolean menuAlias, boolean reportOfflinePl,
                       int maxReportsCount, int skipReportsCount,
-                      String customCommand, String menuAliasName,
+                      String menuAliasName,
                       boolean notifyMsg, boolean notifyTitle, boolean notifySound,
                       String notifySoundName,
                       boolean notifyProcessedMsg, boolean notifyProcessedTitle, boolean notifyProcessedSound,
                       String notifyProcessedSoundName) {
         this.maxReports = maxReports;
         this.skipReports = skipReports;
-        this.customizeCommand = customizeCommand;
         this.menuAlias = menuAlias;
         this.reportOfflinePl = reportOfflinePl;
         this.maxReportsCount = maxReportsCount;
         this.skipReportsCount = skipReportsCount;
-        this.customCommand = customCommand;
         this.menuAliasName = menuAliasName;
         this.notifyMsg = notifyMsg;
         this.notifyTitle = notifyTitle;
@@ -51,14 +49,6 @@ public class SettingsER {
 
     public void setSkipReports(boolean skipReports) {
         this.skipReports = skipReports;
-    }
-
-    public boolean isCustomizeCommand() {
-        return customizeCommand;
-    }
-
-    public void setCustomizeCommand(boolean customizeCommand) {
-        this.customizeCommand = customizeCommand;
     }
 
     public boolean isMenuAlias() {
@@ -91,14 +81,6 @@ public class SettingsER {
 
     public void setSkipReportsCount(int skipReportsCount) {
         this.skipReportsCount = skipReportsCount;
-    }
-
-    public String getCustomCommand() {
-        return customCommand;
-    }
-
-    public void setCustomCommand(String customCommand) {
-        this.customCommand = customCommand;
     }
 
     public String getMenuAliasName() {

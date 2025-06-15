@@ -65,21 +65,13 @@ public class STMClicks {
                 inventoryMG.openSettingsM(player);
                 break;
             case 22:
-                //CustomizeCommand
-                boolean isCustomizeCommand = settingsER.isCustomizeCommand();
-                settingsER.setCustomizeCommand(!isCustomizeCommand);
-                configManager.setCustomizeCommand(!isCustomizeCommand);
-                invDataMG.putSettingsER(player, settingsER);
-                inventoryMG.openSettingsM(player);
-                break;
-            case 23:
                 //MenuAlias
                 boolean isMenuAlias = settingsER.isMenuAlias();
                 settingsER.setMenuAlias(!isMenuAlias);
                 invDataMG.putSettingsER(player, settingsER);
                 inventoryMG.openSettingsM(player);
                 break;
-            case 24:
+            case 23:
                 //ReportOfflinePlayers
                 if(isMysql) return;
                 boolean isReportOfflinePlayers = settingsER.isReportOfflinePl();
@@ -124,14 +116,6 @@ public class STMClicks {
                 inventoryMG.openSettingsM(player);
                 break;
             case 31:
-                //CustomizeCommand
-                if(!settingsER.isCustomizeCommand()) return;
-                invDataMG.putPlayerChatType(player, ChatType.CustomizeCommand);
-                player.closeInventory();
-                player.sendTitle(messageManager.getWrite_text_title_title(), messageManager.getWrite_text_title_subtitle());
-                player.sendMessage(messageManager.getWrite_text_msg());
-                break;
-            case 32:
                 //MenuAlias
                 if(!settingsER.isMenuAlias()) return;
                 invDataMG.putPlayerChatType(player, ChatType.MenuAlias);
@@ -149,12 +133,10 @@ public class STMClicks {
                 //Save Config
                 configManager.setMax_reports(settingsER.isMaxReports());
                 configManager.setSkip_reports(settingsER.isSkipReports());
-                configManager.setCustomizeCommand(settingsER.isCustomizeCommand());
                 configManager.setActivate_ers_menu_alias(settingsER.isMenuAlias());
                 configManager.setReportOfflinePlayers(settingsER.isReportOfflinePl());
                 configManager.setMax_reports_size(settingsER.getMaxReportsCount());
                 configManager.setMinimum_size_to_skip(settingsER.getSkipReportsCount());
-                configManager.setCustomizedCommand(settingsER.getCustomCommand());
                 configManager.setErs_menu_alias(settingsER.getMenuAliasName());
                 configManager.setNotify_msg(settingsER.isNotifyMsg());
                 configManager.saveConfig();

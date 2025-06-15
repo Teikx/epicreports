@@ -1,7 +1,9 @@
 package teik.ers.bukkit.configs.inventories.commandsmenus;
 
+
+import com.cryptomorin.xseries.XMaterial;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
@@ -13,6 +15,7 @@ import teik.ers.bukkit.utilities.models.PredefinedReport;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class PredefinedReportsMenu {
     private final CustomConfig inventoryFile;
@@ -41,13 +44,22 @@ public class PredefinedReportsMenu {
             String path = "PredefinedList." + key + ".";
             try {
                 String id = inventory.getString(path + "item_id");
-                Material material = Material.matchMaterial(id);
+
+                Optional<XMaterial> xMat = XMaterial.matchXMaterial(id);
+
+                if (!xMat.isPresent() || xMat.get().parseItem() == null) {
+                    Bukkit.getConsoleSender().sendMessage(convertColor(
+                            "&b[&fEpicReports&b]&c Invalid material: &f" + id + "&c in &e" + key + "on predefined-reports-menu.yml!"
+                    ));
+                    continue;
+                }
+
                 String name = convertColor(inventory.getString(path + "item_name"));
                 List<String> lore = inventory.getStringList(path + "item_lore");
                 lore.replaceAll(this::convertColor);
                 String reason = inventory.getString(path + "reason");
                 String permissionStr = inventory.getString(path + "permission");
-                ItemStack item = new ItemStack(material);
+                ItemStack item = xMat.get().parseItem();
                 ItemMeta itemMeta = item.getItemMeta();
                 itemMeta.setDisplayName(name);
                 itemMeta.setLore(lore);
@@ -56,7 +68,9 @@ public class PredefinedReportsMenu {
                 PredefinedReport predefinedReport = new PredefinedReport(name, lore, reason, permission, item);
                 this.predefinedReportList.add(predefinedReport);
             } catch (Exception e) {
-                System.out.print("[EpicReports] Error with: " + key + " in predefined-reports-menu.yml!");
+                Bukkit.getConsoleSender().sendMessage(convertColor(
+                        "&b[&fEpicReports&b]&c Invalid material in: &e" + key + "&c on predefined-reports-menu.yml!"
+                ));
             }
         }
 

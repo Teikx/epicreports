@@ -71,9 +71,6 @@ public class ChatL implements Listener {
             case Commenting:
                 commenting(player, txt);
                 break;
-            case CustomizeCommand:
-                customizeCommand(txt, player, settingsER);
-                break;
             case MenuAlias:
                 menuAlias(txt, player, settingsER);
                 break;
@@ -111,12 +108,6 @@ public class ChatL implements Listener {
         reportMG.addComment(comment);
         updateInvsMG.sendUpdateInvs(player);
         player.sendMessage(messagesMG.getComments_successful());
-    }
-
-    private void customizeCommand(String txt, Player player, SettingsER settingsER) {
-        settingsER.setCustomCommand(txt);
-        invDataMG.putSettingsER(player, settingsER);
-        inventoryMG.openSettingsM(player);
     }
 
     private void menuAlias(String txt, Player player, SettingsER settingsER) {

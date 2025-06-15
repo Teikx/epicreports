@@ -134,8 +134,7 @@ public class AMClicks {
 
     private boolean unfreezePlayer(String reportedNick, Player player) {
         if(freezeMG.playerIsFreezed(reportedNick)){
-            player.sendMessage(messageManager.getPlayer_unfreeze())
-            ;
+            player.sendMessage(messageManager.getPlayer_unfreeze());
             if(isMysql){
                 invChannelsMG.unfreezePlayer(player, reportedNick);
                 updateInvsMG.sendUpdateInvs(player);

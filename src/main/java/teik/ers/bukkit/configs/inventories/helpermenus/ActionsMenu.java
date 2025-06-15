@@ -10,8 +10,8 @@ import java.util.List;
 public class ActionsMenu {
     private final CustomConfig inventoryFile;
 
-    private String menuTitle, banPlayerTitle, kickPlayerTitle, freezePlayerTitle, MutePlayerTitle;
-    private List<String> banPlayerLore, kickPlayerLore, freezePlayerLore, MutePlayerLore;
+    private String menuTitle, banPlayerTitle, kickPlayerTitle, MutePlayerTitle, freezePlayerTitle, unfreezePlayerTitle;
+    private List<String> banPlayerLore, kickPlayerLore, MutePlayerLore, freezePlayerLore, unfreezePlayerLore;
     private String customCommand1, customCommand2, customCommand3;
 
     public ActionsMenu(EpicReports plugin) {
@@ -25,12 +25,14 @@ public class ActionsMenu {
         this.menuTitle = convertColor(inventory.getString("MenuTitle"));
         this.banPlayerTitle = convertColor(inventory.getString("BanPlayer.Title"));
         this.kickPlayerTitle = convertColor(inventory.getString("KickPlayer.Title"));
-        this.freezePlayerTitle = convertColor(inventory.getString("FreezePlayer.Title"));
         this.MutePlayerTitle = convertColor(inventory.getString("MutePlayer.Title"));
+        this.freezePlayerTitle = convertColor(inventory.getString("FreezePlayer.Title"));
+        this.unfreezePlayerTitle = convertColor(inventory.getString("UnFreezePlayer.Title"));
         this.banPlayerLore = inventory.getStringList("BanPlayer.Lore");
         this.kickPlayerLore = inventory.getStringList("KickPlayer.Lore");
-        this.freezePlayerLore = inventory.getStringList("FreezePlayer.Lore");
         this.MutePlayerLore = inventory.getStringList("MutePlayer.Lore");
+        this.freezePlayerLore = inventory.getStringList("FreezePlayer.Lore");
+        this.unfreezePlayerLore = inventory.getStringList("UnFreezePlayer.Lore");
         this.customCommand1 = inventory.getString("BanPlayer.Command");
         this.customCommand2 = inventory.getString("KickPlayer.Command");
         this.customCommand3 = inventory.getString("MutePlayer.Command");
@@ -61,12 +63,16 @@ public class ActionsMenu {
         return kickPlayerTitle;
     }
 
+    public String getMutePlayerTitle() {
+        return MutePlayerTitle;
+    }
+
     public String getFreezePlayerTitle() {
         return freezePlayerTitle;
     }
 
-    public String getMutePlayerTitle() {
-        return MutePlayerTitle;
+    public String getUnfreezePlayerTitle() {
+        return unfreezePlayerTitle;
     }
 
     public List<String> getBanPlayerLore() {
@@ -77,12 +83,16 @@ public class ActionsMenu {
         return kickPlayerLore;
     }
 
+    public List<String> getMutePlayerLore() {
+        return MutePlayerLore;
+    }
+
     public List<String> getFreezePlayerLore() {
         return freezePlayerLore;
     }
 
-    public List<String> getMutePlayerLore() {
-        return MutePlayerLore;
+    public List<String> getUnfreezePlayerLore() {
+        return unfreezePlayerLore;
     }
 
     public String getCustomCommand1() {

@@ -23,7 +23,6 @@ import teik.ers.bukkit.managers.sql.MysqlMG;
 import teik.ers.bukkit.managers.sql.SqLiteMG;
 import teik.ers.bukkit.utilities.UtilitiesMsgs;
 import teik.ers.bukkit.utilities.UtilitiesPlayers;
-import teik.ers.global.mgs.DiscordMG;
 import teik.ers.global.mgs.UpdateCheckerMG;
 import teik.ers.global.utils.querys.QuerysUT;
 
@@ -36,10 +35,10 @@ public class EpicReports extends JavaPlugin {
     public LanguagesManager messageManager;
     public ConfigInvsMG configInvsMG;
     public ReasonsCtrlManager reasonsCtrlManager;
-    public DiscordManager discordManager;
+    public ErsDiscord ersDiscord;
 
     //Managers
-    public DiscordMG discordMG;
+
     public ReportMG reportMG;
     public NotifysMG notifysMG;
     public InventoryMG inventoryMG;
@@ -56,6 +55,7 @@ public class EpicReports extends JavaPlugin {
     @Override
     public void onEnable() {
         loadAllConfigs();
+        this.utilitiesMsgs = new UtilitiesMsgs(messageManager);
         loadSql();
         loadDiscord();
         loadUtilities();
@@ -81,7 +81,6 @@ public class EpicReports extends JavaPlugin {
         this.messageManager = new LanguagesManager(this, "languages", configManager.getLanguage());
         this.configInvsMG = new ConfigInvsMG(this);
         this.reasonsCtrlManager = new ReasonsCtrlManager(this);
-        this.discordManager = new DiscordManager(this);
     }
 
     public void reloadAllConfigs(){
@@ -89,7 +88,7 @@ public class EpicReports extends JavaPlugin {
         this.messageManager.reloadConfig();
         this.configInvsMG.reloadConfigs();
         this.reasonsCtrlManager.reloadConfig();
-        this.discordManager.reloadConfig();
+
     }
 
     //LOAD
@@ -101,17 +100,28 @@ public class EpicReports extends JavaPlugin {
     }
 
     private void loadDiscord(){
-        if(!discordManager.isDiscordActive()) return;
-        if(configManager.isMYSQLActive()) {
-            discordManager.setDiscordActive(false);
-            return;
+        if(!configManager.isDiscord_Notifications()) return;
+        try{
+            ersDiscord = (ErsDiscord) Bukkit.getPluginManager().getPlugin("ErsDiscord");
+            if(ersDiscord == null) {
+                Bukkit.getConsoleSender().sendMessage(
+                        utilitiesMsgs.convertColor("&b[&fEpicReports&b]&c Discord notifications is disabled! " +
+                                "We can't find the ErsDiscord plugin! " +
+                                "Download it from: &6 https://www.spigotmc.org/resources/112351/")
+                );
+            }
+        }catch (Exception e){
+            ersDiscord = null;
+            Bukkit.getConsoleSender().sendMessage(
+                    utilitiesMsgs.convertColor("&b[&fEpicReports&b]&c Discord notifications is disabled! " +
+                            "We can't find the ErsDiscord plugin! " +
+                            "Download it from: &6 https://www.spigotmc.org/resources/112351/")
+            );
         }
-        discordMG = new DiscordMG(discordManager);
     }
 
     private void loadUtilities(){
         this.querysUT = new QuerysUT(getConnection());
-        this.utilitiesMsgs = new UtilitiesMsgs(messageManager);
         this.utilitiesPlayers = new UtilitiesPlayers(configManager, querysUT);
     }
 

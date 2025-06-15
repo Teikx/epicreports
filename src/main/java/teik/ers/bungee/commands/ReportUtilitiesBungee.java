@@ -28,24 +28,24 @@ public class ReportUtilitiesBungee {
 
     private final MsgsUtilsBungee msgsUtilsBungee;
     private final PlayersUtilsBungee playersUtilsBungee;
+
     private final NotifysSql notifysSql;
     private final AddQuerysUT addQuerysUT;
-    private final MaxReportsMG maxReportsMG;
 
-    private final boolean isDiscordActive;
+    private final MaxReportsMG maxReportsMG;
     private final DiscordMG discordMG;
 
     public ReportUtilitiesBungee(EpicReports plugin, MaxReportsMG maxReportsMG) {
-        messagesFile = plugin.messagesFile;
+        this.messagesFile = plugin.messagesFile;
 
         this.msgsUtilsBungee = plugin.msgsUtilsBungee;
         this.playersUtilsBungee = plugin.playersUtilsBungee;
+
         this.notifysSql = plugin.notifysSql;
         this.addQuerysUT = plugin.addQuerysUT;
-        this.maxReportsMG = maxReportsMG;
 
-        isDiscordActive = plugin.discordFile.isDiscordActive();
-        discordMG = plugin.discordMG;
+        this.maxReportsMG = maxReportsMG;
+        this.discordMG = new DiscordMG(plugin.ersDiscord, false);
     }
 
     public void addReport(ProxiedPlayer reporter, String[] args) {
@@ -82,10 +82,8 @@ public class ReportUtilitiesBungee {
         Notify notify = new Notify(reporter.getName(), reportedName, 0);
         addNotify(notify);
 
-        if(!isDiscordActive) return;
-        if(discordMG == null) return;
-        if(!discordMG.isDiscordActive()) return;
-        discordMG.sendEmbed(newReport);
+        //Send notify to discord
+        discordMG.sendDiscordMsg(newReport);
     }
 
     private void setInfoInReport(Report report, ProxiedPlayer reporter, UUID reportedUUID, String reportedName){

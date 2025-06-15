@@ -5,7 +5,6 @@ import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.api.plugin.PluginManager;
 import teik.ers.bungee.commands.ReportCommandBungee;
 import teik.ers.bungee.configs.ConfigFile;
-import teik.ers.bungee.configs.DiscordFile;
 import teik.ers.bungee.configs.MessagesFile;
 import teik.ers.bungee.configs.ReasonsCtrlFile;
 import teik.ers.bungee.bstats.BStatsBungeeMG;
@@ -14,7 +13,6 @@ import teik.ers.bungee.mysql.ConnectionBungee;
 import teik.ers.bungee.notifys.NotifysSql;
 import teik.ers.bungee.utilities.MsgsUtilsBungee;
 import teik.ers.bungee.utilities.PlayersUtilsBungee;
-import teik.ers.global.mgs.DiscordMG;
 import teik.ers.global.mgs.UpdateCheckerMG;
 import teik.ers.global.utils.querys.AddQuerysUT;
 import teik.ers.global.utils.querys.QuerysUT;
@@ -27,10 +25,10 @@ public class EpicReports extends Plugin {
     public ConfigFile configFile;
     public MessagesFile messagesFile;
     public ReasonsCtrlFile reasonsCtrlFile;
-    public DiscordFile discordFile;
 
-    public DiscordMG discordMG;
+    public ErsDiscord ersDiscord;
     private BStatsBungeeMG bStatsMG;
+    public boolean isPremiumVanish = false;
 
     public MsgsUtilsBungee msgsUtilsBungee;
     public PlayersUtilsBungee playersUtilsBungee;
@@ -46,15 +44,17 @@ public class EpicReports extends Plugin {
     @Override
     public void onEnable() {
         registerConfigs();
+        msgsUtilsBungee = new MsgsUtilsBungee();
         ConnectionSQL();
         registerDiscord();
+        registerPremiumVanish();
         registerUtils();
         registerCommands();
         registerChannel();
         registerListeners();
         registerBMetrics();
-        msgsUtilsBungee.pluginMessage(true, this);
         registerUpdater();
+        msgsUtilsBungee.pluginMessage(true, this);
     }
 
     @Override
@@ -70,23 +70,44 @@ public class EpicReports extends Plugin {
             configFile = new ConfigFile(this);
             messagesFile = new MessagesFile(this);
             reasonsCtrlFile = new ReasonsCtrlFile(this);
-            discordFile = new DiscordFile(this);
         } catch (IOException ignored) {}
     }
 
     //Registers
 
     private void registerBMetrics(){
-        bStatsMG = new BStatsBungeeMG(this, 0000);
+        bStatsMG = new BStatsBungeeMG(this, 25850);
     }
 
     private void registerDiscord(){
-        if(!discordFile.isDiscordActive()) return;
-        discordMG = new DiscordMG(this);
+        if(!configFile.isDiscord_Notifications()) return;
+        try{
+            ersDiscord = (ErsDiscord) ProxyServer.getInstance().getPluginManager().getPlugin("ErsDiscord");
+            if(ersDiscord == null) {
+                ProxyServer.getInstance().getConsole().sendMessage(
+                        msgsUtilsBungee.convertBungeeColor("&b[&fEpicReports&b]&c Discord notifications is disabled! " +
+                                "We can't find the ErsDiscord plugin! " +
+                                "Download it from: &6 https://www.spigotmc.org/resources/112351/")
+                );
+            }
+        }catch (Exception e){
+            ersDiscord = null;
+            ProxyServer.getInstance().getConsole().sendMessage(
+                    msgsUtilsBungee.convertBungeeColor("&b[&fEpicReports&b]&c Discord notifications is disabled! " +
+                            "We can't find the ErsDiscord plugin! " +
+                            "Download it from: &6 https://www.spigotmc.org/resources/112351/")
+            );
+        }
+    }
+
+    private void registerPremiumVanish(){
+        if(ProxyServer.getInstance().getPluginManager().getPlugin("PremiumVanish") == null){
+            return;
+        }
+        isPremiumVanish = true;
     }
 
     private void registerUtils(){
-        msgsUtilsBungee = new MsgsUtilsBungee();
         playersUtilsBungee = new PlayersUtilsBungee();
         notifysSql = new NotifysSql(getMySQL());
         querysUT = new QuerysUT(getMySQL());

@@ -53,7 +53,7 @@ public class ActionsM {
         setKickItem(inventory, reportedNick);
         setMuteItem(inventory, reportedNick);
 
-        if(freezeMG.playerIsFreezed(reportedNick)) setFreezeItem(inventory, reportedNick);
+        if(!freezeMG.playerIsFreezed(reportedNick)) setFreezeItem(inventory, reportedNick);
         else{
             setUnfreezeItem(inventory, reportedNick);
         }
@@ -111,8 +111,8 @@ public class ActionsM {
     }
 
     private void setUnfreezeItem(Inventory inventory, String reportedNick){
-        String title = ActionsMenu.getFreezePlayerTitle();
-        List<String> lore = ActionsMenu.getFreezePlayerLore();
+        String title = ActionsMenu.getUnfreezePlayerTitle();
+        List<String> lore = ActionsMenu.getUnfreezePlayerLore();
         title = title.replaceAll("%reportedNick%", reportedNick);
 
         lore.replaceAll(s -> s

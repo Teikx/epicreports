@@ -56,12 +56,10 @@ public class SettingsM {
             return new SettingsER(
                     configManager.isMax_reports(),
                     configManager.isSkip_reports(),
-                    configManager.isCustomizeCommand(),
                     configManager.isActivate_ers_menu_alias(),
                     configManager.isReportOfflinePlayers(),
                     configManager.getMax_reports_size(),
                     configManager.getMinimum_size_to_skip(),
-                    configManager.getCustomizedCommand(),
                     configManager.getErs_menu_alias(),
                     configManager.isNotify_msg(),
                     configManager.isNotify_title(),
@@ -94,26 +92,19 @@ public class SettingsM {
         itemStack = invsUtils.setItemStack(Material.FLINT, title, lore, 0);
         inventory.setItem(12, itemStack);
 
-        //Customize Command
-        title = settingsMenu.getCustomizeCommandTitle();
-        lore = settingsMenu.getCustomizeCommandLore();
-
-        itemStack = invsUtils.setItemStack(Material.getMaterial(420), title, lore, 0);
-        inventory.setItem(13, itemStack);
-
         //Menu Alias
         title = settingsMenu.getMenuAliasTitle();
         lore = settingsMenu.getMenuAliasLore();
 
         itemStack = invsUtils.setItemStack(Material.CHEST, title, lore, 0);
-        inventory.setItem(14, itemStack);
+        inventory.setItem(13, itemStack);
 
         //Report Offline Players
         title = settingsMenu.getReportOfflinePlayersTitle();
         lore = settingsMenu.getReportOfflinePlayersLore();
 
         itemStack = invsUtils.setItemStack(Material.getMaterial(289), title, lore, 0);
-        inventory.setItem(15, itemStack);
+        inventory.setItem(14, itemStack);
 
         //Notifys Menu
         title = settingsMenu.getNotifysMenuTitle();
@@ -160,47 +151,38 @@ public class SettingsM {
         //Max Reports
         isEnabled = settingsER.isMaxReports();
         if(isEnabled){
-            itemStack = invsUtils.setItemStack(Material.getMaterial(351), enabledTitle, enabledLore, 10);
+            itemStack = invsUtils.setDyeItem(10, enabledTitle, enabledLore);
         }else{
-            itemStack = invsUtils.setItemStack(Material.getMaterial(351), disabledTitle, disabledLore, 1);
+            itemStack = invsUtils.setDyeItem(1, disabledTitle, disabledLore);
         }
         inventory.setItem(20, itemStack);
 
         //Skip Reports
         isEnabled = settingsER.isSkipReports();
         if(isEnabled){
-            itemStack = invsUtils.setItemStack(Material.getMaterial(351), enabledTitle, enabledLore, 10);
+            itemStack = invsUtils.setDyeItem(10, enabledTitle, enabledLore);
         }else{
-            itemStack = invsUtils.setItemStack(Material.getMaterial(351), disabledTitle, disabledLore, 1);
+            itemStack = invsUtils.setDyeItem(1, disabledTitle, disabledLore);
         }
         inventory.setItem(21, itemStack);
-
-        //Customize Command
-        isEnabled = settingsER.isCustomizeCommand();
-        if(isEnabled){
-            itemStack = invsUtils.setItemStack(Material.getMaterial(351), enabledTitle, enabledLore, 10);
-        }else{
-            itemStack = invsUtils.setItemStack(Material.getMaterial(351), disabledTitle, disabledLore, 1);
-        }
-        inventory.setItem(22, itemStack);
 
         //Menu Alias
         isEnabled = settingsER.isMenuAlias();
         if(isEnabled){
-            itemStack = invsUtils.setItemStack(Material.getMaterial(351), enabledTitle, enabledLore, 10);
+            itemStack = invsUtils.setDyeItem(10, enabledTitle, enabledLore);
         }else{
-            itemStack = invsUtils.setItemStack(Material.getMaterial(351), disabledTitle, disabledLore, 1);
+            itemStack = invsUtils.setDyeItem(1, disabledTitle, disabledLore);
         }
-        inventory.setItem(23, itemStack);
+        inventory.setItem(22, itemStack);
 
         //Report Offline Players
-        isEnabled = settingsER.isMenuAlias();
+        isEnabled = settingsER.isReportOfflinePl();
         if(isEnabled){
-            itemStack = invsUtils.setItemStack(Material.getMaterial(351), enabledTitle, enabledLore, 10);
+            itemStack = invsUtils.setDyeItem(10, enabledTitle, enabledLore);
         }else{
-            itemStack = invsUtils.setItemStack(Material.getMaterial(351), disabledTitle, disabledLore, 1);
+            itemStack = invsUtils.setDyeItem(1, disabledTitle, disabledLore);
         }
-        inventory.setItem(24, itemStack);
+        inventory.setItem(23, itemStack);
     }
 
     private void setConfigs(Inventory inventory, SettingsER settingsER){
@@ -227,27 +209,24 @@ public class SettingsM {
         lore = new ArrayList<>(settingsMenu.getTextLore());
         List<String> newLore = new ArrayList<>(settingsMenu.getTextLore());
 
-            //Customized Command
-            String customizeCommand = settingsER.getCustomCommand();
-
-
-            lore.replaceAll(s -> s.replaceAll("%textArgument%", customizeCommand));
-
-            itemStack = invsUtils.setItemStack(Material.NAME_TAG, title, lore, 0);
-            inventory.setItem(31, itemStack);
-
             //Menu Alias
             String MenuAlias = settingsER.getMenuAliasName();
 
             newLore.replaceAll(s -> s.replaceAll("%textArgument%", MenuAlias));
 
             itemStack = invsUtils.setItemStack(Material.NAME_TAG, title, newLore, 0);
-            inventory.setItem(32, itemStack);
+            inventory.setItem(31, itemStack);
 
         //Barrier
         newLore = new ArrayList<>();
         newLore.add(" ");
         itemStack = invsUtils.setItemStack(Material.BARRIER, " ", newLore, 0);
+        inventory.setItem(32, itemStack);
+
+        //createGlassPaneItem
+        itemStack = invsUtils.createGlassPaneItem(0, " ", newLore);
+        inventory.setItem(15, itemStack);
+        inventory.setItem(24, itemStack);
         inventory.setItem(33, itemStack);
     }
 }

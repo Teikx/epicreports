@@ -36,15 +36,25 @@ public class MysqlMG {
         HikariConfig hikariConfig = new HikariConfig();
         try {
             try{
-                hikariConfig.setJdbcUrl("jdbc:mysql://" + host + ":" + port + "/" + database + "?useSSL=false");
+                hikariConfig.setJdbcUrl("jdbc:mysql://" + host + ":" + port + "/" + database);
                 hikariConfig.setUsername(user);
                 hikariConfig.setPassword(password);
+                hikariConfig.addDataSourceProperty("autoReconnect", "true");
+                hikariConfig.addDataSourceProperty("leakDetectionThreshold", "true");
+                hikariConfig.addDataSourceProperty("verifyServerCertificate", "false");
+                hikariConfig.addDataSourceProperty("useSSL", "false");
                 hikariConfig.addDataSourceProperty("characterEncoding", "utf8");
+                hikariConfig.addDataSourceProperty("allowPublicKeyRetrieval", "true");
                 hikariConfig.addDataSourceProperty("useUnicode", "true");
                 hikariConfig.addDataSourceProperty("connectionCollation", "utf8_general_ci");
+                hikariConfig.addDataSourceProperty("useLegacyDatetimeCode", "false");
+                hikariConfig.addDataSourceProperty("serverTimezone", "UTC");
+                hikariConfig.setDriverClassName("de.myzelyam.libraries.com.mysql.cj.jdbc.Driver");
+                hikariConfig.setConnectionTimeout(5000);
 
                 hikariDataSource = new HikariDataSource(hikariConfig);
             }catch (Exception e){
+                hikariDataSource = null;
                 Class.forName("com.mysql.jdbc.Driver");
                 connection = createConnection();
             }
@@ -64,9 +74,13 @@ public class MysqlMG {
         }
     }
 
-    private Connection createConnection() throws ClassNotFoundException, SQLException {
-        String url = String.format("jdbc:mysql://%s:%d/%s?useSSL=false&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&useLegacyDatetimeCode=false&serverTimezone=UTC", host, port, database);
-        return DriverManager.getConnection(url, user, password);
+    private Connection createConnection() {
+        try{
+            String url = String.format("jdbc:mysql://%s:%d/%s?useSSL=false&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&useLegacyDatetimeCode=false&serverTimezone=UTC", host, port, database);
+            return DriverManager.getConnection(url, user, password);
+        }catch (Exception ignored){
+            return null;
+        }
     }
 
     private void logErrorBukkit() {

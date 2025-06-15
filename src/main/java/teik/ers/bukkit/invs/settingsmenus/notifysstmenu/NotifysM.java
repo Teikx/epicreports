@@ -139,27 +139,27 @@ public class NotifysM {
         //MsgNotify
         isEnabled = settingsER.isNotifyMsg();
         if(isEnabled){
-            itemStack = invsUtils.setItemStack(Material.getMaterial(351), enabledTitle, enabledLore, 10);
+            itemStack = invsUtils.setDyeItem(10, enabledTitle, enabledLore);
         }else{
-            itemStack = invsUtils.setItemStack(Material.getMaterial(351), disabledTitle, disabledLore, 1);
+            itemStack = invsUtils.setDyeItem(1, disabledTitle, disabledLore);
         }
         inventory.setItem(12, itemStack);
 
         //TitleNotify
         isEnabled = settingsER.isNotifyTitle();
         if(isEnabled){
-            itemStack = invsUtils.setItemStack(Material.getMaterial(351), enabledTitle, enabledLore, 10);
+            itemStack = invsUtils.setDyeItem(10, enabledTitle, enabledLore);
         }else{
-            itemStack = invsUtils.setItemStack(Material.getMaterial(351), disabledTitle, disabledLore, 1);
+            itemStack = invsUtils.setDyeItem(1, disabledTitle, disabledLore);
         }
         inventory.setItem(21, itemStack);
 
         //SoundNotify
         isEnabled = settingsER.isNotifySound();
         if(isEnabled){
-            itemStack = invsUtils.setItemStack(Material.getMaterial(351), enabledTitle, enabledLore, 10);
+            itemStack = invsUtils.setDyeItem(10, enabledTitle, enabledLore);
         }else{
-            itemStack = invsUtils.setItemStack(Material.getMaterial(351), disabledTitle, disabledLore, 1);
+            itemStack = invsUtils.setDyeItem(1, disabledTitle, disabledLore);
         }
         inventory.setItem(30, itemStack);
 
@@ -169,27 +169,27 @@ public class NotifysM {
         //MsgNotify
         isEnabled = settingsER.isNotifyProcessedMsg();
         if(isEnabled){
-            itemStack = invsUtils.setItemStack(Material.getMaterial(351), enabledTitle, enabledLore, 10);
+            itemStack = invsUtils.setDyeItem(10, enabledTitle, enabledLore);
         }else{
-            itemStack = invsUtils.setItemStack(Material.getMaterial(351), disabledTitle, disabledLore, 1);
+            itemStack = invsUtils.setDyeItem(1, disabledTitle, disabledLore);
         }
         inventory.setItem(14, itemStack);
 
         //TitleNotify
         isEnabled = settingsER.isNotifyProcessedTitle();
         if(isEnabled){
-            itemStack = invsUtils.setItemStack(Material.getMaterial(351), enabledTitle, enabledLore, 10);
+            itemStack = invsUtils.setDyeItem(10, enabledTitle, enabledLore);
         }else{
-            itemStack = invsUtils.setItemStack(Material.getMaterial(351), disabledTitle, disabledLore, 1);
+            itemStack = invsUtils.setDyeItem(1, disabledTitle, disabledLore);
         }
         inventory.setItem(23, itemStack);
 
         //SoundNotify
         isEnabled = settingsER.isNotifyProcessedSound();
         if(isEnabled){
-            itemStack = invsUtils.setItemStack(Material.getMaterial(351), enabledTitle, enabledLore, 10);
+            itemStack = invsUtils.setDyeItem(10, enabledTitle, enabledLore);
         }else{
-            itemStack = invsUtils.setItemStack(Material.getMaterial(351), disabledTitle, disabledLore, 1);
+            itemStack = invsUtils.setDyeItem(1, disabledTitle, disabledLore);
         }
         inventory.setItem(32, itemStack);
     }

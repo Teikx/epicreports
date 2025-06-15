@@ -6,3 +6,5 @@ author: teik
 commands:
   report:
     description: Report players
+
+softdepend: [ErsDiscord, PremiumVanish]

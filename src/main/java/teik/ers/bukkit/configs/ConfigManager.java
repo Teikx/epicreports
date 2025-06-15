@@ -7,11 +7,11 @@ import teik.ers.bukkit.configs.utils.CustomConfig;
 public class ConfigManager {
     private final CustomConfig configFile;
 
-    private boolean max_reports, reportOfflinePlayers = false, customizeCommand, activate_ers_menu_alias,
+    private boolean max_reports, reportOfflinePlayers = false, activate_ers_menu_alias,
             notify_msg, notify_title, notify_sound, notify_processed_msg, notify_processed_title,
-            notify_processed_sound, skip_reports, isMYSQLActive;
+            notify_processed_sound, skip_reports, isMYSQLActive, discord_Notifications;
 
-    private String host, database, user, password, customizedCommand, ers_menu_alias, report_sound,
+    private String host, database, user, password, ers_menu_alias, report_sound,
             report_processed_sound, language;
 
     private int port, max_reports_size, minimum_size_to_skip;
@@ -30,8 +30,6 @@ public class ConfigManager {
         if(!isMYSQLActive){
             this.reportOfflinePlayers = config.getBoolean("Reports_Settings.report_offline_players");
         }
-        this.customizeCommand = config.getBoolean("Reports_Settings.toggle_customize_command");
-        this.customizedCommand = config.getString("Reports_Settings.customized_command");
         this.activate_ers_menu_alias = config.getBoolean("Reports_Settings.activate_ers_menu_alias");
         this.ers_menu_alias = config.getString("Reports_Settings.ers_menu_alias");
         this.notify_msg = config.getBoolean("Notify_Settings.notify_reports_msg");
@@ -44,6 +42,7 @@ public class ConfigManager {
         this.report_processed_sound = config.getString("Notify_Settings.report_processed_sound");
         this.skip_reports = config.getBoolean("Notify_Settings.skip_reports");
         this.minimum_size_to_skip = config.getInt("Notify_Settings.minimum_size_to_skip");
+        this.discord_Notifications = config.getBoolean("Discord_Notifications");
         this.host = config.getString("Network_Settings.MySQL.host");
         this.port = config.getInt("Network_Settings.MySQL.port");
         this.database = config.getString("Network_Settings.MySQL.database");
@@ -56,8 +55,6 @@ public class ConfigManager {
         FileConfiguration config = this.configFile.getConfig();
         config.set("Reports_Settings.Max_reports_per_person", max_reports);
         config.set("Reports_Settings.max_reports", max_reports_size);
-        config.set("Reports_Settings.toggle_customize_command", customizeCommand);
-        config.set("Reports_Settings.customized_command", customizedCommand);
         config.set("Reports_Settings.activate_ers_menu_alias", activate_ers_menu_alias);
         config.set("Reports_Settings.ers_menu_alias", ers_menu_alias);
         config.set("Notify_Settings.skip_reports", skip_reports);
@@ -89,10 +86,6 @@ public class ConfigManager {
 
     public boolean isReportOfflinePlayers() {
         return this.reportOfflinePlayers;
-    }
-
-    public boolean isCustomizeCommand() {
-        return this.customizeCommand;
     }
 
     public boolean isActivate_ers_menu_alias() {
@@ -159,10 +152,6 @@ public class ConfigManager {
         return this.max_reports_size;
     }
 
-    public String getCustomizedCommand() {
-        return this.customizedCommand;
-    }
-
     public String getErs_menu_alias() {
         return this.ers_menu_alias;
     }
@@ -179,6 +168,10 @@ public class ConfigManager {
         return this.minimum_size_to_skip;
     }
 
+    public boolean isDiscord_Notifications() {
+        return discord_Notifications;
+    }
+
     public String getLanguage() {
         return language;
     }
@@ -189,10 +182,6 @@ public class ConfigManager {
 
     public void setReportOfflinePlayers(boolean reportOfflinePlayers) {
         this.reportOfflinePlayers = reportOfflinePlayers;
-    }
-
-    public void setCustomizeCommand(boolean customizeCommand) {
-        this.customizeCommand = customizeCommand;
     }
 
     public void setActivate_ers_menu_alias(boolean activate_ers_menu_alias) {
@@ -234,10 +223,6 @@ public class ConfigManager {
     public void setSkip_reports(boolean skip_reports) {
         this.skip_reports = skip_reports;
 
-    }
-
-    public void setCustomizedCommand(String customizedCommand) {
-        this.customizedCommand = customizedCommand;
     }
 
     public void setErs_menu_alias(String ers_menu_alias) {

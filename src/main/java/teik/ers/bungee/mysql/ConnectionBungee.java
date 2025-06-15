@@ -38,11 +38,20 @@ public class ConnectionBungee {
                 hikariConfig.setJdbcUrl("jdbc:mysql://" + host + ":" + port + "/" + database + "?useSSL=false");
                 hikariConfig.setUsername(user);
                 hikariConfig.setPassword(password);
+                hikariConfig.addDataSourceProperty("autoReconnect", "true");
+                hikariConfig.addDataSourceProperty("leakDetectionThreshold", "true");
+                hikariConfig.addDataSourceProperty("verifyServerCertificate", "false");
+                hikariConfig.addDataSourceProperty("useSSL", "false");
                 hikariConfig.addDataSourceProperty("characterEncoding", "utf8");
+                hikariConfig.addDataSourceProperty("allowPublicKeyRetrieval", "true");
                 hikariConfig.addDataSourceProperty("useUnicode", "true");
                 hikariConfig.addDataSourceProperty("connectionCollation", "utf8_general_ci");
+                hikariConfig.addDataSourceProperty("useLegacyDatetimeCode", "false");
+                hikariConfig.addDataSourceProperty("serverTimezone", "UTC");
+                hikariConfig.setConnectionTimeout(5000);
 
                 hikariDataSource = new HikariDataSource(hikariConfig);
+
             }catch (Exception e){
                 Class.forName("com.mysql.jdbc.Driver");
                 connection = createConnection();

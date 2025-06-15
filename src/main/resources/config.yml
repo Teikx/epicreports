@@ -1,5 +1,6 @@
 #
 # If you don't understand these options, VISIT THE WIKI (it could be very helpful)
+# Wiki for more information: https://teik.gitbook.io/epicreports/
 #
 # Remember that to use it on your network you need to put the plugin on your
 # bungeecord, on each server and also connect all of them to the same database
@@ -11,8 +12,6 @@ Reports_Settings:
   Max_reports_per_person: true
   max_reports: 5
   report_offline_players: true
-  toggle_customize_command: true
-  customized_command: "mute %reported%"
   activate_ers_menu_alias: true
   ers_menu_alias: "reports"
 
@@ -27,6 +26,8 @@ Notify_Settings:
   report_processed_sound: BLOCK_NOTE_BLOCK_PLING;10;2
   skip_reports: true
   minimum_size_to_skip: 5
+
+Discord_Notifications: true
 
 Network_Settings:
   MySQL-active: false

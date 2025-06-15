@@ -1,5 +1,6 @@
 #
 # If you don't understand these options, VISIT THE WIKI (it could be very helpful)
+# Wiki for more information: https://teik.gitbook.io/epicreports/
 #
 # Remember that to use it on your network you need to put the plugin on your
 # bungeecord, on each server and also connect all of them to the same database
@@ -15,6 +16,8 @@ Notify_Settings:
 Players_Whitelist_Tab:
   - "PlayerName1"
   - "PlayerName2"
+
+Discord_Notifications: true
 
 Network_Settings:
   MySQL:

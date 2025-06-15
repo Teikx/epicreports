@@ -18,3 +18,5 @@ Permissions:
   EpicReports.User:
     description: Send user commands
     default: true
+
+softdepend: [ErsDiscord, SkinsRestorer]

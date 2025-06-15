@@ -11,10 +11,10 @@ public class SettingsMenu {
     private final CustomConfig inventoryFile;
 
     private String menuTitle, enabledTitle, disabledTitle, sizeTitle, textTitle, maxReportsTitle, skipNotifyReportsTitle,
-            customizeCommandTitle, menuAliasTitle, reportOfflinePlayersTitle, discordMenuTitle, notifysMenuTitle,
+            menuAliasTitle, reportOfflinePlayersTitle, discordMenuTitle, notifysMenuTitle,
             saveConfigTitle, resetConfigTitle;
     private List<String> enabledLore, disabledLore, sizeLore, textLore, maxReportsLore, skipNotifyReportsLore,
-            customizeCommandLore, menuAliasLore, reportOfflinePlayersLore, discordMenuLore, notifysMenuLore,
+            menuAliasLore, reportOfflinePlayersLore, discordMenuLore, notifysMenuLore,
             saveConfigLore, resetConfigLore;
 
     public SettingsMenu(EpicReports plugin) {
@@ -38,8 +38,6 @@ public class SettingsMenu {
         this.maxReportsLore = inventory.getStringList("MaxReports.Lore");
         this.skipNotifyReportsTitle = convertColor(inventory.getString("SkipNotifyReports.Title"));
         this.skipNotifyReportsLore = inventory.getStringList("SkipNotifyReports.Lore");
-        this.customizeCommandTitle = convertColor(inventory.getString("CustomizeCommand.Title"));
-        this.customizeCommandLore = inventory.getStringList("CustomizeCommand.Lore");
         this.menuAliasTitle = convertColor(inventory.getString("MenuAlias.Title"));
         this.menuAliasLore = inventory.getStringList("MenuAlias.Lore");
         this.reportOfflinePlayersTitle = convertColor(inventory.getString("ReportOfflinePlayers.Title"));
@@ -95,10 +93,6 @@ public class SettingsMenu {
         return skipNotifyReportsTitle;
     }
 
-    public String getCustomizeCommandTitle() {
-        return customizeCommandTitle;
-    }
-
     public String getMenuAliasTitle() {
         return menuAliasTitle;
     }
@@ -137,10 +131,6 @@ public class SettingsMenu {
 
     public List<String> getSkipNotifyReportsLore() {
         return skipNotifyReportsLore;
-    }
-
-    public List<String> getCustomizeCommandLore() {
-        return customizeCommandLore;
     }
 
     public List<String> getMenuAliasLore() {

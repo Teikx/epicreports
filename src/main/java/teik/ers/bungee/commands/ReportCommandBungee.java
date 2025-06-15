@@ -15,6 +15,7 @@ import teik.ers.bungee.utilities.MsgsUtilsBungee;
 import teik.ers.bungee.utilities.PlayersUtilsBungee;
 import teik.ers.global.mgs.MaxReportsMG;
 import teik.ers.global.mgs.ReasonsCtrlMG;
+import de.myzelyam.api.vanish.BungeeVanishAPI;
 
 import java.util.*;
 
@@ -34,6 +35,8 @@ public class ReportCommandBungee extends Command implements TabExecutor {
 
     private final ReportUtilitiesBungee reportUtilitiesBungee;
 
+    private final boolean isPremiumVanish;
+
     public ReportCommandBungee(EpicReports plugin){
         super("report");
         this.plugin = plugin;
@@ -50,6 +53,8 @@ public class ReportCommandBungee extends Command implements TabExecutor {
         this.reasonsCtrlMG = new ReasonsCtrlMG(plugin.reasonsCtrlFile.getMinimumLength(), plugin.reasonsCtrlFile.getBlacklist());
 
         this.reportUtilitiesBungee = new ReportUtilitiesBungee(plugin, maxReportsMG);
+
+        this.isPremiumVanish = plugin.isPremiumVanish;
     }
 
     @Override
@@ -129,6 +134,9 @@ public class ReportCommandBungee extends Command implements TabExecutor {
 
                 if(whitelistTab.contains(p.getName())) continue;
                 if(p.getName().equalsIgnoreCase(player.getName())) continue;
+                if(isPremiumVanish){
+                    if(BungeeVanishAPI.isInvisible(p)) continue;
+                }
 
                 results.add(p.getName());
             }

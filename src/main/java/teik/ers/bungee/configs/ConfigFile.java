@@ -18,7 +18,7 @@ public class ConfigFile {
 
     EpicReports plugin;
 
-    private boolean max_reports, notifyReports;
+    private boolean max_reports, notifyReports, discord_Notifications;
 
     private String host, database, user, password;
 
@@ -82,6 +82,7 @@ public class ConfigFile {
         this.max_reports = config.getBoolean("Reports_Settings.Max_reports_per_person");
         this.max_reports_size = config.getInt("Reports_Settings.max_reports");
         this.notifyReports = config.getBoolean("Notify_Settings.notify_reports");
+        this.discord_Notifications = config.getBoolean("Discord_Notifications");
         this.host = config.getString("Network_Settings.MySQL.host");
         this.port = config.getInt("Network_Settings.MySQL.port");
         this.database = config.getString("Network_Settings.MySQL.database");
@@ -92,6 +93,10 @@ public class ConfigFile {
 
     public boolean isMax_reports() {
         return this.max_reports;
+    }
+
+    public boolean isDiscord_Notifications() {
+        return discord_Notifications;
     }
 
     public String getHost() {

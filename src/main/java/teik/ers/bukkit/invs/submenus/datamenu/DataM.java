@@ -1,5 +1,6 @@
 package teik.ers.bukkit.invs.submenus.datamenu;
 
+import com.cryptomorin.xseries.XMaterial;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -144,9 +145,9 @@ public class DataM {
 
         ItemStack itemStack;
         if(isOnline){
-            itemStack = invsUtils.setItemStack(Material.getMaterial(351), title, lore, 10);
+            itemStack = invsUtils.setDyeItem(10, title, lore);
         }else{
-            itemStack = invsUtils.setItemStack(Material.getMaterial(351), title, lore, 1);
+            itemStack = invsUtils.setDyeItem(1, title, lore);
         }
 
         inventory.setItem(20, itemStack);

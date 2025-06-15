@@ -1,10 +1,12 @@
 package teik.ers.bukkit.invs;
 
+import com.cryptomorin.xseries.XMaterial;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 import teik.ers.bukkit.configs.inventories.others.PagePanels;
 import teik.ers.bukkit.utilities.models.enums.FilterType;
 import teik.ers.bukkit.utilities.models.enums.SortType;
@@ -35,8 +37,7 @@ public class InvsUtils {
 
 
     //Inventory Options
-
-    public void createPagePanels(Inventory inventory, boolean close, boolean nextPage, boolean backPage, SortType sortType, int row) {
+    public void createPagePanels(Inventory inventory, boolean close, boolean backPage, boolean nextPage, SortType sortType, int row) {
         int rowStart = (row - 1) * 9;
         int rowFinal = rowStart + 9;
 
@@ -86,22 +87,62 @@ public class InvsUtils {
     //Others
 
     public ItemStack setItemStack(Material Material, String title, List<String> lore, int n) {
-        ItemStack itemStack = new ItemStack(Material, 1, (short) n);
+        ItemStack itemStack = new ItemStack(getParseMaterial(Material), 1, (short) n);
+
+        return setMetaItemStack(title, lore, itemStack);
+    }
+
+    public ItemStack setItemStack(Material Material, String title, List<String> lore, int n, int amount) {
+        ItemStack itemStack = new ItemStack(getParseMaterial(Material), amount, (short) n);
+
+        return setMetaItemStack(title, lore, itemStack);
+    }
+
+    @NotNull
+    private ItemStack setMetaItemStack(String title, List<String> lore, ItemStack itemStack) {
+        if(itemStack.getItemMeta() == null){
+            return itemStack;
+        }
+
         ItemMeta itemMeta = itemStack.getItemMeta();
 
-        itemMeta.setDisplayName(title);
-
-        if (lore != null && !lore.isEmpty()) {
-            itemMeta.setLore(convertLoreColors(lore));
-        }
+        setMetaInfo(title, lore, itemMeta);
 
         itemStack.setItemMeta(itemMeta);
         return itemStack;
     }
 
-    public ItemStack setItemStack(Material Material, String title, List<String> lore, int n, int amount) {
-        ItemStack itemStack = new ItemStack(Material, amount, (short) n);
+    public ItemStack setDyeItem(int n, String title, List<String> lore) {
+        ItemStack itemStack;
+        switch (n){
+            case 12:
+                itemStack = XMaterial.LIGHT_BLUE_DYE.parseItem();
+                break;
+            case 11:
+                itemStack = XMaterial.YELLOW_DYE.parseItem();
+                break;
+            case 10:
+                itemStack = XMaterial.LIME_DYE.parseItem();
+                break;
+            case 8:
+                itemStack = XMaterial.GRAY_DYE.parseItem();
+                break;
+            case 1:
+                itemStack = XMaterial.RED_DYE.parseItem();
+                break;
+            default:
+                itemStack = XMaterial.BLACK_DYE.parseItem();
+                break;
+        }
+
         ItemMeta itemMeta = itemStack.getItemMeta();
+        setMetaInfo(title, lore, itemMeta);
+
+        itemStack.setItemMeta(itemMeta);
+        return itemStack;
+    }
+
+    private void setMetaInfo(String title, List<String> lore, ItemMeta itemMeta) {
 
         itemMeta.setDisplayName(title);
 
@@ -109,8 +150,6 @@ public class InvsUtils {
             itemMeta.setLore(convertLoreColors(lore));
         }
 
-        itemStack.setItemMeta(itemMeta);
-        return itemStack;
     }
 
     public boolean[] setupPagination(int page, int totalPages) {
@@ -206,11 +245,15 @@ public class InvsUtils {
         return createGlassPaneItem(color, title, lore);
     }
 
-    private ItemStack createGlassPaneItem(int color, String title, List<String> lore) {
-        return setItemStack(Material.STAINED_GLASS_PANE, title, lore, color);
+    public ItemStack createGlassPaneItem(int color, String title, List<String> lore) {
+        return setItemStack(getParseMaterial(Material.STAINED_GLASS_PANE), title, lore, color);
     }
 
     private String convertColor(String s) {
         return ChatColor.translateAlternateColorCodes('&', s);
+    }
+
+    private Material getParseMaterial(Material material){
+        return XMaterial.matchXMaterial(material).parseItem().getType();
     }
 }

@@ -26,9 +26,8 @@ public class RCUtilities {
     private final String reportSuccessful;
 
     private final MaxReportsMG maxReportsMG;
-
-    private final boolean isDiscordActive;
     private final DiscordMG discordMG;
+
 
     public RCUtilities(EpicReports plugin, String reportSuccessful,
                        MaxReportsMG maxReportsMG) {
@@ -39,9 +38,7 @@ public class RCUtilities {
         this.reportSuccessful = reportSuccessful;
 
         this.maxReportsMG = maxReportsMG;
-
-        this.isDiscordActive = plugin.discordManager.isDiscordActive();
-        this.discordMG = plugin.discordMG;
+        this.discordMG = new DiscordMG(plugin.ersDiscord, true);
     }
 
     public void addReport(Player reporter, String reportedName, String reason){
@@ -69,10 +66,7 @@ public class RCUtilities {
         sendNotify(notify);
 
         //Send notify to discord
-        if(!isDiscordActive) return;
-        if(discordMG == null) return;
-        if(!discordMG.isDiscordActive()) return;
-        discordMG.sendEmbed(newReport);
+        discordMG.sendDiscordMsg(newReport);
     }
 
     private void sendNotify(Notify notify){

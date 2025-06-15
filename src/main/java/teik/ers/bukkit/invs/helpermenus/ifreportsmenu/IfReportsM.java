@@ -103,9 +103,9 @@ public class IfReportsM {
         List<String> lore = infoReportMenu.getStatusReportLore();
         title = title.replaceAll("%StatusReport%", status.toString());
 
-        ItemStack itemStack = invsUtils.setItemStack(Material.getMaterial(351), title, lore, 11);
-        if(status == Process.Processing) itemStack = invsUtils.setItemStack(Material.getMaterial(351), title, lore, 12);
-        if(status == Process.Archived) itemStack = invsUtils.setItemStack(Material.getMaterial(351), title, lore, 8);
+        ItemStack itemStack = invsUtils.setDyeItem(11, title, lore);
+        if(status == Process.Processing) itemStack = invsUtils.setDyeItem(12, title, lore);
+        if(status == Process.Archived) itemStack = invsUtils.setDyeItem(8, title, lore);
         inventory.setItem(39, itemStack);
     }
 
@@ -156,7 +156,7 @@ public class IfReportsM {
             lore = infoReportMenu.getReporterInfoLore();
         }
 
-        ItemStack itemStack = invsUtils.setItemStack(Material.getMaterial(397), title, lore, 3);
+        ItemStack itemStack = invsUtils.setItemStack(Material.SKULL_ITEM, title, lore, 3);
         SkullMeta skullMeta = (SkullMeta) itemStack.getItemMeta();
         skullMeta.setOwner(playerName);
         itemStack.setItemMeta(skullMeta);
@@ -175,9 +175,9 @@ public class IfReportsM {
 
         ItemStack itemStack;
         if(isOnline){
-            itemStack = invsUtils.setItemStack(Material.getMaterial(351), title, lore, 10);
+            itemStack = invsUtils.setDyeItem(10, title, lore);
         }else{
-            itemStack = invsUtils.setItemStack(Material.getMaterial(351), title, lore, 1);
+            itemStack = invsUtils.setDyeItem(1, title, lore);
         }
         inventory.setItem(slot, itemStack);
     }

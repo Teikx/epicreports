@@ -83,6 +83,10 @@ public class PredefinedReportsMenu {
 
     public void reloadConfig(){
         inventoryFile.reloadConfig();
+
+        predefinedReportList.clear();
+        predefinedListSize = 0;
+
         LoadInventory();
     }
 

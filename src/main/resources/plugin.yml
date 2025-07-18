@@ -15,6 +15,9 @@ Permissions:
   EpicReports.Admin:
     description: Send op commands
     default: op
+  EpicReports.Moderator:
+    description: Send moderator commands
+    default: op
   EpicReports.User:
     description: Send user commands
     default: true

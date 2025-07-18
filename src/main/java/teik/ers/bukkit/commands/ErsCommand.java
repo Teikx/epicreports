@@ -45,9 +45,8 @@ public class ErsCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(sender instanceof Player){
             Player player = (Player) sender;
-            if (!player.hasPermission("EpicReports.Admin")) {
-                player.sendMessage(messageManager.getNot_permission());
-                return false;
+            if (!player.hasPermission("EpicReports.Moderator")) {
+                if (!isAdmin(player)) return false;
             }
             if(args.length == 0){
                 utilitiesMsgs.sendListString(player, messageManager.getHelp_msg());
@@ -75,6 +74,8 @@ public class ErsCommand implements CommandExecutor {
     private void SwitchForPlayers(String[] args, Player player) {
         switch (args[0]) {
             case "reload":
+                if (!isAdmin(player)) return;
+
                 this.plugin.reloadAllConfigs();
                 player.sendMessage(messageManager.getReload_successful());
                 return;
@@ -99,6 +100,7 @@ public class ErsCommand implements CommandExecutor {
                 notifysMG.SkipNotifys();
                 break;
             case "save":
+                if (!isAdmin(player)) return;
                 if(configManager.isMYSQLActive()) return;
 
                 reportMG.onDisable();
@@ -107,6 +109,14 @@ public class ErsCommand implements CommandExecutor {
             default:
                 utilitiesMsgs.sendListString(player, messageManager.getHelp_msg());
         }
+    }
+
+    private boolean isAdmin(Player player) {
+        if(!player.hasPermission("EpicReports.Admin")){
+            player.sendMessage(messageManager.getNot_permission());
+            return false;
+        }
+        return true;
     }
 
     private void SwitchForConsole(String[] args, ConsoleCommandSender console) {
